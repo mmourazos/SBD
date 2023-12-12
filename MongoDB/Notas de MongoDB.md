@@ -180,7 +180,7 @@ Dejaremos las consultas para el final.
 
 `insertOne` o `insertMany` y usar los filtros de MongoDB.
 
-`db.<nombre de la colección>.isertOne(<json del documento>)`
+`db.<nombre de la colección>.insertOne(<json del documento>)`
 
 `db.<nombre de la colección>.insertMany(<json con un array con los documentos>)`
 
@@ -288,7 +288,7 @@ Añadiremos el valor 89 al array `notas` de todos los estudiantes.
 db.estudiantes.updateMany( {}, { $push: { notas: 89 } } )
 ```
 
-###### Añadir múltipes valores a un array
+###### Añadir múltiples valores a un array
 
 ```json
 db.estudiantes.updateOne( { _id: 1 }, { $push: {notas: {$each: [ 90, 92, 95 ] } } } )
@@ -314,9 +314,9 @@ db.estudiantes.insertOne(
 
 Haremos lo siguiente:
 
-* Usaremos el operador `$each` para añadir cada `quizz` del array al array `quizzes` del documento.
+* Usaremos el operador `$each` para añadir cada `quiz` del array al array `quizzes` del documento.
 * Usaremos `$sort` para ordenar dicho array `quizzes` de manera **descendiente** (argumento -1).
-* Usamos `$slize` para quedarnos únicamente con los tres primeros elementos de `quizzes`.
+* Usamos `$slice` para quedarnos únicamente con los tres primeros elementos de `quizzes`.
 
 ```json
 db.estudiantes.updateOne(
@@ -412,4 +412,99 @@ Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*,
 
 ## Diseño del modelo de datos
 
-Concepto de *schemaless*.
+### Concepto de *schemaless*
+
+En las bases de datos SQL las tablas se diseñan especificando una serie de restricciones. Estas restricciones indican qué campos que tendrá cada tabla y los *tipos* de valores que podrá contener cada campo. Esta es una forma de indicar que los datos que contienen estas bases de datos deben ser estructurados.
+
+Este sistema tiene una serie de ventajas: mayor control sobre el contenido y desventajas: menor flexibilidad.
+
+A veces los datos que deseamos guardar no siguen un una estructura (esquema) fijo.
+
+El hecho de que no exista una estructura predefinida facilita una mejor gestión de la memoria necesaria para el almacenamiento de la información (los campos vacíos de las BBDD SQL directamente no existen en los *registros* de las NoSQL).
+
+En una colección se pueden guardar documentos (JSON) con **estructuras diferentes**. En las tablas todos los *documentos* / registros ha de tener **la misma estructura**.
+
+### Concepto de documentos *embebidos*
+
+Un campo de un documento puede consistir en otro documento. Es decir, los campos de un documento pueden incluir a su vez un documento JSON (y así sucesivamente).
+
+Veámoslo en el ejemplo siguiente:
+
+Imaginemos un ciclo de FP, pongamos por ejemplo que se trata de ASIR:
+
+```json
+{
+    id: 1,
+    acrónimo: "ASIR",
+    nombre: "Administración de sistemas operativos en red",
+    código: "SIFC01",
+    grado: "superior"
+}
+```
+
+Este ciclo tendrá a su vez varios ciclos:
+
+```json
+{
+    id: 1,
+    acrónimo: "ASO",
+    nombre: "Administración de sistemas operativos",
+    código: "MP0374",
+    horas: 140
+    periodos_semana: 8
+}
+
+{
+    id: 2,
+    acrónimo: "FH",
+    nombre: "Fundamentos de hardware",
+    código: "MP0371",
+    horas: 107,
+    periodos_semana: 4
+}
+```
+
+Diremos que los documentos estarán embebidos si los añadimos como *array* al primero:
+
+```json
+{
+    id: 1,
+    acrónimo: "ASIR",
+    nombre: "Administración de sistemas operativos en red",
+    código: "SIFC01",
+    grado: "superior",
+    módulos: [
+        {
+            id: 1,
+            acrónimo: "ASO",
+            nombre: "Administración de sistemas operativos",
+            código: "MP0374",
+            horas: 140
+            periodos_semana: 8
+        },
+        {
+            id: 2,
+            acrónimo: "FH",
+            nombre: "Fundamentos de hardware",
+            código: "MP0371",
+            horas: 107,
+            periodos_semana: 4
+        }
+
+    ]
+}
+```
+
+#### Ventajas de los doc. embebidos
+
+#### Inconvenientes de los doc. embebidos
+
+### Concepto de documentos referenciados
+
+En lugar de guardar **todo el documento** dentro de una propiedad del documento contenedor, en este caso se guardarán sólo algunos atributos que permitirán *referenciar* el documento completo. Normalmente se guarda el valor de una propiedad que permita referenciar unívocamente el documento.
+
+Es similar al concepto de **clave externa** de las BBDD relacionales.
+
+#### Ventajas de los doc. referenciados
+
+#### Inconvenientes de los doc. referenciados
