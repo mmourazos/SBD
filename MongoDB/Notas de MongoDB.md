@@ -358,7 +358,66 @@ db.usuarios.updateOne({id: 1 }, {apellidos: "Piñeiro Mourazos", fecha_nacimient
 
 ### *Read* / Consultar
 
-### Filtros de MongoDB
+#### Consultas con tipos de datos simples
+
+Para consultar los documentos de una colección que cumplan una determinada condición se usa el método `find()`.
+
+```text
+db.<nombre de la colección>.find(<filtro>)
+```
+
+El filtro (o selector) será un documento JSON que indica la condición o condiciones que deben cumplir los documentos que se devuelvan.
+
+`find()` / `find({})` sin filtro devuelve todos los documentos de la colección.
+
+Un selector simple sería aquél que indica que se devuelvan los documentos que tengan un determinado valor en un campo.
+
+```text
+db.<nombre de la colección>.find({<campo>: <valor>})
+```
+
+##### Contar resultados
+
+Para contar los resultados de una consulta se usa el método `count()`.
+
+```text
+db.<nombre de la colección>.find(<filtro>).count()
+```
+
+Si deseamos conocer el número de elementos de una colleción podemos usar `count()` directamente sobre la colección.
+
+```text
+db.<nombre de la colección>.count()
+```
+
+#### Consultas sobre arrays
+
+##### Operador `$all`
+
+El operador `$all` permite consultar los documentos que contengan todos los valores de un array.
+
+De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en el array `especialidad`.
+
+```text
+db.profesores.find({especialidad: $all: ['matemáticas', 'física']})
+```
+
+#### Consultas sobre documentos embebidos
+
+#### Consultas sobre documentos referenciados
+
+
+##### Limitar el número de resultados
+
+Para limitar el número de resultados de una consulta se usa el método `limit()`.
+
+```text
+db.<nombre de la colección>.find(<filtro>).limit(<número de resultados>)
+```
+
+
+
+### Filtros / selectores de MongoDB
 
 Para filtrar en una de las operaciones previas se utilizará un *documento* JSON.
 
@@ -409,6 +468,25 @@ Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*,
 * `$or`: ...
 * `$not`: ...
 * `$nor`: ...
+
+#### Operadores de comparación
+
+* `$eq`: Igual a.
+* `$ne`: Distinto de.
+* `$gt`: Mayor que.
+* `$gte`: Mayor o igual que.
+* `$lt`: Menor que.
+* `$lte`: Menor o igual que.
+* `$in`: Igual a cualquiera de los valores de un array.
+* `$nin`: Distinto a todos los valores de un array.
+
+De este modo podríamos hacer una consulta para obtener los usuarios con una edad entre 18 y 65 años:
+
+```json
+{
+    'edad': { $gte: 18, $lte: 65 }
+}
+```
 
 ## Diseño del modelo de datos
 
@@ -497,14 +575,35 @@ Diremos que los documentos estarán embebidos si los añadimos como *array* al p
 
 #### Ventajas de los doc. embebidos
 
+Las ventajas los documentos embebidos son:
+
+* No se requiere realizar una consulta adicional para obtener los datos embebidos. Obtenemos todos los datos en una única consulta.
+* Los datos embebidos se almacenan en la misma ubicación que el documento contenedor. Esto permite que las operaciones de lectura sean más rápidas.
+
 #### Inconvenientes de los doc. embebidos
+
+Los inconvenientes de los documentos embebidos son:
+
+* Las búsquedas con selectores sobre los atributos de los documentos embebidos son considerablemente más lentas.
+* Si se desea actualizar un documento embebido se ha de actualizar el documento contenedor.
+* Si los datos embebidos se usan en múltiples documentos y se desea actualizarlos se ha de actualizar cada documento contenedor. Con su consiguiente pérdida de rendimiento.
 
 ### Concepto de documentos referenciados
 
-En lugar de guardar **todo el documento** dentro de una propiedad del documento contenedor, en este caso se guardarán sólo algunos atributos que permitirán *referenciar* el documento completo. Normalmente se guarda el valor de una propiedad que permita referenciar unívocamente el documento.
+En lugar de guardar **todo el documento** dentro de una propiedad del documento contenedor, en este caso se guardarán sólo algunos atributos que permitirán *referenciar* / identificar el documento completo. Normalmente se guarda el valor de una propiedad que permita referenciar unívocamente el documento.
 
 Es similar al concepto de **clave externa** de las BBDD relacionales.
 
 #### Ventajas de los doc. referenciados
 
+Las ventajas de los documentos referenciados son:
+
+* Las búsquedas con selectores sobre los atributos de los documentos referenciados son más rápidas.
+* Si se desea actualizar un documento referenciado no es necesario actualizar el documento contenedor.
+* Si se desea realizar una consulta sobre un documento referenciado no es necesario realizar una consulta sobre el documento contenedor.
+
 #### Inconvenientes de los doc. referenciados
+
+Los inconvenientes de los documentos referenciados son:
+
+* Si se desea obtener los datos de un documento referenciado se ha de realizar una consulta adicional.
