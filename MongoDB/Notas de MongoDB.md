@@ -735,3 +735,9 @@ Las ventajas de los documentos referenciados son:
 Los inconvenientes de los documentos referenciados son:
 
 * Si se desea obtener los datos de un documento referenciado se ha de realizar una consulta adicional.
+
+## Índices
+
+Los índices son estructuras de datos que permiten acceder a los datos de una colección de forma más rápida. Los índices se crean sobre uno o más campos de una colección.
+
+Por defecto MongoDB crea un índice sobre el campo `_id` de cada colección.
