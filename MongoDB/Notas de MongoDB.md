@@ -170,7 +170,16 @@ Para indicar una fecha concreta hemos de usar el comando `new Date(<fecha>)`.
 }
 ```
 
+La función / constructor de `Date` acepta los siguientes formatos:
+
+* `<YYYY-mm-dd>` especifica la fecha en el formato ISODate y devuelve el ISODate con la hora establecida a medianoche en UTC.
+* `new Date("<YYYY-mm-ddTHH:MM:ss>")` especifica la fecha en la hora local del cliente y devuelve el ISODate con la hora establecida en UTC.
+* `new Date("<YYYY-mm-ddTHH:MM:ssZ>")` especifica la fecha en UTC y devuelve el ISODate con la hora establecida en UTC.
+* `new Date(<integer>)` especifica la fecha como el **tiempo Unix** o **tiempo POSIX**, el número de milisegundos transcurridos desde la medianoche UTC del 1 de enero de 1970.
+
 Establecerá `fecha_nacimiento` al objeto Date de valor equivalente a `1900-01-01T00:00:00:000z`.
+
+También aceptan formatos más *informales*. Por ejemplo: `new Date("15, may, 1977")`.
 
 ### Tipos de datos complejos
 
@@ -428,6 +437,10 @@ db.<nombre de la colección>.count()
 
 De para limitar el número de valores que obtendremos como resultado de una consulta tenemos la función `limit()` que se usa igual que count, añadiéndola después de la consulta. Recibirá como argumento un número entero en el que le indicamos cuantas respuestas nos interesan.
 
+```text
+db.<nombre de la colección>.find(<filtro>).limit(<número de resultados>)
+```
+
 `limit()` se usa frecuentemente en combinación con `skip()` y `sort()`:
 
 * `skip(<número>)`: Sirve para *saltarse* cierto número de documentos en un resultado (cursor).
@@ -440,6 +453,8 @@ En el documento que se le pasa al sort se indican los campos sobre los que se qu
 ```javascript
 db.alumnos.find({aprobado: true}).sort({nota: -1, nombre: 1, apellidos: 1}).limit(3)
 ```
+
+Con este comando obtendremos los tres alumnos con mejor nota (en caso de empate se ordenarán alfabéticamente por nombre y apellidos).
 
 #### Consultas sobre arrays
 
@@ -539,13 +554,28 @@ db.alumnos.find({
 
 Para realizar consultas sobre documentos embebidos se usa la notación de punto.
 
+Si tenemos un documento con la siguiente estructura:
 
-##### Limitar el número de resultados
+```json
+{
+    'id': 1,
+    'nombre': 'Manuel',
+    'apellidos': 'Piñeiro',
+    'dirección': {
+        'calle': 'Calle de la Rosa',
+        'número': 1,
+        'piso': 2,
+        'puerta': 'A'
+    }
+}
+```
 
-Para limitar el número de resultados de una consulta se usa el método `limit()`.
+para hacer una consulta sobre el campo `calle` del documento embebido `dirección` escribiríamos:
 
-```text
-db.<nombre de la colección>.find(<filtro>).limit(<número de resultados>)
+```json
+db.alumnos.find({
+    'dirección.calle': 'Calle de la Rosa'
+})
 ```
 
 ### Filtros / selectores de MongoDB
