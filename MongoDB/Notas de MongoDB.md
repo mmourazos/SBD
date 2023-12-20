@@ -362,9 +362,22 @@ db.usuarios.updateOne({id: 1 }, {apellidos: "Piñeiro Mourazos", fecha_nacimient
 
 ### *Destroy* / Eliminar
 
-`deleteOne` o `deleteMany` y usar los filtros de MongoDB
+`deleteOne` o `deleteMany` y usar los filtros / selectores de MongoDB. Estos selectores los veremos en el apartado de *read* / consultas pues son los mismos.
+
+Estos selectores lo veremos en detalle en el apartado *Read* / consultas pues son los mismos.
+
+Estos comandos tienen como **valor de retorno** un documento (JSON) con dos campos:
+
+* ***acknowledged***: un valor booleano que será cierto si la operación se ejecutó con *write concern* o falso si no lo hizo.
+* ***deleteCount***: Indica el número total de documentos borrados.
+
+#### ¿De qué va eso de *write concern*?
+
+*Write concern* es una forma de ejercer control sobre los *nodos* de un *cluster* mongo a los que ha de llegar la operación. Permite indicar ciertos valores para solicitar que la modificación llegue a la mayoría de nodos o a un número concreto
 
 ### *Read* / Consultar
+
+Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información. En MongoDB esta información se pasa en forma de documento JSON.
 
 #### Consultas con tipos de datos simples
 
@@ -384,6 +397,19 @@ Un selector simple sería aquél que indica que se devuelvan los documentos que 
 db.<nombre de la colección>.find({<campo>: <valor>})
 ```
 
+El valor de retorno de la función `find()` es un **cursor**. Cuando decimos que una *consulta* devuelve documentos lo que devuelve en realidad es un **cursor a los documentos**. Un cursor es un objeto que permite recorrer los resultados de una consulta.
+
+Para acceder *de verdad* a los documentos hemos de iterar sobre el cursor.
+
+##### ¿Por qué vemos los resultados de la consulta?
+
+Cuando se ejecuta una consulta en la consola de MongoDB se muestra el resultado porque la consola de MongoDB itera sobre el cursor. Si queremos ver el cursor en lugar de los resultados hemos de asignar el resultado de la consulta a una variable.
+
+```javascript
+var cursor = db.<nombre de la colección>.find({<campo>: <valor>});
+cursor;
+```
+
 ##### Contar resultados
 
 Para contar los resultados de una consulta se usa el método `count()`.
@@ -392,27 +418,127 @@ Para contar los resultados de una consulta se usa el método `count()`.
 db.<nombre de la colección>.find(<filtro>).count()
 ```
 
-Si deseamos conocer el número de elementos de una colleción podemos usar `count()` directamente sobre la colección.
+Si deseamos conocer el número de elementos de una colección podemos usar `count()` directamente sobre la colección.
 
 ```text
 db.<nombre de la colección>.count()
 ```
 
+##### Limitar el número de resultados
+
+De para limitar el número de valores que obtendremos como resultado de una consulta tenemos la función `limit()` que se usa igual que count, añadiéndola después de la consulta. Recibirá como argumento un número entero en el que le indicamos cuantas respuestas nos interesan.
+
+`limit()` se usa frecuentemente en combinación con `skip()` y `sort()`:
+
+* `skip(<número>)`: Sirve para *saltarse* cierto número de documentos en un resultado (cursor).
+* `sort(<documento>)`: Sirve para ordenar los resultados en función a un o más campos.
+
+Ejemplo de sort:
+
+En el documento que se le pasa al sort se indican los campos sobre los que se quiere realizar la ordenación (numérica o lexicográfica). El valor del campo será `1` o `-1`, para indicar si queremos que la ordenación sea creciente o decreciente.
+
+```javascript
+db.alumnos.find({aprobado: true}).sort({nota: -1, nombre: 1, apellidos: 1}).limit(3)
+```
+
 #### Consultas sobre arrays
 
-##### Operador `$all`
+##### Seleccionar por igualdad en array
 
-El operador `$all` permite consultar los documentos que contengan todos los valores de un array.
+```json
+db.alumnos.find( { modulos: ['BDA', 'SBD'] } )
+```
 
-De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en el array `especialidad`.
+En esta consulta hay que tener en cuenta que **importa el orden** de los elementos del array. **Estamos comparando mediante una igualdad**.
 
-```text
-db.profesores.find({especialidad: $all: ['matemáticas', 'física']})
+##### Seleccionar por contenido del array
+
+Si lo que queremos es buscar los elementos que contienen un elemento (y posiblemente otros) lo haremos de la siguiente manera:
+
+```json
+db.alumnos.find({
+    modulos: 'SBD'
+})
+```
+
+Nótese que no se compara con ningún array, si no con un elemento del array.
+
+Si queremos comprobar si contiene viarios elementos a la vez (y posiblemente otros) usaremos el operador `$all`.
+El operador `$all` permite consultar los documentos que contengan todos los valores de un array que especificamos.
+
+De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en su array `especialidades`.
+
+```javascript
+db.profesores.find({especialidades: $all: ['matemáticas', 'física']})
+```
+
+O los alumnos que cursan los módulos `BDA` y `SBD` (y posiblemente otros ya que no es excluyente):
+
+```json
+db.alumnos.find({
+    modulos: { 
+        $all: ['BDA', 'SBD'] 
+    } 
+})
+```
+
+Cuando utilizamos el operador `$all` no importa el orden.
+
+##### Filtros compuestos
+
+Con estos filtros lo que hacemos es poner condiciones a **algún** elemento del array. Así el siguiente código:
+
+```javascript
+const cursor = db.collection('inventory').find({
+  dim_cm: { $gt: 15, $lt: 20 }
+});
+```
+
+Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cuyo valor sea estrictamente mayor que 15 y menor que 20.
+
+##### Filtro para TODOS los elementos de un array
+
+Supongamos que tenemos la siguiente base de datos:
+
+```json
+[
+    {
+        'id': 1,
+        'notas': [5, 6, 8]
+    },
+    {
+        'id': 2,
+        'notas': [4, 5, 7]
+    }
+]
+```
+
+Si queremos seleccionar todos los documentos cuyas notas (**todas**) sean mayores o iguales a 5 hemos de escribir el siguiente código:
+
+```json
+db.alumnos.find({
+    notas: {$not: {$lt: 5}}
+})
+```
+
+Puesto que no hay un operador que exija que todos los elementos cumplan una condición, lo que habrá que hacer es exigir que no haya algún elemento que cumpla la condición opuesta.
+
+Por ejemplo, si no queremos que ningún elemento del array de notas contenga la notas 5 y 6:
+
+```json
+db.alumnos.find({
+    "notas": {
+        $not: {
+            $all: [5, 6]
+        }
+    }
+})
 ```
 
 #### Consultas sobre documentos embebidos
 
-#### Consultas sobre documentos referenciados
+Para realizar consultas sobre documentos embebidos se usa la notación de punto.
+
 
 ##### Limitar el número de resultados
 
@@ -469,12 +595,20 @@ Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*,
 
 #### Operadores lógicos de consulta
 
-* `$and`:  Une las cláusulas de búsqueda con un **and** lógico y devolverá los resultado que cumplan ambas cláusulas.
-* `$or`: ...
-* `$not`: ...
-* `$nor`: ...
+* `$not`: Es la única que se aplica a una única expresión. En el resto de operadores lógicos se aplica a un array de expresiones.
+* `$and`: Une las cláusulas de búsqueda con un **and** lógico y devolverá los resultados que cumplan todas las cláusulas.
+* `$or`: Une las cláusulas de búsqueda con un **or** lógico y devolverá los resultados que cumplan alguna de las cláusulas.
+* `$nor`: Une las cláusulas de búsqueda con un **nor** lógico y devolverá los resultados que no cumplan ninguna de las cláusulas.
+
+Ejemplo de `$and`:
+
+```json
+{ $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+```
 
 #### Operadores de comparación
+
+Con estos operadores se pueden realizar consultas de comparación sobre los campos de los documentos. Toman como argumento un valor y devuelven los documentos que cumplan la condición.
 
 * `$eq`: Igual a.
 * `$ne`: Distinto de.
@@ -612,3 +746,9 @@ Las ventajas de los documentos referenciados son:
 Los inconvenientes de los documentos referenciados son:
 
 * Si se desea obtener los datos de un documento referenciado se ha de realizar una consulta adicional.
+
+## Índices
+
+Los índices son estructuras de datos que permiten acceder a los datos de una colección de forma más rápida. Los índices se crean sobre uno o más campos de una colección.
+
+Por defecto MongoDB crea un índice sobre el campo `_id` de cada colección.
