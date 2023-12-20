@@ -12,10 +12,10 @@ Usan SQL como lenguaje de consulta.
 
 Permiten el uso de transacciones lo que garantiza que se cumplan los principios ACID:
 
-* Atomicidad
-* Consistencia
-* Aislamiento
-* Durabilidad
+* Atomicidad: una transacción se ejecuta o no se ejecuta.
+* Consistencia: una transacción no puede dejar la base de datos en un estado inconsistente.
+* Aislamiento: una transacción no puede ver los cambios que otras transacciones están realizando sobre la base de datos.
+* Durabilidad: una vez que una transacción se ha completado los cambios realizados por la misma se mantienen aunque se produzca un fallo.
 
 Para dividir la información entre tablas se emplean procesos de normalización (cuyo objetivo es evitar redundancia de datos y facilitar la realización de consultas).
 
@@ -65,7 +65,17 @@ Javascript Simple Object Notation
 
 ### Instalación de MongoDB
 
+En la página de [MongoDB](https://www.mongodb.com/) podemos encontrar las instrucciones de instalación para los distintos sistemas operativos. En concreto para Linux (Ubuntu) podemos encontrarlas [aquí](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/).
+
 Pondré unas notas sobre el proceso de instalación en Linux (Ubuntu).
+
+### Incorporar datos de prueba
+
+Para incorporar datos de prueba podemos usar el comando `mongoimport`:
+
+```text
+mongoimport -d <nombre de la base de datos> -c <nombre de la colección> -f <ruta del fichero con los datos>
+```
 
 ### Uso desde la consola
 
@@ -91,8 +101,6 @@ flowchart TB
 mdbs[MongoDB Server] 
 mdbcmm[mongodb-community 4.2] --> dbusers[users]
 mdbs --> db[Base de datos]
-
-
 ```
 
 Para crear una base de datos simplemente hay que indicar que se quiere *usar* una base de datos con ese nombre.
@@ -406,7 +414,6 @@ db.profesores.find({especialidad: $all: ['matemáticas', 'física']})
 
 #### Consultas sobre documentos referenciados
 
-
 ##### Limitar el número de resultados
 
 Para limitar el número de resultados de una consulta se usa el método `limit()`.
@@ -414,8 +421,6 @@ Para limitar el número de resultados de una consulta se usa el método `limit()
 ```text
 db.<nombre de la colección>.find(<filtro>).limit(<número de resultados>)
 ```
-
-
 
 ### Filtros / selectores de MongoDB
 
