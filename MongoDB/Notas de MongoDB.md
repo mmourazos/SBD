@@ -490,15 +490,15 @@ Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cu
 
 ##### Filtro para TODOS los elementos de un array
 
-Supongamos que tenemos la siguiente base de datos: 
+Supongamos que tenemos la siguiente base de datos:
 
 ```json
 [
-    { 
-    	'id': 1,
-    	'notas': [5, 6, 8]
+    {
+        'id': 1,
+        'notas': [5, 6, 8]
     },
-	{
+    {
         'id': 2,
         'notas': [4, 5, 7]
     }
