@@ -179,7 +179,7 @@ La función / constructor de `Date` acepta los siguientes formatos:
 
 Establecerá `fecha_nacimiento` al objeto Date de valor equivalente a `1900-01-01T00:00:00:000z`.
 
-También aceptan formatos más *informales*. Por ejemplo: `new Date("15, may, 1977")`.
+También aceptan formatos más *informales*. Por ejemplo: `new Date("15, may, 1977")` o `new Date("01/01/1900 00:00:00")`.
 
 ### Tipos de datos complejos
 
