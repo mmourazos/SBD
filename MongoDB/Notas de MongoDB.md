@@ -1,5 +1,23 @@
 # Notas de MongoDB
 
+## Antes de nada
+
+### Instalación local de MongoDB
+
+Para instalar MongoDB en Ubuntu podréis seguir la información que se incluye en la [página de documentación](https://www.mongodb.com/docs/manual/administration/install-community/#std-label-install-mdb-community-edition) de MongoDB. Concretamente en [este link](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu).
+
+### Datos de prueba
+
+Para experimentar con MongoDB podéis obtener datos de prueba en el siguiente enlace
+
+### Añadir datos de prueba
+
+La forma más fácil de añadir datos a MongoDB es usando el comando `mongoimport`. Para ello necesitaremos un fichero con los datos en formato JSON, CSV o .
+En los siguientes enlaces podéis encontrar datos de prueba a uar con MongoDB:
+
+* [MongDB JSON Data](https://github.com/ozlerhakan/mongodb-json-files).
+* 
+
 ## Bases de datos tradicionales / SQL / relacionales
 
 Se organizan en entidades llamadas tablas.
@@ -779,6 +797,36 @@ Los inconvenientes de los documentos referenciados son:
 
 ## Índices
 
-Los índices son estructuras de datos que permiten acceder a los datos de una colección de forma más rápida. Los índices se crean sobre uno o más campos de una colección.
+El objetivo del uso de índices es el de mejorar el rendimiento **de las consultas** sobre los datos de una colección
 
-Por defecto MongoDB crea un índice sobre el campo `_id` de cada colección.
+Los índices son estructuras de datos que se definen sobre uno o más campos de una colección (almacenando internamente sus valores) y serán manejadas internamente por MongoDB. Los índices están ordenados en función de alguno de los valores de sus campos.
+
+El funcionamiento de un índice es el siguiente. Cuando realicemos una consulta sobre una colección, MongoDB, como paso previo, hará la consulta sobre el índice. Puesto que el índice es una estructura mucho más ligera que la colección real la consulta será más rápida. Esto le permitirá a MongoDB determinar qué documentos de la colección real han de ser devueltos como respuesta a la consulta. De este modo se evitará realizar la consulta sobre el conjunto total de documentos de la colección, que sería mucho más lento.
+
+En resumen: los índices son un intermediario rápido para evitar tener que realizar una consulta sobre el conjunto total de los datos de una colección.
+
+Por defecto MongoDB, si no lo hacemos nosotros, crea un índice sobre el campo `_id` de cada colección.
+
+### Consultar los índices de una colección
+
+Para comprobar qué índices hay definidos en una colección podremos usar el siguiente comando:
+
+```javascript
+db.alum.getIndexes()
+```
+
+### Tipos de índices
+
+* Índices simples (un solo campo).
+
+* Índices compuestos (varios campos)
+
+* Índices únicos.
+
+* Otros: sparse, geoespaciales, TTL, hash, texto.
+
+### Índices simples
+
+### El objeto `db.collection.createIndex()`
+
+Bien, todo está aquí. Tengo que empezar a hacer apuntes sobre los índices, lo de JavaScript y lo de otra cosa. Cassandra. Empezar a ver cosas de Casandra.
