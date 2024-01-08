@@ -1,6 +1,6 @@
 # Índices
 
-El objetivo del uso de índices es el de mejorar el rendimiento **de las consultas** sobre los datos de una colección
+El objetivo del uso de índices es el de mejorar el rendimiento **de las consultas** sobre los datos de una colección.
 
 Los índices son estructuras de datos que se definen sobre uno o más campos de una colección (almacenando internamente sus valores) y serán manejadas internamente por MongoDB. Los índices están ordenados en función de alguno de los valores de sus campos.
 
@@ -21,7 +21,7 @@ Si esperamos a tener muchos datos el proceso de creación será más lento adem�
 Para comprobar qué índices hay definidos en una colección podremos usar el siguiente comando:
 
 ```javascript
-db.alum.getIndexes()
+db.alumnos.getIndexes()
 ```
 
 ## Tipos de índices
@@ -32,6 +32,8 @@ db.alum.getIndexes()
 
 * Índices únicos.
 
+* Índices *sparse*.
+
 * Otros: sparse, geoespaciales, TTL, hash, texto.
 
 ## Índices simples
@@ -39,6 +41,10 @@ db.alum.getIndexes()
 Son los índices más sencillos. Se definen sobre un solo campo de la colección.
 
 ### Creación de un índice simple
+
+#### Sintaxis del comando `db.collection.createIndex()`
+
+El comando `createIndex` admite tres argumentos, el primero obligatorio y los otros dos opcionales. En el primer argumento hemos de indicar sobre qué campos de la colección vamos a crear el índice si su *tipo* (orden ascendente o descendente). En el segundo documento podremos indicar opciones sobre cómo han de crearse los índices. Finalmente el último argumento indica a mongo cuantos nodos han de confirmar que han creado el índice para que la operación de creación de índice que considere exitosa.
 
 Por ejemplo, si queremos crear un índice sobre el campo `nombre` de la colección `alum` lo haremos de la siguiente manera:
 

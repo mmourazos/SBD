@@ -4,10 +4,6 @@
 
 Para instalar MongoDB en Ubuntu podréis seguir la información que se incluye en la [página de documentación](https://www.mongodb.com/docs/manual/administration/install-community/#std-label-install-mdb-community-edition) de MongoDB. Concretamente en [este link](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu).
 
-### Datos de prueba
-
-Para experimentar con MongoDB podéis obtener datos de prueba en el siguiente enlace
-
 ### Añadir datos de prueba
 
 La forma más fácil de añadir datos a MongoDB es usando el comando `mongoimport`. Para ello necesitaremos un fichero con los datos en formato CSV, TSV y JSON.
@@ -20,8 +16,14 @@ En los siguientes enlaces podéis encontrar datos de prueba a uar con MongoDB:
 La forma más sencilla de importar un CSV es usando el comando `mongoimport`:
 
 ```bash
-mongoimport -d <nombre de la base de datos> -c <nombre de la colección> --type csv --file <ruta del fichero con los datos>
+mongoimport -d <nombre de la base de datos> -c <nombre de la colección> --type csv --headerline --file <ruta del fichero con los datos>
 ```
+
+La opción `—-headerline` sólo se puede aplicar cuando el tipo de datos es `csv` o `tsv` y le indica a mongo que asuma que la primera línea del archivo de texto contiene los nombres de los campos. Si no fuese el caso tendríamos que usar la opción:
+
+` -f=<field>[,<field>]*`
+
+indicando los nombres de los campos separados por comas.
 
 Si los datos están en formato JSON no es necesario indicar el tipo de fichero.
 
@@ -93,14 +95,6 @@ Javascript Simple Object Notation
 En la página de [MongoDB](https://www.mongodb.com/) podemos encontrar las instrucciones de instalación para los distintos sistemas operativos. En concreto para Linux (Ubuntu) podemos encontrarlas [aquí](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/).
 
 Pondré unas notas sobre el proceso de instalación en Linux (Ubuntu).
-
-### Incorporar datos de prueba
-
-Para incorporar datos de prueba podemos usar el comando `mongoimport`:
-
-```text
-mongoimport -d <nombre de la base de datos> -c <nombre de la colección> -f <ruta del fichero con los datos>
-```
 
 ### Uso desde la consola
 

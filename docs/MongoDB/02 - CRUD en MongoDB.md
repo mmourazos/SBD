@@ -12,11 +12,13 @@ Para crear documentos en una colección usaremos los comandos `insertOne` o `ins
 
 `db.<nombre de la colección>.insertMany(<array con los documentos json>)`
 
+Los métodos `insertOne` e `insertAny` también aceptan un argumento con opciones.
+
 ### El campo `_id`
 
-Si el documento no especifica un campo `_id`, entonces MongoDB añade el campo `_id` y le asigna un `ObjectId()` único para el documento. La mayoría de los drivers crean un `ObjectId` y lo insertan en el campo `_id`, pero el `mongod` creará y rellenará el campo `_id` si el driver o la aplicación no lo hace.
+Si el documento no especifica un campo `_id`, entonces MongoDB añade el campo `_id` y le asigna un `ObjectId()` único para el documento. La mayoría de los drivers crean un `ObjectId` y lo asignarán al atributo `_id`, pero el `mongod` creará y rellenará el campo `_id` si el driver o la aplicación no lo hace.
 
-## Búsqueda de documentos *Read* / Consultar
+## Búsqueda de documentos: *Read* / Consultar
 
 Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información. En MongoDB esta información se pasa en forma de documento JSON.
 
@@ -90,13 +92,13 @@ db.usuarios.find({activo: true})
 (`find()` / `find({})` sin filtro (o con un filtro *vacío*) devolverá todos los documentos de la colección).
 
 ```javascript
-db.<nombre de la colección>.find({<campo>: <valor>})
+db.<nombre de la colección>.find( {<campo>: <valor>} )
 ```
 
 Por ejemplo, para obtener los documentos de la colección `airbnb_bar` cuyo campo `host_neighbourhood` sea `Dreta de l'Eixample`, escribiríamos:
 
 ```javascript
-db.airbnb_bar.find( { host_neighbourhood: "Dreta de l'Eixample"})
+db.det_listings.find( { host_neighbourhood: "Dreta de l'Eixample"} )
 ```
 
 Antes de continuar con selectores más complejos veamos un par de métodos que nos pueden ser útiles para depurar nuestras consultas.
@@ -241,7 +243,7 @@ El operador `$all` permite consultar los documentos que contengan todos los valo
 De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en su array `especialidades`.
 
 ```javascript
-db.profesores.find({especialidades: $all: ['matemáticas', 'física']})
+db.profesores.find( {especialidades: { $all: ['matemáticas', 'física'] } } )
 ```
 
 O los alumnos que cursan los módulos `BDA` y `SBD` (y posiblemente otros ya que no es excluyente):
@@ -289,7 +291,7 @@ Si queremos seleccionar todos los documentos cuyas notas (**todas**) sean mayore
 
 ```javascript
 db.alumnos.find({
-    notas: {$not: {$lt: 4}}
+    notas: {$not: {$lt: 5}}
 })
 ```
 
@@ -347,11 +349,15 @@ En MongoDB una operación de escritura es atómica a nivel de un único document
 
 Cuando una única operación de escritura modifique múltiples documentos la modificación de **cada documento** es atómica pero la operación **en su conjunto** no lo es.
 
-### Operador `$set`
+### Operadores a nivel de campos
 
-El operador `$set` reemplaza el valor de un campo por el valor especificado.
+Estos operadores, como el título indica, realizarán cambios en los campos de un documento.
 
-#### Sintaxis de `$set`
+#### Operador `$set`
+
+El operador `$set` reemplaza el valor de un campo por el valor especificado. Si el campo no existe lo crea.
+
+##### Sintaxis de `$set`
 
 ```json
 { $set: { <campo1>: <valor1>, ... } }
@@ -359,20 +365,187 @@ El operador `$set` reemplaza el valor de un campo por el valor especificado.
 
 Si queremos especificar un campo dentro de un documento embebido hemos de usar la notación con punto.
 
-### Operador `$inc`
+##### Ejemplo de `$set`
+
+```javascript
+db.alumnos.updateMany({}, {
+    $set: {
+        activo: false,
+        modulos: []
+    }
+})
+```
+
+#### Operador `$unset`
+
+Este operador se utilizará para eliminar campos de un documento.
+
+##### Sintaxis de `$unset`
+
+```javascript
+{ $unset: { <campo1>: <valor>, <campo2>: <valor>} }
+```
+
+Los valores de los campos se ignoran.
+
+##### Ejemplo de `$unset`
+
+El siguiente comando cambiará el estado de los alumnos cuyo curso sea igual a `2022/2023` a `inactivo` y eliminará el campo `notas`.
+
+```javascript
+db.alumnos.updateMany( { curso: '2022/2023'}, {
+    $set: { estado: 'inactivo' },
+    $unset: { notas: 0 }
+} )  
+```
+
+#### Operadores `$inc` y `$mul`
 
 El operador `$inc` *incrementa* el valor de un campo un determinado valor.
 Este operador admite valores tanto positivos como negativos.
 
-Este operador es **atómico** a nivel de un **único documento**.
+El operador `$mul`, por su parte, multiplica el valor de un campo por un determinador valor. 
 
-#### Sintaxis de `$inc`
+##### Sintaxis de `$inc`
 
 ```json
-{ $inc: { <campo1>: <cantidad1>, <campo2>: <cantidad2>, ... } }
+{ 
+    $inc: { <campo1>: <cantidad a incrementar>, <campo2>: <cantidad a incrementar>, ... }
+    $mul: { <campo3>: <multiplicador>, <campo4>: <multiplicador>, ... }
+}
 ```
 
-### Operador `$push`
+Si el campo a modificar no existe se crea. En ambos casos se crea con el valor inicial 0 y luego se aplica la modificación.
+
+#### Operadores `$max` y `$min`
+
+Estos operadores **sólo** modificarán el valor de un campo **si el nuevo valor es mayor**, en el caso de `$max`, **o menor**, en el caso de `$min`.
+
+##### Sintaxis de `$max` 
+
+```javascript
+{
+    $max: { <campo1>: <nuevo valor>, <campo2>: <nuevo valor> },
+    $min: { <campo3>: <nuevo valor>, <campo4>: <nuevo valor> }
+}
+```
+
+Si el campo no existe se crea y se le asigna el valor indicado.
+
+#### Operador `$rename`
+
+Sirve para renombrar campos.
+
+##### Sintaxis de `$rename`
+
+```javascript
+{
+    $rename: { <campo1>: <nuevo nombre>, ... }
+}
+```
+
+#### Operador `$currentDate`
+
+Este operador es algo más complejo que los anteriores. Sirve para modificar un campo al valor de la fecha actual.
+
+##### Sintaxis de `$currentDate`
+
+```javascript
+{
+    $currentDate: {
+        <campo1>: true | { $type: 'date' } | { $type: 'timestamp' }
+    }
+}
+```
+
+Si el valor del campo es `true` se actualiza al valor de `Date` del momento actual. Si indicamos `$type` `timpestamp` se creará una marca de tiempo `Timestamp`. En el caso de que el valor se `date` se creará `Date`.
+
+Si los campos no existen se crean.
+
+#### Operador `$setOnInsert`
+
+Este operador sólo tiene sentido si indicamos la opción `upsert: true`. Esta opción indica que si el selector no selecciona ningún documento se cree uno nuevo con los valores que se indique en la modificación.
+
+Mediante el operador`$setOnInsert` indicaremos valores *por defecto* para campos que **sólo se crearán** si estamos insertando un nuevo documento como resultado del `upsert: true`.
+
+##### Sintaxis de `$setOnInsert`
+
+```javascript
+{ 
+    $setOnInsert: { <campo1>: <valor1>, ... }
+}
+```
+
+### Operadores para *arrays*
+
+En este apartado veremos los operadores para actuar sobre *arrays* y también los modificadores. 
+
+* `$`: Actúa como un *placeholder* para actualizar **el primer elemento** del array que cumpla las condiciones del selector.
+* `$[]`: Actúa como un *placeholder* para actualizar **todos los elementos** que cumplan la condición del selector.
+* `$[<identificador>]`: Actúa como un *placeholder* para actualizar **todos los elementos** que cumplan la condición de los ***arrayFilters*** para los documentos que hayan sido seleccionados por el selector.
+* `$addToSet`: Añade valores a un array si no se encuentran ya en el mismo.
+* `$pop`: Elimina el primer elemento del array.
+* `$pull`: Elimina **todos los elementos** del array que cumplan la condición del selector.
+* `$push`: Añade elementos al array.
+* `$pullAll`: Elimina todos los elementos de un array.
+
+#### Modificadores de los operadores de actualización
+
+* `$each`: Se aplica al operador `$push` y `$addToSet` para añadir, uno a uno, varios elementos de un array.
+* `$position`: Se aplica a `$push` para indicar la posición del array donde se añadirán los elementos.
+* `$slice`: Se aplica a `$push` para limitar el tamaño del array modificado.
+* `$sor`: También se aplica a `$push` para reordenar los documentos almacenados en un array.
+
+#### Operador `$`
+
+Este operador hace referencia al primer elemento de un array que cumpla la condición del selector. Se utiliza de la siguiente manera:
+
+```javascript
+db.alumnos.updateOne(
+    { notas: { $lt: 5 } },
+    { $set: { 'notas.$': 5} }
+)
+```
+
+Es **obligatorio** que, si queremos modificar el array `notas` éste debe de aparecer en el selector.
+
+#### Operador `$[]`
+
+Este operador afectará a **todos los elementos**  del array del documento que cumpla con las condiciones del selector.
+
+Si modificamos el ejemplo anterior:
+
+```javascript
+db.alumnos.updateOne(
+    { notas: { $lt: 5 } },
+    { $set: { 'notas.$[]': 5} }
+)
+```
+
+Ahora, en lugar de modificar el primer elemento del array que cumpla la condición, modificará **todos los elementos**.
+
+#### Operador `$[<indentificador>]`
+
+En este caso hemos de usar un documento de **opciones** con la opción `arrayFilters`. Esta opción sirve para aplicar *filtros* etiquetados (de ahí el `identificador`) para modificar sólo los elementos que pasen el filtro.
+
+##### Ejemplo del operador `$[<indentificador>]`
+
+El siguiente código:
+
+```javascript
+db.alumnos.updateMany(
+    { },
+    { $set: { 'notas.$[cond1]': 10} },
+    { arrayFilters: [ { cond1: { $eq: 5 } } ] }
+)
+```
+
+1. Aplicará el selector `{ }` de manera que seleccionará todos los documentos de la colección.
+2. A continuación empezará a ejecutar la operación `$set` del *update document*.
+3. En dicha operación se hace referencia al filtro `cond1` que implica la igualdad de un elemento del array con el valor 5.
+4. Se aplicará la operación `$set` a los elementos del array `notas` que cumplan que su valor es 5.
+
+#### Operador `$push`
 
 El operador `$push` añade un valor a un array.
 
