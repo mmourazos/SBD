@@ -234,7 +234,7 @@ En esta consulta hay que tener en cuenta que **importa el orden** de los element
 
 ##### Seleccionar por contenido del array
 
-Si lo que queremos es buscar los elementos que contienen un elemento (y posiblemente otros) lo haremos de la siguiente manera:
+Si lo que queremos es seleccionar los documentos cuyo array `modulos` contiene un elemento lo haremos de la siguiente manera:
 
 ```javascript
 db.alumnos.find({
@@ -242,10 +242,10 @@ db.alumnos.find({
 })
 ```
 
-Nótese que no se compara con ningún array, si no con un elemento del array.
+Nótese que no se compara con ningún array, si no que se comprueba que el array incluye un elemento con la cadena `SBD`.
 
-Si queremos comprobar si contiene viarios elementos a la vez (y posiblemente otros) usaremos el operador `$all`.
-El operador `$all` permite consultar los documentos que contengan todos los valores de un array que especificamos.
+Si queremos comprobar si contiene varios elementos a la vez (y posiblemente otros) usaremos el operador `$all`.
+El operador `$all` permite seleccionar los documentos que contengan todos los valores de un array que especificamos. Lo único que se comprueba es que el array contenga todos los elementos indicados sin importar el orden y sin importar que contenga otros elementos.
 
 De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en su array `especialidades`.
 
@@ -253,17 +253,15 @@ De esta forma con el siguiente filtro se devolverán los documentos que contenga
 db.profesores.find( {especialidades: { $all: ['matemáticas', 'física'] } } )
 ```
 
-O los alumnos que cursan los módulos `BDA` y `SBD` (y posiblemente otros ya que no es excluyente):
+O los alumnos que cursan los módulos `BDA` y `SBD`:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     modulos: { 
         $all: ['BDA', 'SBD'] 
     } 
-})
+} )
 ```
-
-Cuando utilizamos el operador `$all` no importa el orden.
 
 ##### Filtros compuestos
 
@@ -279,7 +277,7 @@ Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cu
 
 ##### Filtro para TODOS los elementos de un array
 
-Supongamos que tenemos la siguiente base de datos:
+Supongamos que tenemos la siguiente colección en nuestra base de datos:
 
 ```javascript
 [
@@ -294,7 +292,7 @@ Supongamos que tenemos la siguiente base de datos:
 ]
 ```
 
-Si queremos seleccionar todos los documentos cuyas notas (**todas**) sean mayores o iguales a 5 hemos de escribir el siguiente código:
+Si queremos seleccionar todos los documentos cuyas notas, **todas**, sean mayores o iguales a 5 hemos de escribir el siguiente código:
 
 ```javascript
 db.alumnos.find({
@@ -302,9 +300,11 @@ db.alumnos.find({
 })
 ```
 
+Es decir, hemos de seleccionar los documentos cuyo array `notas` **no** contenga ningún elemento que sea menor que 5.
+
 Puesto que no hay un operador que exija que todos los elementos cumplan una condición, lo que habrá que hacer es exigir que no haya algún elemento que cumpla la condición opuesta.
 
-Por ejemplo, si no queremos que ningún elemento del array de notas contenga la notas 5 y 6:
+Pongamos otro ejemplo, si queremos ver qué alumnos nunca han alcanzado las notes de de 9 y 10:
 
 ```javascript
 db.alumnos.find({
@@ -318,7 +318,7 @@ db.alumnos.find({
 
 #### Consultas sobre documentos embebidos
 
-Para realizar consultas sobre documentos embebidos se usa la notación de punto.
+Lo único que hemos de tener en cuenta para realizar consultas sobre documentos embebidos se usa la notación de punto.
 
 Si tenemos un documento con la siguiente estructura:
 
@@ -339,9 +339,9 @@ Si tenemos un documento con la siguiente estructura:
 para hacer una consulta sobre el campo `calle` del documento embebido `dirección` escribiríamos:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     'dirección.calle': 'Calle de la Rosa'
-})
+} )
 ```
 
 ## *Update* / Actualizar
