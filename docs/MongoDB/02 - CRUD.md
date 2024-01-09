@@ -117,7 +117,6 @@ db.<nombre de la colección>.find(<filtro>).count()
 
 este método está obsoleto y no está disponible en algunos cursores. En su lugar se recomienda usar `countDocuments()`.
 
-
 ```javascript
 db.<nombre de la colección>.countDocuments(<query>)
 ```
@@ -411,7 +410,7 @@ db.alumnos.updateMany( { curso: '2022/2023'}, {
 El operador `$inc` *incrementa* el valor de un campo un determinado valor.
 Este operador admite valores tanto positivos como negativos.
 
-El operador `$mul`, por su parte, multiplica el valor de un campo por un determinador valor. 
+El operador `$mul`, por su parte, multiplica el valor de un campo por un determinador valor.
 
 ##### Sintaxis de `$inc`
 
@@ -428,7 +427,7 @@ Si el campo a modificar no existe se crea. En ambos casos se crea con el valor i
 
 Estos operadores **sólo** modificarán el valor de un campo **si el nuevo valor es mayor**, en el caso de `$max`, **o menor**, en el caso de `$min`.
 
-##### Sintaxis de `$max` 
+##### Sintaxis de `$max`
 
 ```javascript
 {
@@ -739,7 +738,7 @@ db.usuarios.updateOne({ id: 1 }, { apellidos: "Piñeiro Mourazos", fecha_nacimie
 
 **Nota**: se puede añadir atributos.
 
-### *Destroy* / Eliminar
+### *Delete* / Eliminar
 
 Esta operación se realiza con los métodos `deleteOne` o `deleteMany` y los filtros / selectores de MongoDB.
 
