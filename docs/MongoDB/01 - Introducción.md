@@ -39,10 +39,12 @@ Usan SQL como lenguaje de consulta.
 
 Permiten el uso de transacciones lo que garantiza que se cumplan los principios ACID:
 
-* Atomicidad: una transacción se ejecuta o no se ejecuta.
-* Consistencia: una transacción no puede dejar la base de datos en un estado inconsistente.
-* Aislamiento: una transacción no puede ver los cambios que otras transacciones están realizando sobre la base de datos.
-* Durabilidad: una vez que una transacción se ha completado los cambios realizados por la misma se mantienen aunque se produzca un fallo.
+*(Tomado directamente de la entrada en la Wikipedia)*
+
+* **[Atomicidad](https://es.wikipedia.org/wiki/Atomicidad):** Si cuando una operación consiste en una serie de pasos, de los que o bien se ejecutan todos o ninguno, es decir, las transacciones son completas.
+* **[Consistencia](https://es.wikipedia.org/wiki/Consistencia_de_datos):** (*Integridad*). Es la propiedad que asegura que sólo se empieza aquello que se puede acabar. Por lo tanto se ejecutan aquellas operaciones que no van a romper las reglas y directrices de *Integridad* de la base de datos. La propiedad de consistencia sostiene que cualquier transacción llevará a la base de datos desde un estado válido a otro también válido. "La Integridad de la Base de Datos nos permite asegurar que los datos son exactos y consistentes, es decir que estén siempre intactos, sean siempre los esperados y que de ninguna manera cambian ni se deformen. De esta manera podemos garantizar que la información que se presenta al usuario será siempre la misma."
+* **[Aislamiento](https://es.wikipedia.org/wiki/Aislamiento_(ACID)):** Esta propiedad asegura que una operación no puede afectar a otras. Esto asegura que la realización de dos transacciones sobre la misma información sean independientes y no generen ningún tipo de error. Esta propiedad define cómo y cuándo los cambios producidos por una operación se hacen visibles para las demás operaciones concurrentes. El aislamiento puede alcanzarse en distintos niveles, siendo el parámetro esencial a la hora de seleccionar [SGBDs](https://es.wikipedia.org/wiki/Sistema_de_gestión_de_bases_de_datos).
+* **[Durabilidad](https://es.wikipedia.org/wiki/Datos_persistentes):** (*Persistencia*). Esta propiedad asegura que una vez realizada la operación, esta persistirá y no se podrá deshacer aunque falle el sistema y que de esta forma los datos sobrevivan de alguna manera.
 
 Para dividir la información entre tablas se emplean procesos de normalización (cuyo objetivo es evitar redundancia de datos y facilitar la realización de consultas).
 
@@ -59,16 +61,6 @@ Son las ideales para almacenar datos que no tienen una estructura fija.
 
 **No garantizan** los principios **ACID**.
 
-*(Directamente de la entrada en la Wikipedia)*
-
-* **[Atomicidad](https://es.wikipedia.org/wiki/Atomicidad):** Si cuando una operación consiste en una serie de pasos, de los que o bien se ejecutan todos o ninguno, es decir, las transacciones son completas.
-
-* **[Consistencia](https://es.wikipedia.org/wiki/Consistencia_de_datos):** (*Integridad*). Es la propiedad que asegura que sólo se empieza aquello que se puede acabar. Por lo tanto se ejecutan aquellas operaciones que no van a romper las reglas y directrices de *Integridad* de la base de datos. La propiedad de consistencia sostiene que cualquier transacción llevará a la base de datos desde un estado válido a otro también válido. "La Integridad de la Base de Datos nos permite asegurar que los datos son exactos y consistentes, es decir que estén siempre intactos, sean siempre los esperados y que de ninguna manera cambian ni se deformen. De esta manera podemos garantizar que la información que se presenta al usuario será siempre la misma."
-
-* **[Aislamiento](https://es.wikipedia.org/wiki/Aislamiento_(ACID)):** Esta propiedad asegura que una operación no puede afectar a otras. Esto asegura que la realización de dos transacciones sobre la misma información sean independientes y no generen ningún tipo de error. Esta propiedad define cómo y cuándo los cambios producidos por una operación se hacen visibles para las demás operaciones concurrentes. El aislamiento puede alcanzarse en distintos niveles, siendo el parámetro esencial a la hora de seleccionar [SGBDs](https://es.wikipedia.org/wiki/Sistema_de_gestión_de_bases_de_datos).
-
-* **[Durabilidad](https://es.wikipedia.org/wiki/Datos_persistentes):** (*Persistencia*). Esta propiedad asegura que una vez realizada la operación, esta persistirá y no se podrá deshacer aunque falle el sistema y que de esta forma los datos sobrevivan de alguna manera.
-
 **MongoDB sí soporta transacciones (atomicidad).**
 
 NoSQL = No sólo SQL.
@@ -77,7 +69,7 @@ Puesto que las bases de datos NOSQL suelen ser distribuidas se les aplicará el 
 
 ### Teorema CAP
 
-*(Directamente, otra vez, de la Wikipedia)*
+*(De nuevo directamente de la Wikipedia)*
 
 En Ciencias de la computación, el teorema CAP, también llamado Conjetura de Brewer, enuncia que es imposible para un sistema de cómputo distribuido garantizar simultáneamente:
 
@@ -102,6 +94,8 @@ Existen varios tipos:
 * Sin esquema *schemaless*.
 * Usa JSON.
 
+En mongo los documentos JSON se utilizan en todas las operaciones. Para seleccionar los documentos que obtendremos en una búsqueda se utilizará un *query document* indicando el criterio de selección. Para modificar uno o más documentos usaremos un query document y otro documento en el que se darán instrucciones sobre que modificaciones se realizarán. Finalmente, la forma de pasar opciones a los comandos es también mediante un documento.
+
 ### Formato JSON
 
 Javascript Simple Object Notation
@@ -117,9 +111,9 @@ Javascript Simple Object Notation
 }
 ```
 
-### Uso desde la consola
+### Uso desde la *shell*
 
-En Linux la consola se invoca escribiendo `mongosh` (en Windows y macOS con `mongo`).
+En Linux lanzaremos la *shell* de mongo mediante el comando `mongosh`. Esta shell consiste en un REPL de Node.js por lo que podremos escribir código JavaScript además de cagar scripts (usando la instrucción `load`) o bien desde la consola de Linux con la opción `--file` de `mongosh`.
 
 Comandos básicos:
 

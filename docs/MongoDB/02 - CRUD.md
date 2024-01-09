@@ -1,8 +1,8 @@
 # Operaciones CRUD en MongoDB
 
-Las operaciones CRUD son las operaciones básicas que se pueden realizar sobre una base de datos. CRUD es el acrónimo de *Create, Read, Update, Delete* (Crear, Leer, Actualizar, Borrar).
+Las operaciones CRUD son las operaciones básicas que se pueden realizar sobre una base de datos. CRUD es el acrónimo de *Create, Read, Update, Delete*.
 
-En este veremos como se realizan estas operaciones en MongoDB desde la consola. Empezaremos por la creación de documentos. A continuación veremos lecturas / consultas para ver cómo se definen y usan los selectores, ya que se usarán los selectores en el resto de operaciones. Y finalmente iremos viendo el resto de operaciones: modificar (*update*) y borrar (*delete*).
+En este documento veremos cómo se realizan estas operaciones en MongoDB desde la *shell* de mongo (`mongosh`). Empezaremos por la creación de documentos. A continuación veremos lecturas / consultas para ver cómo se definen y usan los selectores, ya que se usarán los selectores en el resto de operaciones. Y finalmente iremos viendo el resto de operaciones: modificar (*update*) y borrar (*delete*).
 
 ## Creación de documentos *Create* / Insertar
 
@@ -35,6 +35,10 @@ db.<nombre de la colección>.find(<filtro>)
 El método `find()` no devuelve los documentos buscados si no que devuelve un **cursor** a los misos. Un cursor es un objeto que permite recorrer los documentos o lo que es lo mismo, *iterar sobre el cursor* para obtener los documentos resultado de la consulta.
 
 Cuando hacemos una consulta en la *shell* de mongo y **no asignamos** el resultado a una variable, la consola de mongo itera por su cuenta sobre el cursor y muestra los resultados.
+
+***Nota:*** No hay una forma simple de conocer el número de resultados que devuelve un cursor **sin consumir** el mismo. Tanto el método `count()` (no recomendado y no disponible en algunos cursores) como el método `explain` **consumirán el cursor**.
+
+***Nota:*** Para conocer el número de resultados que, probablemente, vamos a obtener con una consulta hemos de usar el método `countDocuments(<query>, <options>)`.
 
 Existen varias formas para iterar sobre un cursor en la shell de mongo:
 
@@ -511,7 +515,7 @@ Es **obligatorio** que, si queremos modificar el array `notas` éste debe de apa
 
 #### Operador `$[]`
 
-Este operador afectará a **todos los elementos**  del array del documento que cumpla con las condiciones del selector.
+Este operador afectará a **todos los elementos**  del array del documento que cumplan con las condiciones del selector.
 
 Si modificamos el ejemplo anterior:
 
