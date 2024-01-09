@@ -73,3 +73,7 @@ No sigue el patrón maestro-esclavo. Todos los nodos son iguales y no hay un nod
 Para escalar Cassandra de forma horizontal es necesario añadir nuevos nodos a la base de datos. Esto puede ser complicado en algunos casos.
 
 Para maximizar el rendimiento tendremos que conocer cuales serán las consultas que se realizarán a la base de datos (con antelación a su creación). Esto puede ser complicado en algunos casos.
+
+## Arquitectura
+
+.
