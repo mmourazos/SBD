@@ -346,7 +346,7 @@ db.alumnos.find( {
 
 ## *Update* / Actualizar
 
-`updateOne` o `updateMany`
+Para modificar el contenido de uno o más documentos de una colección usaremos los métodos `updateOne` o `updateMany`
 
 `db.<nombre de la colección>.updateOne(<json selector>, <json de actualización>)`
 
@@ -358,7 +358,7 @@ Cuando una única operación de escritura modifique múltiples documentos la mod
 
 ### Operadores a nivel de campos
 
-Estos operadores, como el título indica, realizarán cambios en los campos de un documento.
+Estos operadores, como el título indica, realizarán cambios en los campos de un documento. Se clasifican de esta manera para diferenciarlos de los operadores que sirven para modificar *arrays*.
 
 #### Operador `$set`
 
@@ -485,7 +485,7 @@ Mediante el operador`$setOnInsert` indicaremos valores *por defecto* para campos
 
 ### Operadores para *arrays*
 
-En este apartado veremos los operadores para actuar sobre *arrays* y también los modificadores. 
+En este apartado veremos los operadores para actuar sobre *arrays* y también sus modificadores (en realidad los modificadores son sólo para `$push`).
 
 * `$`: Actúa como un *placeholder* para actualizar **el primer elemento** del array que cumpla las condiciones del selector.
 * `$[]`: Actúa como un *placeholder* para actualizar **todos los elementos** que cumplan la condición del selector.
@@ -505,7 +505,7 @@ En este apartado veremos los operadores para actuar sobre *arrays* y también lo
 
 #### Operador `$`
 
-Este operador hace referencia al primer elemento de un array que cumpla la condición del selector. Se utiliza de la siguiente manera:
+Este operador sirve para **hacer referencia al primer elemento** de un array que cumpla la condición expresada en el selector. Se utiliza de la siguiente manera:
 
 ```javascript
 db.alumnos.updateOne(
@@ -513,6 +513,8 @@ db.alumnos.updateOne(
     { $set: { 'notas.$': 5} }
 )
 ```
+
+En el código anterior cambiaremos el valor del primer elemento del array cuyo valor sea menor que 5 a 5.
 
 Es **obligatorio** que, si queremos modificar el array `notas` éste debe de aparecer en el selector.
 
@@ -529,11 +531,11 @@ db.alumnos.updateOne(
 )
 ```
 
-Ahora, en lugar de modificar el primer elemento del array que cumpla la condición, modificará **todos los elementos**.
+Ahora, en lugar de modificar el primer elemento del array que cumpla la condición, modificará **todos los elementos** cuyo valor sea menor que 5.
 
 #### Operador `$[<indentificador>]`
 
-En este caso hemos de usar un documento de **opciones** con la opción `arrayFilters`. Esta opción sirve para aplicar *filtros* etiquetados (de ahí el `identificador`) para modificar sólo los elementos que pasen el filtro.
+En este caso hemos de usar un **documento de opciones** con la opción `arrayFilters`. Esta opción sirve para aplicar *filtros* etiquetados (de ahí el `identificador`) para modificar sólo los elementos que pasen el filtro.
 
 ##### Ejemplo del operador `$[<indentificador>]`
 
@@ -554,12 +556,63 @@ db.alumnos.updateMany(
 
 #### Operador `$push`
 
-El operador `$push` añade un valor a un array.
+El operador `$push` añade uno o más valores a un array.
 
 #### Sintaxis de `$push`
 
 ```json
 { $push: { <campo1>: <valor1>, ... } }
+```
+
+El siguiente código:
+
+```javascript
+db.alumnos.updateOne(
+    { _id: 1 },
+    { $push: { notas: 10 } }
+)
+```
+
+Añadirá el valor 10 al array `notas` del documento cuyo `_id` sea 1.
+
+Nótese que se añade **un elemento**. El código:
+
+```javascript
+db.alumnos.updateOne(
+    { _id: 1 },
+    { $push: { notas: [10, 9] } }
+)
+```
+
+Añadirá un elemento al array `notas` del documento cuyo `_id` sea 1. Este elemento será un array con los valores 10 y 9 y el documento resultante será:
+
+```json
+{
+    "_id" : 1,
+    "nombre" : "Manuel",
+    "apellidos" : "Piñeiro",
+    "notas" : [ 5, 6, 8, [ 10, 9 ] ]
+}
+```
+
+Si lo que queremos es añadir todos los elementos de un array a otro array hemos de utilizar el modificador `$each`.
+
+```javascript
+db.alumnos.updateOne(
+    { _id: 1 },
+    { $push: { notas: { $each: [10, 9] } } }
+)
+```
+
+que dará como resultado:
+
+```json
+{
+    "_id" : 1,
+    "nombre" : "Manuel",
+    "apellidos" : "Piñeiro",
+    "notas" : [ 5, 6, 8, 10, 9 ]
+}
 ```
 
 Para indicar un campo en un **documento embebido** se puede usar la **notación de punto**.
@@ -577,8 +630,10 @@ Para indicar un campo en un **documento embebido** se puede usar la **notación 
 
   ```json
   { $push: {
-    <campo1>: { $each: [ { <c1>: 1, <c2>: 'a'}, { <c1>: 2, <c2>: 'b'}], 
-    sort: { <c1>: -1}}
+    <campo1>: { 
+        $each: [ { <c1>: 1, <c2>: 'a'}, { <c1>: 2, <c2>: 'b'}], 
+        sort: { <c1>: -1}
+    }
   }}
   ```
 
@@ -686,11 +741,11 @@ db.usuarios.updateOne({ id: 1 }, { apellidos: "Piñeiro Mourazos", fecha_nacimie
 
 ### *Destroy* / Eliminar
 
-`deleteOne` o `deleteMany` y usar los filtros / selectores de MongoDB. Estos selectores los veremos en el apartado de *read* / consultas pues son los mismos.
-
-Estos selectores lo veremos en detalle en el apartado *Read* / consultas pues son los mismos.
+Esta operación se realiza con los métodos `deleteOne` o `deleteMany` y los filtros / selectores de MongoDB.
 
 Estos comandos tienen como **valor de retorno** un documento (JSON) con dos campos:
 
 * ***acknowledged***: un valor booleano que será cierto si la operación se ejecutó con *write concern* o falso si no lo hizo.
 * ***deleteCount***: Indica el número total de documentos borrados.
+
+Muy resumidamente, la opción *write concern* es una forma de *exigirle* a mongo que extienda la escritura a una serie de nodos réplica para que la operación se pueda considerar correcta.
