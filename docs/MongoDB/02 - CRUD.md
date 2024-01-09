@@ -20,9 +20,9 @@ Si el documento no especifica un campo `_id`, entonces MongoDB añade el campo `
 
 ## Búsqueda de documentos: *Read* / Consultar
 
-Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información. En MongoDB esta información se pasa en forma de documento JSON.
+Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información que indique qué datos queremos seleccionar. Esta información se pasará en forma de documento JSON que recibe el nombre de *query document*.
 
-Vayamos viendo estos selectores poco a poco, ya que también se usan en las operaciones de modificación y borrado.
+Iremos viendo estos selectores poco a poco, ya que también se usarán en las operaciones de modificación y borrado.
 
 Para consultar los documentos de una colección que cumplan una determinada condición se usa el método `find()` y, en caso de que sólo nos interese el primer documento que cumpla la condición podemos usar `findOne()`.
 
@@ -32,13 +32,15 @@ db.<nombre de la colección>.find(<filtro>)
 
 ### Cursores
 
-El método `find()` no devuelve los documentos buscados si no que devuelve un **cursor** a los misos. Un cursor es un objeto que permite recorrer los documentos o lo que es lo mismo, *iterar sobre el cursor* para obtener los documentos resultado de la consulta.
+El método `find()` **no devuelve los documentos buscados** si no que devuelve un **cursor** a los misos. Un cursor es un objeto que contiene referencias a los documentos seleccionados permite acceder a ellos recorriendo o *iterando sobre el cursor*. *Recorrer* el cursor es una operación que *consume* el cursor, es decir, que una vez que se ha recorrido el cursor ya no se puede volver a recorrer.
 
-Cuando hacemos una consulta en la *shell* de mongo y **no asignamos** el resultado a una variable, la consola de mongo itera por su cuenta sobre el cursor y muestra los resultados.
+El cursor se mantiene en el servidor de MongoDB y tiene una vida limitada. Si no se recorre el cursor en un tiempo determinado, MongoDB lo cerrará automáticamente.
+
+Cuando hacemos una consulta en la *shell* de mongo y **no asignamos** el resultado a una variable, la consola de mongo itera por su cuenta sobre el cursor y muestra los resultados en pantalla. Estos resultados se muestran en bloques de 20 documentos.
 
 ***Nota:*** No hay una forma simple de conocer el número de resultados que devuelve un cursor **sin consumir** el mismo. Tanto el método `count()` (no recomendado y no disponible en algunos cursores) como el método `explain` **consumirán el cursor**.
 
-***Nota:*** Para conocer el número de resultados que, probablemente, vamos a obtener con una consulta hemos de usar el método `countDocuments(<query>, <options>)`.
+***Nota:*** Para conocer el número de resultados que, probablemente, vamos a obtener con una consulta hemos de usar el método `countDocuments(<query document>, <options>)`.
 
 Existen varias formas para iterar sobre un cursor en la shell de mongo:
 
@@ -79,7 +81,9 @@ printjson(array[6])
 
 ### Consultas con una condición
 
-Para hacer un filtro con una única condición simplemente se incluye un JSON con el **atributos** y el **valor** del mismo que queremos seleccionar. Si queremos seleccionar los documentos de la colección **usuarios** que están activos podríamos de filtro:
+Es el tipo más simple de consulta.
+
+Para hacer un filtro con una única condición simplemente se incluye un JSON con el **atributo** que queremos seleccionar y el **valor** del mismo que nos interesa. Si queremos seleccionar los documentos de la colección **usuarios** que están activos podríamos de filtro:
 
 ```json
 {
@@ -90,40 +94,37 @@ Para hacer un filtro con una única condición simplemente se incluye un JSON co
 pasándole este filtro a la función `find()` quedaría:
 
 ```javascript
-db.usuarios.find({activo: true})
+db.usuarios.find( { activo: true } )
 ```
 
-(`find()` / `find({})` sin filtro (o con un filtro *vacío*) devolverá todos los documentos de la colección).
-
-```javascript
-db.<nombre de la colección>.find( {<campo>: <valor>} )
-```
+(`find()` o `find({})`, sin filtro (o con un filtro *vacío*), devolverá (un cursor a) todos los documentos de la colección).
 
 Por ejemplo, para obtener los documentos de la colección `airbnb_bar` cuyo campo `host_neighbourhood` sea `Dreta de l'Eixample`, escribiríamos:
 
 ```javascript
-db.det_listings.find( { host_neighbourhood: "Dreta de l'Eixample"} )
+db.det_listings.find( { host_neighbourhood: "Dreta de l'Eixample" } )
 ```
 
 Antes de continuar con selectores más complejos veamos un par de métodos que nos pueden ser útiles para depurar nuestras consultas.
 
 #### Contar resultados
 
-Para contar los resultados de una consulta se usa el método `count()`.
+Para contar los resultados de una consulta se puede usar el método `count()`.
 
 ```javascript
 db.<nombre de la colección>.find(<filtro>).count()
 ```
 
-Si deseamos conocer el número de elementos de una colección podemos usar `count()` directamente sobre la colección.
+este método está obsoleto y no está disponible en algunos cursores. En su lugar se recomienda usar `countDocuments()`.
+
 
 ```javascript
-db.<nombre de la colección>.count()
+db.<nombre de la colección>.countDocuments(<query>)
 ```
 
 #### Limitar el número de resultados
 
-Para limitar el número de valores que obtendremos como resultado de una consulta tenemos la función `limit()`. Recibirá como argumento un número entero en el que le indicamos cuantas respuestas nos interesan.
+Para limitar el número de valores que obtendremos como resultado de una consulta tenemos la función `limit()`. Aceptará como argumento un número entero en el que le indicamos cuantas respuestas nos interesan.
 
 ```javascript
 db.<nombre de la colección>.find(<filtro>).limit(<número de resultados>)
@@ -138,11 +139,11 @@ Ejemplo de sort:
 
 En el documento que se le pasa al sort se indican los campos sobre los que se quiere realizar la ordenación (numérica o lexicográfica). El valor del campo será `1` o `-1`, para indicar si queremos que la ordenación sea creciente o decreciente.
 
+Con este comando obtendremos los tres alumnos con mejor nota (en caso de empate se ordenarán alfabéticamente por nombre y apellidos).
+
 ```javascript
 db.alumnos.find({aprobado: true}).sort({nota: -1, nombre: 1, apellidos: 1}).limit(3)
 ```
-
-Con este comando obtendremos los tres alumnos con mejor nota (en caso de empate se ordenarán alfabéticamente por nombre y apellidos).
 
 #### Consulta con múltiples condiciones
 
@@ -165,7 +166,9 @@ sería equivalente a:
 
 #### Consulta con múltiples condiciones válidas (`$or`)
 
-Incluiremos un *atributo* `$or` cuyo valor ha de ser un **array** con las condiciones que serían válidas.
+Para realizar este tipo de consulta hemos de incluir un *atributo*, `$or`, cuyo valor ha de ser un **array** con las condiciones que han de cumplir los documentos que nos interesan. Obviamente los documentos seleccionados han de cumplir **al menos una** de las condiciones. Es equivalente a un **or** lógico
+
+El siguiente código nos devolvería todos los usuarios que sean administradores **o que** estén activos.
 
 ``` javascript
 {
@@ -173,11 +176,11 @@ Incluiremos un *atributo* `$or` cuyo valor ha de ser un **array** con las condic
 }
 ```
 
-A diferencia de en el caso anterior ahora nos devolvería todos los usuarios que sean administradores o que estén activos.
-
 #### Consulta con selección por exclusión (`$not`)
 
 Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*, es decir, distinto.
+
+El siguiente selector nos devolvería todos los usuarios cuyo nombre **no sea** `Manuel`.
 
 ```json
 {

@@ -76,4 +76,4 @@ Para maximizar el rendimiento tendremos que conocer cuales serán las consultas 
 
 ## Arquitectura
 
-.
+Cluster es un conjunto de máquinas interconectadas que trabajan en paralelo. En Cassandra, un cluster contiene uno o más nodos. Un nodo es un servidor que almacena datos. Los nodos se utilizan para garantizar la disponibilidad y escalabilidad de los datos.
