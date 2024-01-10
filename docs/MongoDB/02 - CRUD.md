@@ -200,7 +200,7 @@ sería equivalente a:
 
 ### Consulta con múltiples condiciones válidas (`$or`)
 
-Para realizar este tipo de consulta hemos de incluir un *atributo*, `$or`, cuyo valor ha de ser un **array** con las condiciones que han de cumplir los documentos que nos interesan. Obviamente los documentos seleccionados han de cumplir **al menos una** de las condiciones. Es equivalente a un **or** lógico
+Para realizar este tipo de consulta hemos de incluir un *atributo*, `$or`, cuyo valor ha de ser un **array** con las condiciones que han de cumplir los documentos que nos interesan. Obviamente los documentos seleccionados han de cumplir **al menos una** de las condiciones. Es equivalente a un **or** lógico.
 
 El siguiente código nos devolvería todos los usuarios que sean administradores **o que** estén activos.
 
@@ -216,7 +216,7 @@ Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*,
 
 El siguiente selector nos devolvería todos los usuarios cuyo nombre **no sea** `Manuel`.
 
-```json
+```javascript
 {
     'nombre': { $not: { $eq: "Manuel" } }
 }
@@ -228,7 +228,7 @@ Este operador se usa para seleccionar los documentos en los que exista un campo.
 
 El siguiente selector nos devolvería todos los usuarios que tengan el campo `nombre` definido.
 
-```json
+```javascript
 {
     'nombre': { $exists: true }
 }
@@ -243,11 +243,51 @@ El siguiente selector nos devolvería todos los usuarios que tengan el campo `no
 
 Ejemplo de `$and`:
 
-```json
+```javascript
 { $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
 ```
 
-#### Operadores de comparación
+#### Aclaración de `$not`
+
+`$not` no puede usarse como operador lógico, si no que se usa para negar una expresión. Por ejemplo, para seleccionar los usuarios que no sean administradores:
+
+```javascript
+{
+    'rol': { $not: { $eq: 'admin' } }
+}
+```
+
+y nunca podrá escribise como:
+
+```javascript
+{
+    $not: [ { 'rol': 'admin' } ]
+}
+```
+
+Si quisiéramos seleccionar los usuarios que no sean administradores **y** que no estén activos lo haríamos de la siguiente manera:
+
+```javascript
+{
+    $nor: [ { 'rol': 'admin' }, { 'activo': true } ]
+}
+```
+
+ya que:
+
+```javascript
+{
+    $not: { $or [ { 'rol': 'admin' }, { 'activo': true } ] }
+}
+```
+
+Generará el error:
+
+```bash
+MongoServerError: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+```
+
+### Operadores de comparación
 
 Con estos operadores se pueden realizar consultas de comparación sobre los campos de los documentos. Toman como argumento un valor y devuelven los documentos que cumplan la condición.
 
@@ -262,7 +302,7 @@ Con estos operadores se pueden realizar consultas de comparación sobre los camp
 
 De este modo podríamos hacer una consulta para obtener los usuarios con una edad entre 18 y 65 años:
 
-```json
+```javascript
 {
     'edad': { $gte: 18, $lte: 65 }
 }
@@ -281,15 +321,15 @@ Lo operadores específicos de consultas sobre *arrays* son:
 Adicionalmente **podremos hacer referencia a una posición concreta de un array** usando la notación de punto:
 
 ```javascript
-db.<nombre de la colección>.find({ '<nombre campo array>.<posición>': <valor> })
+db.<nombre de la colección>.find( { '<nombre campo array>.<posición>': <valor> } )
 ```
 
 con un ejemplo concreto:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     'notas.0': { $gte: 5 },
-})
+} )
 ```
 
 #### Seleccionar por igualdad en array
@@ -305,17 +345,17 @@ En esta consulta hay que tener en cuenta que **importa el orden** de los element
 Si lo que queremos es seleccionar los documentos cuyo array `modulos` contiene un elemento lo haremos de la siguiente manera:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     modulos: 'SBD'
-})
+} )
 ```
 
 sería equivalente al siguiente código usando `$elemMatch`:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     modulos: { $elemMatch: { $eq: 'SBD' } }
-})
+} )
 ```
 
 Nótese que no se compara con ningún array, si no que se comprueba que el array incluye un elemento con la cadena `SBD`.
@@ -326,7 +366,11 @@ El operador `$all` permite seleccionar los documentos que contengan todos los va
 De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en su array `especialidades`.
 
 ```javascript
-db.profesores.find( {especialidades: { $all: ['matemáticas', 'física'] } } )
+db.profesores.find( {
+    especialidades: { 
+        $all: ['matemáticas', 'física'] 
+    } 
+} )
 ```
 
 O los alumnos que cursan los módulos `BDA` y `SBD`:
@@ -344,9 +388,9 @@ db.alumnos.find( {
 Con estos filtros lo que hacemos es poner condiciones a **algún** elemento del array. Así el siguiente código:
 
 ```javascript
-const cursor = db.collection('inventory').find({
+const cursor = db.inventory.find( {
   dim_cm: { $gt: 15, $lt: 20 }
-});
+} )
 ```
 
 Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cuyo valor sea estrictamente mayor que 15 y menor que 20.
@@ -371,9 +415,9 @@ Supongamos que tenemos la siguiente colección en nuestra base de datos:
 Si queremos seleccionar todos los documentos cuyas notas, **todas**, sean mayores o iguales a 5 hemos de escribir el siguiente código:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
     notas: { $not: { $lt: 5 } }
-})
+} )
 ```
 
 Es decir, hemos de seleccionar los documentos cuyo array `notas` **no** contenga ningún elemento que sea menor que 5.
@@ -383,13 +427,13 @@ Puesto que no hay un operador que exija que todos los elementos cumplan una cond
 Pongamos otro ejemplo, si queremos ver qué alumnos nunca han alcanzado las notes de de 9 y 10:
 
 ```javascript
-db.alumnos.find({
+db.alumnos.find( {
    "notas": {
       $not: {
          $all: [5, 6]
       }
    }
-})
+} )
 ```
 
 #### Consultas sobre documentos embebidos

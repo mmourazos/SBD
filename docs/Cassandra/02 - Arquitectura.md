@@ -13,5 +13,3 @@ Un anillo de Cassandra también se denomina *datacenter*.
 ## Nodos virtuales
 
 Cada nodo del anillo se divide en *nodos virtuales* (vnodes). Cada nodo virtual se encarga de una parte del anillo. De esta forma, si añadimos un nuevo nodo al anillo, este se dividirá en nodos virtuales y cada nodo virtual se encargará de una parte del anillo. Esto permite que el anillo se reequilibre de forma automática. Un nodo *real* puede contener varios nodos virtuales y un nodo virtual puede estar en varios nodos *reales*. Esto permite mejorar la disponibilidad de los datos al aumentar la replicación.
-
-
