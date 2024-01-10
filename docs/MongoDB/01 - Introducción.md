@@ -113,9 +113,44 @@ Javascript Simple Object Notation
 
 ### Uso desde la *shell*
 
-En Linux lanzaremos la *shell* de mongo mediante el comando `mongosh`. Esta shell consiste en un REPL de Node.js por lo que podremos escribir código JavaScript además de cagar scripts (usando la instrucción `load`) o bien desde la consola de Linux con la opción `--file` de `mongosh`.
+En Linux lanzaremos la *shell* de mongo mediante el comando `mongosh`. Esta shell consiste en un REPL (*Read Eval Print Loop*) de Node.js por lo que podremos escribir código JavaScript además de cagar scripts (usando la instrucción `load`) o bien desde la consola de Linux con la opción `--file` de `mongosh`.
 
-Comandos básicos:
+#### Conexión a un servidor de MongoDB
+
+Si tenemos instalado MongoDB en local y no hemos cambiado la configuración por defecto bastará con ejecutar el comando `mongosh` para conectarnos a la instancia de MongoDB que se esté ejecutando en el equipo local. Si queremos conectarnos a un servidor remoto usaremos el comando `mongosh <dirección del servidor>`.
+
+Para que el servidor de MongoDB acepte conexiones remotas debemos modificar el fichero de configuración `/etc/mongod.conf`. En concreto la opción `bindIp` que por defecto está comentada y tiene el valor `127.0.0.1` (localhost). Para que acepte conexiones remotas debemos indicar la IP del equipo en **el que se está ejecutando el servidor de MongoDB**.
+
+```yaml
+# network interfaces
+net:
+  port: 27017
+  ip: 127.0.0.1,192.168.101.20 # en nuestro ejemplo.
+```
+
+Una vez hecho esto debemos reiniciar el servicio de MongoDB con el comando `sudo systemctl restart mongod`.
+
+Para conectarnos al servidor remoto usaremos el comando:
+
+```bash
+mongosh "mongodb://192.168.101.20:27017"
+```
+
+o bien:
+
+```bash
+mongosh 192.168.101.20
+```
+
+Ya que tanto el puerto como el protocolo, si no los hemos cambiados, se pueden inferir.
+
+Si aún así no tenemos conexión podría se un problema de las reglas del cortafuegos. En ese caso deberemos abrir el puerto 27017 en el cortafuegos del servidor de MongoDB:
+
+```bash
+sudo ufw allow from <ip del equipo cliente> to any port 27017
+```
+
+#### Comandos básicos
 
 * Salir de la consola: `.exit` (también se puede usar `quit`)
 * *Limpiar* la consola: `Ctrl + L`.
@@ -127,6 +162,22 @@ Comandos básicos:
 * Consultar los metadatos de la base de datos activa: `db.stats()`.
 * Obtener información sobre el sistema dónde se está ejecutando Mongodb: `db.hostInfo()`.
 * *Mostrar el contenido de una colección*: `db.<colección>.find().pretty()`.
+
+#### Ejecución de scripts desde la *shell*
+
+Desde la shell de mongo, recordemos que incorpora el intérprete de JavaScript Node.js, podemos ejecutar código JavaScript.
+
+Para ejecutar un script desde la *shell* de mongo podremos usar el comando `load`:
+
+```bash
+load("<ruta del fichero JavaScript>")
+```
+
+Otra forma de ejecutar un script sin salir de la consola de Linux es usando la opción `--file` de `mongosh`:
+
+```bash
+mongosh --file <ruta del fichero JavaScript>
+```
 
 ### Creación y gestión de bases de datos
 
