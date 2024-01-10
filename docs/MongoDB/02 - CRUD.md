@@ -4,13 +4,13 @@ Las operaciones CRUD son las operaciones básicas que se pueden realizar sobre u
 
 En este documento veremos cómo se realizan estas operaciones en MongoDB desde la *shell* de mongo (`mongosh`). Empezaremos por la creación de documentos. A continuación veremos lecturas / consultas para ver cómo se definen y usan los selectores, ya que se usarán los selectores en el resto de operaciones. Y finalmente iremos viendo el resto de operaciones: modificar (*update*) y borrar (*delete*).
 
-## Creación de documentos *Create* / Insertar
+## Creación de documentos *Create* / Insertar `insert`
 
 Para crear documentos en una colección usaremos los comandos `insertOne` o `insertMany`.
 
-`db.<nombre de la colección>.insertOne(<json del documento>)`
+`db.<nombre de la colección>.insertOne(<json del documento>, <documento de opciones>)`
 
-`db.<nombre de la colección>.insertMany(<array con los documentos json>)`
+`db.<nombre de la colección>.insertMany(<array con los documentos json>, <documento de opciones>)`
 
 Los métodos `insertOne` e `insertAny` también aceptan un argumento con opciones.
 
@@ -23,6 +23,15 @@ Si el documento no especifica un campo `_id`, entonces MongoDB añade el campo `
 Como segundo argumento de `isertOne` e `insertMany` podemos pasar un documento JSON con opciones.
 
 El método `insertOne` admitirá únicamente la opción `writeConcern` mientras que `insertMany` admitirá las opciones `writeConcern` y `ordered`.
+
+El documento de opciones tiene la siguiente estructura:
+
+```json
+{
+    writeConcern: <documento JSON>,
+    ordered: <boolean>
+}
+```
 
 #### Opción `writeConcern`
 
@@ -44,7 +53,7 @@ Esta opción indica el nivel de *write concern* para la operación. El *write co
 
 Esta opción sólo se puede usar con `insertMany`. Si se especifica como `true` (valor por defecto) las operaciones de inserción se ejecutarán en orden y se detendrán en la primera operación que falle. Si se especifica como `false` las operaciones de inserción se ejecutarán en paralelo y se ignorarán los errores de inserción.
 
-## Búsqueda de documentos: *Read* / Consultar
+## Búsqueda de documentos: *Read* / Consultar `find`
 
 Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información que indique qué datos queremos seleccionar. Esta información se pasará en forma de documento JSON que recibe el nombre de *query document*.
 
@@ -53,7 +62,7 @@ Iremos viendo estos selectores poco a poco, ya que también se usarán en las op
 Para consultar los documentos de una colección que cumplan una determinada condición se usa el método `find()` y, en caso de que sólo nos interese el primer documento que cumpla la condición podemos usar `findOne()`.
 
 ```javascript
-db.<nombre de la colección>.find(<filtro>)
+db.<nombre de la colección>.find(<documento consulta>, <documento de proyección>, <documento de opciones>)
 ```
 
 ### Cursores
@@ -170,7 +179,7 @@ Con este comando obtendremos los tres alumnos con mejor nota (en caso de empate 
 db.alumnos.find({aprobado: true}).sort({nota: -1, nombre: 1, apellidos: 1}).limit(3)
 ```
 
-#### Consulta con múltiples condiciones
+### Consulta con múltiples condiciones
 
 Este selector es igual al anterior pero incluyendo en el JSON todos los pares **atributo - valor** que nos interese. Es equivalente a un **and** lógico.
 
@@ -189,7 +198,7 @@ sería equivalente a:
 }
 ```
 
-#### Consulta con múltiples condiciones válidas (`$or`)
+### Consulta con múltiples condiciones válidas (`$or`)
 
 Para realizar este tipo de consulta hemos de incluir un *atributo*, `$or`, cuyo valor ha de ser un **array** con las condiciones que han de cumplir los documentos que nos interesan. Obviamente los documentos seleccionados han de cumplir **al menos una** de las condiciones. Es equivalente a un **or** lógico
 
@@ -201,7 +210,7 @@ El siguiente código nos devolvería todos los usuarios que sean administradores
 }
 ```
 
-#### Consulta con selección por exclusión (`$not`)
+### Consulta con selección por exclusión (`$not`)
 
 Normalmente lo usaremos junto con el atributo `$eq` para significar *not equal*, es decir, distinto.
 
@@ -213,7 +222,19 @@ El siguiente selector nos devolvería todos los usuarios cuyo nombre **no sea** 
 }
 ```
 
-#### Operadores lógicos de consulta
+### Operador `$exists`
+
+Este operador se usa para seleccionar los documentos en los que exista un campo. El valor del campo puede ser `true` o `false` para indicar si el campo ha de existir o no.
+
+El siguiente selector nos devolvería todos los usuarios que tengan el campo `nombre` definido.
+
+```json
+{
+    'nombre': { $exists: true }
+}
+```
+
+### Operadores lógicos de consulta
 
 * `$not`: Es la única que se aplica a una única expresión. En el resto de operadores lógicos se aplica a un array de expresiones.
 * `$and`: Une las cláusulas de búsqueda con un **and** lógico y devolverá los resultados que cumplan todas las cláusulas.
@@ -247,9 +268,23 @@ De este modo podríamos hacer una consulta para obtener los usuarios con una eda
 }
 ```
 
-#### Consultas sobre arrays
+### Consultas sobre arrays
 
-##### Seleccionar por igualdad en array
+Los campos cuyos valores son *arrays*, como veremos, tienen un comportamiento especial respectos a los campos *simples*.
+
+Lo operadores específicos de consultas sobre *arrays* son:
+
+* `$all`: Selecciona los documentos que contengan todos los valores de un array que especificamos.
+* `$elemMatch`: Selecciona los documentos que contengan un elemento que cumpla las condiciones especificadas.
+* `$size`: Selecciona los documentos que contengan un array con un número de elementos igual al especificado.
+
+Adicionalmente podremos hacer referencia a una posición concreta de un array usando la notación de punto.
+
+```javascript
+db.<nombre de la colección>.find({ '<nombre campo array>.<posición>': <valor> })
+```
+
+#### Seleccionar por igualdad en array
 
 ```javascript
 db.alumnos.find( { modulos: ['BDA', 'SBD'] } )
