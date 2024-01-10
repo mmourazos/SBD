@@ -268,7 +268,7 @@ De este modo podríamos hacer una consulta para obtener los usuarios con una eda
 }
 ```
 
-### Consultas sobre arrays
+### Consultas sobre *arrays*
 
 Los campos cuyos valores son *arrays*, como veremos, tienen un comportamiento especial respectos a los campos *simples*.
 
@@ -278,10 +278,18 @@ Lo operadores específicos de consultas sobre *arrays* son:
 * `$elemMatch`: Selecciona los documentos que contengan un elemento que cumpla las condiciones especificadas.
 * `$size`: Selecciona los documentos que contengan un array con un número de elementos igual al especificado.
 
-Adicionalmente podremos hacer referencia a una posición concreta de un array usando la notación de punto.
+Adicionalmente **podremos hacer referencia a una posición concreta de un array** usando la notación de punto:
 
 ```javascript
 db.<nombre de la colección>.find({ '<nombre campo array>.<posición>': <valor> })
+```
+
+con un ejemplo concreto:
+
+```javascript
+db.alumnos.find({
+    'notas.0': { $gte: 5 },
+})
 ```
 
 #### Seleccionar por igualdad en array
@@ -299,6 +307,14 @@ Si lo que queremos es seleccionar los documentos cuyo array `modulos` contiene u
 ```javascript
 db.alumnos.find({
     modulos: 'SBD'
+})
+```
+
+sería equivalente al siguiente código usando `$elemMatch`:
+
+```javascript
+db.alumnos.find({
+    modulos: { $elemMatch: { $eq: 'SBD' } }
 })
 ```
 
@@ -356,7 +372,7 @@ Si queremos seleccionar todos los documentos cuyas notas, **todas**, sean mayore
 
 ```javascript
 db.alumnos.find({
-    notas: {$not: {$lt: 5}}
+    notas: { $not: { $lt: 5 } }
 })
 ```
 
