@@ -18,6 +18,32 @@ Los métodos `insertOne` e `insertAny` también aceptan un argumento con opcione
 
 Si el documento no especifica un campo `_id`, entonces MongoDB añade el campo `_id` y le asigna un `ObjectId()` único para el documento. La mayoría de los drivers crean un `ObjectId` y lo asignarán al atributo `_id`, pero el `mongod` creará y rellenará el campo `_id` si el driver o la aplicación no lo hace.
 
+### Opciones `writeConcern` y `ordered`
+
+Como segundo argumento de `isertOne` e `insertMany` podemos pasar un documento JSON con opciones.
+
+El método `insertOne` admitirá únicamente la opción `writeConcern` mientras que `insertMany` admitirá las opciones `writeConcern` y `ordered`.
+
+#### Opción `writeConcern`
+
+Esta opción indica el nivel de *write concern* para la operación. El *write concern* es un mecanismo que permite exigirle a MongoDB que extienda la escritura a una serie de nodos réplica para que la operación se pueda considerar correcta. El *write concern* se especifica mediante un documento JSON con los siguientes campos:
+
+```json
+{
+    w: <valor>,
+    j: <boolean>,
+    wtimeout: <valor>
+}
+```
+
+* La opción `w` pide que se confirme que la operación de escritura se ha propagado a un número determinado de nodos réplica. El valor de `w` puede ser un número entero o la cadena `majority`. Si se especifica un número entero, la operación de escritura se confirma una vez que se ha propagado a ese número de nodos réplica. Si se especifica `majority`, la operación de escritura se confirma una vez que se ha propagado a la mayoría de los nodos réplica del clúster. El valor por defecto es `1`.
+* La opción `j` pide que se confirme que la operación de escritura se ha escrito en el diario del disco (*on-disk journal*) de MongoDB. El valor por defecto es `false`.
+* La opción `wtimeout` especifica un límite de tiempo para la confirmación de la operación de escritura. Si la operación de escritura no se ha confirmado en el tiempo especificado, la operación fallará. El valor por defecto es `0`, que significa que no hay límite de tiempo (con lo que la operación quedaría bloqueada hasta que se confirme la escritura).
+
+#### Opción `ordered`
+
+Esta opción sólo se puede usar con `insertMany`. Si se especifica como `true` (valor por defecto) las operaciones de inserción se ejecutarán en orden y se detendrán en la primera operación que falle. Si se especifica como `false` las operaciones de inserción se ejecutarán en paralelo y se ignorarán los errores de inserción.
+
 ## Búsqueda de documentos: *Read* / Consultar
 
 Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información que indique qué datos queremos seleccionar. Esta información se pasará en forma de documento JSON que recibe el nombre de *query document*.

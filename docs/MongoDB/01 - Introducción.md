@@ -113,7 +113,7 @@ Javascript Simple Object Notation
 
 ### Uso desde la *shell*
 
-En Linux lanzaremos la *shell* de mongo mediante el comando `mongosh`. Esta shell consiste en un REPL (*Read Eval Print Loop*) de Node.js por lo que podremos escribir código JavaScript además de cagar scripts (usando la instrucción `load`) o bien desde la consola de Linux con la opción `--file` de `mongosh`.
+En Linux lanzaremos la *shell* de mongo mediante el comando `mongosh`. Esta shell consiste en un REPL (*Read Eval Print Loop*) de **Node.js** por lo que podremos escribir código JavaScript además de cagar scripts (usando la instrucción `load`) o bien desde la consola de Linux con la opción `--file` de `mongosh`.
 
 #### Conexión a un servidor de MongoDB
 
@@ -157,7 +157,6 @@ sudo ufw allow from <ip del equipo cliente> to any port 27017
 * Mostrar información de ayuda sobre los comandos: `db.help()`.
 * Mostrar las bases de datos / colecciones del servidor: `show dbs` / `show collections`.
 * Seleccionar una base de datos: `use <nombre de la DB>`.
-* Colecciones o *tablas* que puedes tener una una DB: `show collections` o `show tables`.
 * Consultar el nombre de la base de datos activa: `db.getName()`.
 * Consultar los metadatos de la base de datos activa: `db.stats()`.
 * Obtener información sobre el sistema dónde se está ejecutando Mongodb: `db.hostInfo()`.
