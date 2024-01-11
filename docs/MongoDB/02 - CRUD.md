@@ -4,7 +4,7 @@ Las operaciones CRUD son las operaciones básicas que se pueden realizar sobre u
 
 En este documento veremos cómo se realizan estas operaciones en MongoDB desde la *shell* de mongo (`mongosh`). Empezaremos por la creación de documentos. A continuación veremos lecturas / consultas para ver cómo se definen y usan los selectores, ya que se usarán los selectores en el resto de operaciones. Y finalmente iremos viendo el resto de operaciones: modificar (*update*) y borrar (*delete*).
 
-## Creación de documentos *Create* / Insertar `insert`
+## *Create* / Insertar `insert`
 
 Para crear documentos en una colección usaremos los comandos `insertOne` o `insertMany`.
 
@@ -53,7 +53,7 @@ Esta opción indica el nivel de *write concern* para la operación. El *write co
 
 Esta opción sólo se puede usar con `insertMany`. Si se especifica como `true` (valor por defecto) las operaciones de inserción se ejecutarán en orden y se detendrán en la primera operación que falle. Si se especifica como `false` las operaciones de inserción se ejecutarán en paralelo y se ignorarán los errores de inserción.
 
-## Búsqueda de documentos: *Read* / Consultar `find`
+## *Read* / Consultar `find`
 
 Este función sirve para realizar consultas sobre las colecciones de la base de datos. Para *filtrar* o *seleccionar* los datos que queremos obtener habrá que pasar como argumento cierta información que indique qué datos queremos seleccionar. Esta información se pasará en forma de documento JSON que recibe el nombre de *query document*.
 
@@ -65,17 +65,95 @@ Para consultar los documentos de una colección que cumplan una determinada cond
 db.<nombre de la colección>.find(<documento consulta>, <documento de proyección>, <documento de opciones>)
 ```
 
+### Documento de consulta
+
+El documento de consulta es un documento JSON que indica qué documentos de la colección queremos obtener. Este documento se pasa como primer argumento de la función `find()`.
+
+Un ejemplo de documento de consulta sería:
+
+```javascript
+{
+    nombre: 'Manuel',
+    apellidos: 'Piñeiro'
+}
+```
+
+Este documento indica que queremos obtener los documentos de la colección que tengan el campo `nombre` con el valor `Manuel` y el campo `apellidos` con el valor `Piñeiro`.
+
+En los siguientes apartados veremos cómo se pueden construir estos documentos de consulta en más detalle.
+
+### Documento de proyección
+
+El documento de proyección es, de nuevo, un documento JSON que indica qué campos de los documentos queremos obtener. Este documento se pasa como segundo argumento de la función `find()`.
+
+Un ejemplo de documento de proyección sería:
+
+```javascript
+{
+    nombre: 1,
+    apellidos: 1,
+    notas: 1
+}
+```
+
+Este documento indica que queremos obtener los campos `nombre`, `apellidos` y `notas` de los documentos seleccionados. El valor `1` indica que queremos obtener el campo y el valor `0` indica que no queremos obtenerlo.
+
+### Documento de opciones
+
+El documento de opciones es un documento JSON que indica ciertas opciones para la consulta. Este documento se pasa como tercer argumento de la función `find()`.
+
+Un ejemplo de documento de opciones sería:
+
+```javascript
+{
+    limit: 10,
+    skip: 5,
+    sort: { nombre: 1, apellidos: 1 }
+}
+```
+
+Este documento indica que queremos obtener como máximo 10 documentos, que nos saltaremos los 5 primeros y que queremos que los resultados estén ordenados por el campo `nombre` y, en caso de empate, por el campo `apellidos` de manera creciente.
+
+En [este enlace](https://mongodb.github.io/node-mongodb-native/4.0//interfaces/findoptions.html) se puede consultar la lista completa de opciones. Como se puede ver, el número de opciones es muy grande y no las veremos en este documento.
+
 ### Cursores
 
-El método `find()` **no devuelve los documentos buscados** si no que devuelve un **cursor** a los misos. Un cursor es un objeto que contiene referencias a los documentos seleccionados permite acceder a ellos recorriendo o *iterando sobre el cursor*. *Recorrer* el cursor es una operación que *consume* el cursor, es decir, que una vez que se ha recorrido el cursor ya no se puede volver a recorrer.
+El método `find()` **no devuelve los documentos buscados** si no que devuelve un **cursor** a los mismos. Un cursor es un objeto que contiene referencias a los documentos seleccionados permite acceder a ellos recorriendo o *iterando sobre el cursor*. *Recorrer* el cursor es una operación que *consume* el cursor, es decir, que una vez que se ha recorrido el cursor ya no se puede volver a recorrer.
 
-El cursor se mantiene en el servidor de MongoDB y tiene una vida limitada. Si no se recorre el cursor en un tiempo determinado, MongoDB lo cerrará automáticamente.
+Por ejemplo, si obtenemos los 10 primeros elementos de una colección con el método `find()` y luego procesamos el cursor resultante:
+
+```javascript
+test> use airbnb_bar
+
+airbnb_bar> let listings = db.listings.find( { }, { }, { limit: 10 } )
+
+airbnb_bar> let c = 0
+
+airbnb_bar> listings.forEach( doc => print(++c) )
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+airbnb_bar> listings.hasNext()
+false
+airbnb_bar> listings.next()
+MongoCursorExhaustedError: Cursor is exhausted
+```
+
+El cursor **se mantiene en el servidor** de MongoDB y tiene una vida limitada. Si no se recorre el cursor en un tiempo determinado, MongoDB lo cerrará automáticamente.
 
 Cuando hacemos una consulta en la *shell* de mongo y **no asignamos** el resultado a una variable, la consola de mongo itera por su cuenta sobre el cursor y muestra los resultados en pantalla. Estos resultados se muestran en bloques de 20 documentos.
 
 ***Nota:*** No hay una forma simple de conocer el número de resultados que devuelve un cursor **sin consumir** el mismo. Tanto el método `count()` (no recomendado y no disponible en algunos cursores) como el método `explain` **consumirán el cursor**.
 
-***Nota:*** Para conocer el número de resultados que, probablemente, vamos a obtener con una consulta hemos de usar el método `countDocuments(<query document>, <options>)`.
+***Nota:*** Para conocer el número de resultados que, probablemente, vamos a obtener con una consulta hemos de usar el método `countDocuments(<query document>, <options>)`. Para conocer el número de documentos de una colección podemos usar el método `estimatedDocumentCount()`.
 
 Existen varias formas para iterar sobre un cursor en la shell de mongo:
 
@@ -236,36 +314,20 @@ El siguiente selector nos devolvería todos los usuarios que tengan el campo `no
 
 ### Operadores lógicos de consulta
 
-* `$not`: Es la única que se aplica a una única expresión. En el resto de operadores lógicos se aplica a un array de expresiones.
 * `$and`: Une las cláusulas de búsqueda con un **and** lógico y devolverá los resultados que cumplan todas las cláusulas.
 * `$or`: Une las cláusulas de búsqueda con un **or** lógico y devolverá los resultados que cumplan alguna de las cláusulas.
 * `$nor`: Une las cláusulas de búsqueda con un **nor** lógico y devolverá los resultados que no cumplan ninguna de las cláusulas.
+* `$not`: No es un operador como los anteriores. En el caso de `$not` **no se puede aplicar sobre un array de expresiones** si no que su función es la de negar una expresión.
 
-Ejemplo de `$and`:
-
-```javascript
-{ $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
-```
-
-#### Aclaración de `$not`
-
-`$not` no puede usarse como operador lógico, si no que se usa para negar una expresión. Por ejemplo, para seleccionar los usuarios que no sean administradores:
+No podrá usarse `$not` en expresiones como:
 
 ```javascript
 {
-    'rol': { $not: { $eq: 'admin' } }
+    $not: [ { 'rol': 'admin' }, { 'activo': true } ]
 }
 ```
 
-y nunca podrá escribise como:
-
-```javascript
-{
-    $not: [ { 'rol': 'admin' } ]
-}
-```
-
-Si quisiéramos seleccionar los usuarios que no sean administradores **y** que no estén activos lo haríamos de la siguiente manera:
+habrá que usar `$nor` en su lugar:
 
 ```javascript
 {
@@ -273,18 +335,27 @@ Si quisiéramos seleccionar los usuarios que no sean administradores **y** que n
 }
 ```
 
-ya que:
+la forma correcta de usar `$not` sería:
 
 ```javascript
 {
-    $not: { $or [ { 'rol': 'admin' }, { 'activo': true } ] }
+    'rol': { $not: { $eq: 'admin' } }
 }
 ```
 
-Generará el error:
 
-```bash
-MongoServerError: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+Ejemplo de `$and`:
+
+```javascript
+{ $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+```
+
+Si quisiéramos seleccionar los usuarios que **no** sean administradores **y** que **no** estén activos lo haríamos de la siguiente manera:
+
+```javascript
+{
+    $nor: [ { 'rol': 'admin' }, { 'activo': true } ]
+}
 ```
 
 ### Operadores de comparación
@@ -318,19 +389,15 @@ Lo operadores específicos de consultas sobre *arrays* son:
 * `$elemMatch`: Selecciona los documentos que contengan un elemento que cumpla las condiciones especificadas.
 * `$size`: Selecciona los documentos que contengan un array con un número de elementos igual al especificado.
 
-Adicionalmente **podremos hacer referencia a una posición concreta de un array** usando la notación de punto:
-
-```javascript
-db.<nombre de la colección>.find( { '<nombre campo array>.<posición>': <valor> } )
-```
-
-con un ejemplo concreto:
+Adicionalmente **podremos hacer referencia a una posición concreta de un array** usando la notación de punto `<nombre campo array>.<posición>`:
 
 ```javascript
 db.alumnos.find( {
     'notas.0': { $gte: 5 },
 } )
 ```
+
+en el ejemplo anterior seleccionaríamos los alumnos cuya primera nota es mayor o igual que 5.
 
 #### Seleccionar por igualdad en array
 
@@ -361,7 +428,7 @@ db.alumnos.find( {
 Nótese que no se compara con ningún array, si no que se comprueba que el array incluye un elemento con la cadena `SBD`.
 
 Si queremos comprobar si contiene varios elementos a la vez (y posiblemente otros) usaremos el operador `$all`.
-El operador `$all` permite seleccionar los documentos que contengan todos los valores de un array que especificamos. Lo único que se comprueba es que el array contenga todos los elementos indicados sin importar el orden y sin importar que contenga otros elementos.
+El operador `$all` permite seleccionar los documentos que contengan **todos los valores** de un array que especificamos. Lo único que se comprueba es que el array contenga todos los elementos indicados sin importar el orden y sin importar que contenga otros elementos.
 
 De esta forma con el siguiente filtro se devolverán los documentos que contengan los valores `matemáticas` y `física` en su array `especialidades`.
 
@@ -393,7 +460,18 @@ const cursor = db.inventory.find( {
 } )
 ```
 
-Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cuyo valor sea estrictamente mayor que 15 y menor que 20.
+Seleccionará los documentos cuyo array `dim_cm` contenga **algún elemento** cuyo valor sea estrictamente mayor que 15 y menor que 20. Es decir, sería equivalente a:
+
+```javascript
+const cursor = db.inventory.find( {
+  dim_cm: {
+    $elemMatch: {
+      $gt: 15,
+      $lt: 20
+    }
+  }
+} )
+```
 
 ##### Filtro para TODOS los elementos de un array
 
@@ -442,7 +520,7 @@ Lo único que hemos de tener en cuenta para realizar consultas sobre documentos 
 
 Si tenemos un documento con la siguiente estructura:
 
-```json
+```javascript
 {
    'id': 1,
    'nombre': 'Manuel',
@@ -859,13 +937,37 @@ db.usuarios.updateOne({ id: 1 }, { apellidos: "Piñeiro Mourazos", fecha_nacimie
 
 **Nota**: se puede añadir atributos.
 
-### *Delete* / Eliminar
+## *Delete* / Eliminar
 
 Esta operación se realiza con los métodos `deleteOne` o `deleteMany` y los filtros / selectores de MongoDB.
+
+```javascript
+db.<nombre de la colección>.deleteOne(<documento de consulta>, <documento de opciones>)
+```
+
+Veamos un par de ejemplos:
+
+```javascript
+db.airbnb_bar.deleteOne( { _id: 1 } )
+```
+
+o
+
+```javascript
+db.airbnb_bar.deleteMany( 
+    { 
+        host_neighbourhood: "Dreta de l'Eixample" 
+    },
+    { 
+        writeConcern: {
+            w: 1,
+            j: true 
+        }
+    } 
+ )
+```
 
 Estos comandos tienen como **valor de retorno** un documento (JSON) con dos campos:
 
 * ***acknowledged***: un valor booleano que será cierto si la operación se ejecutó con *write concern* o falso si no lo hizo.
 * ***deleteCount***: Indica el número total de documentos borrados.
-
-Muy resumidamente, la opción *write concern* es una forma de *exigirle* a mongo que extienda la escritura a una serie de nodos réplica para que la operación se pueda considerar correcta.
