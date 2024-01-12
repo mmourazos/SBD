@@ -116,3 +116,26 @@ Si quisiésemos que los campos `first_review` y `last_review` fuesen de tipo `Da
 ```
 
 Nótese que `$set` es un alias para `$addFields`.
+
+```javascript
+db.det_listings.aggregate( [ {
+    $match: { price: { $ne: "" } } 
+  },
+  {
+    $set: {
+      first_review: { $toDate: '$first_review' },
+      last_review: { $toDate: '$last_review' }
+    }
+  },
+  {
+    $group: {
+      _id: '$neighbourhood',
+      avg_price: { $avg: '$price' },
+      min_nights: { $min: '$minimum_nights' },
+      max_nights: { $max: '$maximum_nights' },
+      avg_first_review: { $avg: '$first_review' },
+      avg_last_review: { $avg: '$last_review' }
+    }
+  }
+] )
+```

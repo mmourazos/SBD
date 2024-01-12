@@ -49,7 +49,7 @@ El comando `createIndex` admite tres argumentos, el primero obligatorio y los ot
 Por ejemplo, si queremos crear un índice sobre el campo `nombre` de la colección `alum` lo haremos de la siguiente manera:
 
 ```javascript
-db.alum.createIndex({nombre: 1})
+db.alum.createIndex( { nombre: 1 } )
 ```
 
 El valor `1` indica que el índice se ordenará de forma ascendente. Si quisiéramos que se ordenara de forma descendente usaríamos el valor `-1`.
@@ -57,7 +57,7 @@ El valor `1` indica que el índice se ordenará de forma ascendente. Si quisiér
 Si deseamos eliminar un índice lo haremos de la siguiente manera:
 
 ```javascript
-db.alum.dropIndex({nombre: 1})
+db.alum.dropIndex( { nombre: 1  } )
 ```
 
 o bien usando el *nombre* del índice:
@@ -67,14 +67,14 @@ db.alum.dropIndex('nombre_1')
 ```
 
 Por ejemplo, en nuestra base de datos de ejemplo `airbnb_bar` podía ser interesante crear un índice sobre el campo `listing_id` de la colección `det_reviews`:
-`db.airbnb_bar.det_reviews.createIndex({price: 1})`
+`db.airbnb_bar.det_reviews.createIndex( { price: 1 } )`
 
 ## Índices compuestos
 
 Son índices que se definen sobre varios campos de una colección. Se definen de la siguiente manera:
 
 ```javascript
-db.alum.createIndex({nombre: 1, edad: -1})
+db.alum.createIndex( { nombre: 1, edad: -1 } )
 ```
 
 En este caso estamos indicando a mongo que cree un índice sobre dos campos: `nombre` y `edad`. El índice se ordenará de forma ascendente en el campo `nombre` y de forma descendente en el campo `edad`.
@@ -84,7 +84,7 @@ En este caso estamos indicando a mongo que cree un índice sobre dos campos: `no
 Los índices únicos son aquellos que no permiten que se repitan los valores de los campos sobre los que se definen. Por ejemplo, si queremos que el campo `DNI` de la colección `alum` no contenga valores repetidos crearemos un índice único sobre este campo:
 
 ```javascript
-db.alum.createIndex({DNI: 1}, {unique: true})
+db.alum.createIndex( { DNI: 1 }, { unique: true } )
 ```
 
 Como podemos ver se incluye un segundo parámetro en el que se indica que el índice es único. Este documento contendrá las opciones que deseemos aplicar al índice y es opcional. En las opciones podemos indicar, por ejemplo, que el índice sea único, el nombre del índice, etc.
