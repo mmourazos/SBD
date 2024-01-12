@@ -6,7 +6,7 @@ Los índices son estructuras de datos que se definen sobre uno o más campos de 
 
 El funcionamiento de un índice es el siguiente. Cuando realicemos una consulta sobre una colección, MongoDB, como paso previo, hará la consulta sobre el índice. Puesto que el índice es una estructura mucho más ligera que la colección real la consulta será más rápida. Esto le permitirá a MongoDB determinar qué documentos de la colección real han de ser devueltos como respuesta a la consulta. De este modo se evitará realizar la consulta sobre el conjunto total de documentos de la colección, que sería mucho más lento.
 
-En resumen: los índices son un intermediario rápido para evitar tener que realizar una consulta sobre el conjunto total de los datos de una colección.
+**En resumen:** los índices son un intermediario rápido para evitar tener que realizar una consulta sobre el conjunto total de los datos de una colección.
 
 Por defecto MongoDB, si no lo hacemos nosotros, crea un índice sobre el campo `_id` de cada colección.
 
@@ -49,7 +49,7 @@ El comando `createIndex` admite tres argumentos, el primero obligatorio y los ot
 Por ejemplo, si queremos crear un índice sobre el campo `nombre` de la colección `alum` lo haremos de la siguiente manera:
 
 ```javascript
-db.alum.createIndex( { nombre: 1 } )
+db.alumnos.createIndex( { nombre: 1 } )
 ```
 
 El valor `1` indica que el índice se ordenará de forma ascendente. Si quisiéramos que se ordenara de forma descendente usaríamos el valor `-1`.
@@ -57,7 +57,7 @@ El valor `1` indica que el índice se ordenará de forma ascendente. Si quisiér
 Si deseamos eliminar un índice lo haremos de la siguiente manera:
 
 ```javascript
-db.alum.dropIndex( { nombre: 1  } )
+db.alum.dropIndex( { nombre: 1 } )
 ```
 
 o bien usando el *nombre* del índice:
@@ -96,7 +96,7 @@ Si intentamos crear un índice único sobre un campo que ya contiene valores rep
 Los índices parciales son aquellos se sólo contienen entradas para aquellos documentos de la colección que contienen el campo sobre el que se ha creado el índice (aunque su valor fuese `null`). Por ejemplo, si queremos crear un índice sobre el campo `nombre` de la colección `alum` pero sólo queremos que se cree para aquellos documentos que contienen el campo `nombre` lo haremos de la siguiente manera:
 
 ```javascript
-db.alum.createIndex({nombre: 1}, {sparse: true})
+db.alum.createIndex( { nombre: 1 }, { sparse: true })
 ```
 
 Hasta aquí llega el contenido de este documento. En el siguiente veremos cómo podemos obtener información sobre el rendimiento de las consultas que realizamos sobre MongoDB y así podremos comprobar si los índices que hemos creado son efectivos o no.

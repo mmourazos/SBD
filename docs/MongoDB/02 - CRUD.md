@@ -343,7 +343,6 @@ la forma correcta de usar `$not` sería:
 }
 ```
 
-
 Ejemplo de `$and`:
 
 ```javascript
