@@ -67,7 +67,7 @@ db.alum.dropIndex('nombre_1')
 ```
 
 Por ejemplo, en nuestra base de datos de ejemplo `airbnb_bar` podía ser interesante crear un índice sobre el campo `listing_id` de la colección `det_reviews`:
-`db.airbnb_bar.det_reviews.createIndex({price: 1})`
+`db.airbnb_bar.det_reviews.createIndex( { price: 1 } )`
 
 ## Índices compuestos
 

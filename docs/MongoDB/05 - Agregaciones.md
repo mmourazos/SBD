@@ -17,7 +17,19 @@ Un ejemplo de *pipeline* de agregaciones sería el siguiente:
 ]
 ```
 
-Como podemos ver este *pipeline* tiene dos etapas de agregación. En la primera etapa de agregación filtramos los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
+Una agregación que transforme un campo de texto a numérico podría ser la siguiente:
+
+```javascript
+db.listings.aggregate( [
+  {
+    $addFields: {
+      price: { $toInt: $substring: [ '$price', 1, { $strLenCP: '$price' } ] }
+    }
+  }
+] )
+```
+
+Como podemos ver este *pipeline* tiene1 dos etapas de agregación. En la primera etapa de agregación filtramos los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
 
 Para realizar agregaciones se utilizarán *pipelines* de agregaciones.
 
@@ -116,3 +128,26 @@ Si quisiésemos que los campos `first_review` y `last_review` fuesen de tipo `Da
 ```
 
 Nótese que `$set` es un alias para `$addFields`.
+
+```javascript
+db.det_listings.aggregate( [ {
+    $match: { price: { $ne: "" } } 
+  },
+  {
+    $set: {
+      first_review: { $toDate: '$first_review' },
+      last_review: { $toDate: '$last_review' }
+    }
+  },
+  {
+    $group: {
+      _id: '$neighbourhood',
+      avg_price: { $avg: '$price' },
+      min_nights: { $min: '$minimum_nights' },
+      max_nights: { $max: '$maximum_nights' },
+      avg_first_review: { $avg: '$first_review' },
+      avg_last_review: { $avg: '$last_review' }
+    }
+  }
+] )
+```
