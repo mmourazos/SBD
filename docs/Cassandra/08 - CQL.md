@@ -18,7 +18,7 @@ Los elementos de una base de datos SQL tienen una correspondencia directa con lo
 
 ![Estructura de un sistema Cassandra](Imágenes/Estructura.svg)
 
-### Tipos de datos en Cassandra
+## Tipos de datos en Cassandra
 
 | Categoría | Tipo de dato CQL | Descripción |
 | --------- | ---------------- | ----------- |
@@ -42,7 +42,7 @@ Los elementos de una base de datos SQL tienen una correspondencia directa con lo
 | " | `blob` | Secuencia de bytes |
 | " | `timestamp` | Marca de tiempo |
 
-### Comentarios en CQL
+## Comentarios en CQL
 
 Cassandra admite tres tipos de comentarios:
 
@@ -50,9 +50,9 @@ Cassandra admite tres tipos de comentarios:
 * Comentarios de una línea: `//`
 * Comentarios de varias líneas: `/* */`
 
-### Creación del modelo de datos
+## Creación del modelo de datos
 
-#### Creación de un *keyspace*
+### Creación de un *keyspace*
 
 Para crear un *keyspace* utilizamos la sentencia `CREATE KEYSPACE`:
 
@@ -76,7 +76,7 @@ Para indicar que vamos a utilizar el *keyspace* `my_keyspace` utilizamos la sent
 USE my_keyspace;
 ```
 
-#### Modificar un *keyspace*
+### Modificar un *keyspace*
 
 Para modificar un *keyspace* utilizamos la sentencia `ALTER KEYSPACE`:
 
@@ -85,7 +85,7 @@ ALTER KEYSPACE <keyspace_name>
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : <n> };
 ```
 
-#### Borrar un *keyspace*
+### Borrar un *keyspace*
 
 Para borrar un *keyspace* utilizamos la sentencia `DROP KEYSPACE`:
 
@@ -93,7 +93,7 @@ Para borrar un *keyspace* utilizamos la sentencia `DROP KEYSPACE`:
 DROP KEYSPACE <keyspace_name>;
 ```
 
-#### Creación de una tabla
+### Creación de una tabla
 
 Para crear una tabla utilizamos la sentencia `CREATE TABLE`:
 
@@ -174,7 +174,6 @@ CREATE TABLE timeline (
 ```
 
 **Nótese que:** Una **primary key ha de ser única** pero ni la PK (partition key) ni la CK (clustering key) han de ser únicas por separado.
-
 
 #### Modificar una tabla
 

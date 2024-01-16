@@ -4,7 +4,7 @@ Para realizar las pruebas con Cassandra crearemos un cluster de 3 nodos en local
 
 ## Obteniendo la imagen de Cassandra
 
-Usaremos la imagen oficial de Cassandra que se encuentra en Docker Hub: https://hub.docker.com/_/cassandra
+Usaremos la imagen oficial de Cassandra que se encuentra en Docker Hub: [https://hub.docker.com/_/cassandra](https://hub.docker.com/_/cassandra).
 
 Para obtener la imagen ejecutaremos el siguiente comando:
 
@@ -142,4 +142,3 @@ Para comprobar que los contenedores se han iniciado correctamente ejecutaremos e
 ```bash
 docker-compose ps
 ```
-
