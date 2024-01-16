@@ -48,7 +48,7 @@ La sintaxis para indicar el campo por el que se agrupan los documentos es la sig
 { $group: { _id: <campo> } }
 ```
 
-Dentro de una etapa de agregación `$group` podremos utilzar [expresiones de acumulación](https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#std-label-accumulators-group) para calcular valores sobre los documentos agrupados.
+Dentro de una etapa de agregación `$group` podremos utilizar [expresiones de acumulación](https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#std-label-accumulators-group) para calcular valores sobre los documentos agrupados.
 
 Algunas de estas expresiones son:
 
@@ -74,6 +74,4 @@ La operación `$addFields` agrega nuevos campos a los documentos. Similar a `$pr
 
 En el momento de crear nuevos campos podremos hacer referencia a los campos existentes en el documento de entrada. Para ello utilizaremos la sintaxis `$<nombre_campo>`. También podremos usar [operadores de expresiones](https://www.mongodb.com/docs/manual/reference/operator/aggregation/#std-label-aggregation-expressions), como `$toDate` o `$function`, para crear nuevos campos.
 
-En el siguiente ejemplo añadimos un campo 
-
-
+En el siguiente ejemplo añadimos un campo
