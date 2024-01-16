@@ -1,2 +1,0 @@
-# Consistencia de los datos
-

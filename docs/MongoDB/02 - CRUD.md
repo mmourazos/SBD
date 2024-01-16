@@ -901,7 +901,7 @@ Haremos lo siguiente:
 * Usaremos `$sort` para ordenar dicho array `quizzes` de manera **descendiente** (argumento -1).
 * Usamos `$slice` para quedarnos únicamente con los tres primeros elementos de `quizzes`.
 
-```json
+```javascript
 db.estudiantes.updateOne(
     { _id: 5},
     {
