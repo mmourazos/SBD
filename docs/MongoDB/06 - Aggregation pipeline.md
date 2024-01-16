@@ -47,6 +47,7 @@ La sintaxis para indicar el campo por el que se agrupan los documentos es la sig
 ```javascript
 { $group: { _id: <campo> } }
 ```
+
 Dentro de una etapa de agregación `$group` podremos utilzar [expresiones de acumulación](https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#std-label-accumulators-group) para calcular valores sobre los documentos agrupados.
 
 Algunas de estas expresiones son:
