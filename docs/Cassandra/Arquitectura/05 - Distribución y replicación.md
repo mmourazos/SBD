@@ -4,7 +4,7 @@ Distribución y replicación son los conceptos básicos que emplea Cassandra par
 
 ## Elementos involucrados en la distribución y replicación
 
-*** Nodos virtuales (*Vnodes*)**: aumentan el grado de granularidad de los datos.
+* **Nodos virtuales (*Vnodes*)**: aumentan el grado de granularidad de los datos.
 * **Particionador**: determina en qué nodo se va a almacenar un dato en función de su PK.
 * **Estrategia de replicación**: determina el número de copias que se van a almacenar de cada dato.
 * ***Snitch***: determina la topología de la red.
