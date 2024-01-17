@@ -17,6 +17,6 @@ Un borrado se realiza como una escritura. Se realiza un borrado lógico creando 
 
 ## Lectura
 
-Una lectura intentará en primer lugar leer de la *memtable*. Si no encuentra el dato, aún tiene la posibilidad de encontrarlo en otra caché llamada *row cache*. Si no lo encuentra en la *row cache*.
+Una lectura intentará en primer lugar leer de la *memtable*. Si no encuentra el dato, aún tiene la posibilidad de encontrarlo en otra caché llamada *row cache*.
 
 Si el dato no se encontró ni en la *memtable* ni en la *row cache*, se acudirá al *Bloom filter* de la *SSTable* que nos podrá decir si el dato existe en la *SSTable* o no. Si el *Bloom filter* nos dice que el dato existe, se acudirá al índice de la *SSTable* para encontrar la posición del dato en el fichero de datos. Si el *Bloom filter* nos dice que el dato no existe, se devolverá un error.
