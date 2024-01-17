@@ -52,3 +52,28 @@ services:
       condition: service_healthy
   cass3:
     image: cassandra:latest
+    container_name: cass3
+    hostname: cass3
+    mem_limit: 2g
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+    networks:
+      - cassandra
+    ports:
+      - "9045":"9042"
+    volumes:
+      - ./data/cass3:/var/lib/cassandra
+      - ./etc/cass3:/etc/cassandra
+    environment:
+      <<: *environment
+    volumes:
+      - ./data/cass3:/var/lib/cassandra
+      - ./etc/cass3:/etc/cassandra
+    depends_on:
+      - cass1
+      - cass2
+      condition: service_healthy
+
