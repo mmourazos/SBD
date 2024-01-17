@@ -4,7 +4,7 @@ A diferencia de un *cluster* maestro-esclavo, en el que el nodo maestro es el re
 
 Un *cluster* de Cassandra se denomina *ring* o anillo. Este anillo está formado por varios nodos interconectados y configurados para propósitos de replicación. Los nodos serán *conscientes* de los otros nodos del anillo y de su estado y se comunicarán entre ellos para replicar los datos cumpliendo las condiciones de consistencia que se hayan establecido.
 
-Cada nodo del anillo tiene la misma importancia que los demás, **no hay un nodo maestro** y se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.
+Cada nodo del anillo tiene la misma importancia que los demás, **no hay un nodo maestro** ya que se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.
 
 ![Anillo de Cassandra](./Imágenes/Anillo.svg)
 
@@ -18,4 +18,4 @@ Cada nodo del anillo se puede dividir a su vez en *nodos virtuales* (vnodes). Ca
 
 ## Jerarquía de Cassandra
 
-En primer lugar tendremos el cluster, que estará formado por uno o varios *anillos* o datacenters*. Cada *datacenter* estará formado a su vez por uno o más *racks*, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán formado por uno o varios nodos virtuales.
+En primer lugar tendremos el cluster, que estará formado por uno o varios *anillos* o datacenters*. Cada *datacenter* estará formado a su vez por uno o más *racks*, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.

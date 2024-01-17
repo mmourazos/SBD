@@ -1,10 +1,10 @@
 # Introducción a Cassandra
 
-Apache Cassandra es un sistema de gestión de bases de datos NoSQL distribuido, altamente escalable y de alto rendimiento, diseñado para gestionar grandes cantidades de datos en múltiples servidores, proporcionando alta disponibilidad sin un único punto de fallo.
+Apache Cassandra es un sistema de gestión de bases de datos NoSQL distribuido, altamente escalable y de alto rendimiento. Fue diseñado para gestionar grandes cantidades de datos en múltiples servidores, proporcionando alta disponibilidad sin un único punto de fallo.
 
 Cassandra es un proyecto de **código abierto** desarrollado por Apache Software Foundation y escrito en Java. Es una base de datos gratuita con un modelo de negocio basado en servicios y soporte.
 
-Se trata de una base de datos NoSQL orientada a columnas o columnar. Esto significa que los datos se almacenan en columnas en lugar de filas.
+Se trata de una base de datos NoSQL columnar lo que significa que los datos se almacenan en columnas en lugar de filas.
 
 Esta base de datos, como suele suceder con las bases de datos NoSQL, no garantiza los principios ACID. En su lugar garantiza los principios BASE:
 
@@ -38,7 +38,7 @@ Una vez que el contenedor esté en ejecución podremos conectarnos a él usando 
 docker exec -it cassandra cqlsh
 ```
 
-de esta forma obtendremos una consola de Cassandra (cqlsh) desde la que podremos ejecutar comandos CQL.
+de esta forma obtendremos una consola de Cassandra ejecutado una *shell* de CQL (cqlsh) desde la que podremos ejecutar comandos CQL.
 
 ## ¿Qué es CQL?
 
@@ -50,7 +50,7 @@ En una base de datos columnar los datos se almacenan en columnas en lugar de fil
 
 Estas bases de datos están concebidas para recuperar datos en forma de columnas. Esto es útil cuando se desea recuperar un subconjunto de columnas de una tabla que contiene un gran número de columnas.
 
-Todos los valores de la misma columna se encuentran juntos en el disco. Esto permite que las consultas sean más rápidas.
+Todos los valores de la misma columna se encuentran juntos en el disco. Esto permite que las consultas, cuando sólo nos interesa un subconjunto de columnas, sean más rápidas.
 
 ## Características de Cassandra
 
@@ -76,4 +76,4 @@ Para maximizar el rendimiento tendremos que conocer cuales serán las consultas 
 
 ## Arquitectura
 
-Cluster es un conjunto de máquinas interconectadas que trabajan en paralelo. En Cassandra, un cluster contiene uno o más nodos. Un nodo es un servidor que almacena datos. Los nodos se utilizan para garantizar la disponibilidad y escalabilidad de los datos.
+Un *cluster* es un conjunto de máquinas interconectadas que trabajan en paralelo. En Cassandra, un *cluster* contiene uno o más nodos. Un nodo es un servidor que almacena datos. Los nodos se utilizan para garantizar la disponibilidad y escalabilidad de los datos.

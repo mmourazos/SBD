@@ -23,6 +23,8 @@ Cuando alcanza un tamaño determinado (indicado en la configuración), se vuelca
 
 ### *commit log*
 
+Los *commitlogs* son logs de sólo escritura (*append only*) de todos los cambios locales a un nodo de Cassandra. Cualquier dato escrito en Cassandra se escribirá primero en un *commit log* antes de escribirse en una *memtable*. Esto proporciona seguridad frente a un apagado inesperado. Al iniciarse un nodo, cualquier cambio registrado en el *commit log* se aplicará a las *memtables*.
+
 ### *SSTable*
 
 Consiste en una serie de ficheros en disco que contienen los datos de las particiones. Estos ficheros serán **inmutables**. Los datos, una vez se escriben en la *SSTable* **no se podrán modificar**. Las operaciones de modificación se realizarán creando nuevos ficheros, con las modificaciones, con un nuevo *timestamp*.
@@ -31,8 +33,8 @@ Cada *SSTable* tendrá asociadas las siguientes estructuras de datos (se crean c
 
 * Data (`Data.db`): contiene los datos de la *SSTable*.
 * Primary index (`Index.db`): contiene los índices de las claves de las columnas con punteros a sus posiciones en el fichero de datos.
-* Bloom filter (`Filter.db`): escritura almacenada en memoria que sirve para comprobar si una clave existe en la *memtable* antes de acceder a la *SSTable*.
+* Bloom filter (`Filter.db`): estructura almacenada en memoria que sirve para comprobar si una clave existe en la *memtable* antes de acceder a la *SSTable*.
 * Compression information (`CompressionInfo.db`): contiene información sobre la compresión de los datos.
 * Statistics (`Statistics.db`): contiene información estadística sobre los datos de la *SSTable*.
-* Secondary index (`SI_.*.db`): contiene los índices secundarios. Pueden varios en cada *SSTable*.
+* Secondary index (`SI_.*.db`): contiene los índices secundarios. Pueden existir varios en cada *SSTable*.
 * ...
