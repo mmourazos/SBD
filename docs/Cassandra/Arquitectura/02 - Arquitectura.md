@@ -18,4 +18,4 @@ Cada nodo del anillo se puede dividir a su vez en *nodos virtuales* (vnodes). Ca
 
 ## Jerarquía de Cassandra
 
-En primer lugar tendremos el cluster, que estará formado por uno o varios *anillos* o datacenters*. Cada *datacenter* estará formado a su vez por uno o más *racks*, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.
+En primer lugar tendremos el cluster, que estará formado por uno o varios *anillos* o *datacenters*. Cada *datacenter* estará formado a su vez por uno o más *racks*, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.

@@ -1,6 +1,9 @@
 # No se lo que es esto pero no lo quiero subir
 .crossnote/
 
+# Cluster de Cassandra para pruebas. No tiene sentido subirlo.
+cassandra_cluster/
+
 __pycache__/
 *.py[cod]
 *$py.class

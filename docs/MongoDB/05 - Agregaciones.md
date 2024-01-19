@@ -29,7 +29,7 @@ db.listings.aggregate( [
 ] )
 ```
 
-Como podemos ver este *pipeline* tiene1 dos etapas de agregación. En la primera etapa de agregación filtramos los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
+Como podemos ver este *pipeline* tiene dos etapas de agregación. En la primera etapa de agregación filtramos los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
 
 Para realizar agregaciones se utilizarán *pipelines* de agregaciones.
 

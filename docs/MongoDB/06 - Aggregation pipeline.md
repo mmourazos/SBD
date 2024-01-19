@@ -1,4 +1,4 @@
-# *Aggregatio pipeline*
+# *Aggregation pipeline*
 
 Como vimos en el apartado anterior el *aggregation pipeline* es el array de documentos que define las etapas o *stages* de agregación. Cada etapa de agregación es un documento que define una operación de agregación. Hay un total de 42 operaciones de agregación (a fecha del 16 de enero de 2024) que se pueden utilizar en las etapas de agregación. Por este motivo sólo vamos a ver una pequeña selección de las operaciones de agregación que considero más interesantes.
 
