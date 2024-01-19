@@ -35,6 +35,14 @@ let results = db.det_listings.aggregate([
    }
 ])
 
+
+let reviews_by_host = db.listings.aggregate([
+   { $group: { _id: { host_id: '$host_id', listing_id: '$id' } } },
+   { $lookup: { from: 'det_reviews', localField: 'host_id', foreignField: 'host_id', as: 'reviews' } },
+   { $group: { _id: '$_id.host_id', reviews: { $push: '$reviews' } } },
+   { $limit: 10 }
+])
+
 results.forEach(doc => {
    printjson(doc)
 })
