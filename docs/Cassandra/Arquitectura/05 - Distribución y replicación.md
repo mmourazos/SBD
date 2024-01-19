@@ -38,11 +38,11 @@ Cassandra utiliza la replicación para asegurar la disponibilidad y tolerancia a
 La replicación se realiza de forma automática y transparente para el usuario. Cassandra proporciona dos estrategias de replicación:
 
 * SimpleStrategy (por defecto): Usado para clusters con un único *datacenter*. Las réplicas se distribuyen en los nodos de forma secuencial.
-* NetworkTopologyStrategy: Usado para clusters con varios datacenters. Las réplicas se distribuyen en los nodos de forma secuencial en función de los datacenters. Se puede definir el factor de replicación por datacenter.
+* NetworkTopologyStrategy: Usado para clusters con varios *datacenters*. Las réplicas se distribuyen en los nodos de forma secuencial en función de los *datacenters*. Se puede definir el factor de replicación por *datacenter*.
 
 ### Snitch
 
-El snitch es el encargado de determinar la topología de la red. Es decir, determina a qué datacenter y a qué rack pertenece cada nodo. Cassandra proporciona varios snitches:
+El snitch es el encargado de determinar la topología de la red. Es decir, determina a qué *datacenter* y a qué rack pertenece cada nodo. Cassandra proporciona varios snitches:
 
 * Dynamic.
 * GoogleCloudSnitch.
