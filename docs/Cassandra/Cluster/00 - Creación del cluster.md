@@ -136,6 +136,17 @@ Para iniciar el cluster ejecutaremos el siguiente comando:
 docker-compose up -d
 ```
 
+y el resultado debería ser el siguiente:
+
+```bash
+> docker-compose up -d
+[+] Running 3/3
+ ✔ Container cass1 Healthy                                                      0.0s 
+ ✔ Container cass2 Healthy                                                      0.5s 
+ ✔ Container cass3 Started                                                      0.7s
+>
+```
+
 Para comprobar que los contenedores se han iniciado correctamente ejecutaremos el siguiente comando:
 
 **Revisar esto.**
