@@ -34,8 +34,9 @@ services:
     ports:
       - "9042:9042"
     volumes:
-      - ./data/cass1:/var/lib/cassandra
-      - ./etc/cass1:/etc/cassandra
+      - ./data/cass1:/var/lib/cassandra # Para almacenar los datos de la base de datos.
+      - ./etc/cass1:/etc/cassandra # Para poder editar los archivos de configuración.
+      - ./scripts:/scripts # Para escribir y ejecutar scripts de CQL.
 
     environment: &environment
       CASSANDRA_SEEDS: "cass1,cass2"
@@ -62,6 +63,7 @@ services:
     volumes:
       - ./data/cass2:/var/lib/cassandra
       - ./etc/cass2:/etc/cassandra
+      - ./scripts:/scripts
     environment:
       <<: *environment
     depends_on:
@@ -84,6 +86,7 @@ services:
     volumes:
       - ./data/cass3:/var/lib/cassandra
       - ./etc/cass3:/etc/cassandra
+      - .scripts:/scripts
     environment:
       <<: *environment
     depends_on:
@@ -93,10 +96,11 @@ services:
 
 Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.
 
-Cada nodo tiene dos volúmenes asociados:
+Cada nodo tiene tres volúmenes asociados:
 
 * `/data/cass1:/var/lib/cassandra`: Contiene los ficheros de la base de datos del nodo.
 * `/etc/cass1:/etc/cassandra`: Contiene los archivos de configuración del nodo.
+* `./scripts:/scripts`: Contendrá los scripts de CQL que vayamos escribiendo.
 
 Antes de arrancar el cluster hemos de crear los directorios `data/cass1`, `data/cass2` y `data/cass3` y los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
 
@@ -125,6 +129,16 @@ cp -a cassandra/cassandra.yaml cassandra/cass3/
 La opción `-a` de `cp` indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.
 
 Todo esto lo hacemos para que podamos **modificar los archivos de configuración de Cassandra** de cada nodo de forma independiente editando los archivos de los directorios locales `etc/cass1`, `etc/cass2` y `etc/cass3`.
+
+**Nota respecto al volumen `scriptsp`**: El volumen `scripts` se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio `scripts` del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:
+
+```bash
+docker exec -it cass1 cqlsh -f /scripts/script.cql
+```
+
+No es necesario crear el directorio `/scripts` en los contenedores ya que se crea automáticamente al crear el volumen `scripts`.
+
+Sí es necesario crear el directorio `scripts` en el host... *creo*.
 
 ## Iniciar el cluster
 
