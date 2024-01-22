@@ -12,18 +12,6 @@ Para obtener la imagen ejecutaremos el siguiente comando:
 docker pull cassandra:latest
 ```
 
-## Otener los archivos de configuración de Cassandra
-
-Para obtener los archivos de configuración de Cassandra ejecutaremos el siguiente comando:
-
-```bash
-docker run --rm -d --name temp cassandra:latest
-docker cp temp:/etc/cassandra .
-docker stop temp
-```
-
-Con esto obtendremos los archivos de configuración de Cassandra en el directorio `cassandra` de nuestro directorio actual.
-
 ## Creando el `docker-compose.yml`
 
 ```yaml
@@ -107,10 +95,22 @@ Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.
 
 Cada nodo tiene dos volúmenes asociados:
 
-* `/var/lib/cassandra`: Contiene los datos del nodo.
-* `/etc/cassandra`: Contiene los archivos de configuración del nodo.
+* `/data/cass1:/var/lib/cassandra`: Contiene los ficheros de la base de datos del nodo.
+* `/etc/cass1:/etc/cassandra`: Contiene los archivos de configuración del nodo.
 
-Los nodos `cass1` y `cass2` serán los nodos designados como semilla del cluster.
+Antes de arrancar el cluster hemos de crear los directorios `data/cass1`, `data/cass2` y `data/cass3` y los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
+
+A continuación copiaremos los archivos de configuración de Cassandra en los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
+
+Para ello hemos primero de obtener los archivos de configuración de Cassandra. Para ello los copiaremos de un contenedor de Cassandra que se ejecutará temporalmente.
+
+```bash
+docker run --rm -d --name temp cassandra:latest
+docker cp temp:/etc/cassandra .
+docker stop temp
+```
+
+las opciones `-rm` y `-d` indican que el contenedor se elimine automáticamente al pararlo y que se ejecute en segundo plano.
 
 ## Copiar los archivos de configuración de Cassandra
 
@@ -124,7 +124,11 @@ cp -a cassandra/cassandra.yaml cassandra/cass3/
 
 La opción `-a` de `cp` indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.
 
+Todo esto lo hacemos para que podamos **modificar los archivos de configuración de Cassandra** de cada nodo de forma independiente editando los archivos de los directorios locales `etc/cass1`, `etc/cass2` y `etc/cass3`.
+
 ## Iniciar el cluster
+
+Los nodos `cass1` y `cass2` serán los nodos designados como semilla del cluster.
 
 Para iniciar el cluster ejecutaremos el siguiente comando:
 
@@ -142,8 +146,12 @@ docker-compose ps
 
 ## Abrir una consola de CQLSH
 
+Para empezar a trabajar con Cassandra hemos de abrir una consola de CQLSH que nos permitirá ejecutar comandos CQL.
+
 Para abrir una consola de CQLSH ejecutaremos el siguiente comando:
 
 ```bash
 docker exec -it cass1 cqlsh
 ```
+
+Con este último paso estaremos listos para empezar a trabajar con Cassandra.
