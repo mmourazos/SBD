@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 networks:
   cassandra:
 services:
@@ -8,7 +8,7 @@ services:
     hostname: cass1
     mem_limit: 2g
     healthcheck:
-      test: [ "CMD", "cqlsh", "-e", "describe keyspaces" ]
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
       interval: 5s
       timeout: 5s
       retries: 60
@@ -19,6 +19,7 @@ services:
     volumes:
       - ./data/cass1:/var/lib/cassandra
       - ./etc/cass1:/etc/cassandra
+
     environment: &environment
       CASSANDRA_SEEDS: "cass1,cass2"
       CASSANDRA_CLUSTER_NAME: SolarSystem
@@ -26,13 +27,14 @@ services:
       CASSANDRA_RACK: West
       CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
       CASSANDRA_NUM_TOKENS: 128
+
   cass2:
     image: cassandra:latest
     container_name: cass2
     hostname: cass2
     mem_limit: 2g
     healthcheck:
-      test: [ "CMD", "cqlsh", "-e", "describe keyspaces" ]
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
       interval: 5s
       timeout: 5s
       retries: 60
@@ -41,8 +43,8 @@ services:
     ports:
       - "9043:9042"
     volumes:
-      - ./data/cass2:/var/lib/cass2
-      - ./etc/cass2:/etc/cass2
+      - ./data/cass2:/var/lib/cassandra
+      - ./etc/cass2:/etc/cassandra
     environment:
       <<: *environment
     depends_on:
@@ -54,7 +56,7 @@ services:
     hostname: cass3
     mem_limit: 2g
     healthcheck:
-      test: [ "CMD", "cqlsh", "-e", "describe keyspaces" ]
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
       interval: 5s
       timeout: 5s
       retries: 60

@@ -27,46 +27,46 @@ Con esto obtendremos los archivos de configuración de Cassandra en el directori
 ## Creando el `docker-compose.yml`
 
 ```yaml
-version: '3.8'
-#version: '2.4' # 2.4 is the last version that supports depends_on conditions for service health
+version: "3.8"
 networks:
-  cassandra:  # docker network where all cassandra nodes will be put in
+  cassandra:
 services:
   cass1:
-    image: cassandra:latest   # better to use a specific version, if you want to control upgrades
+    image: cassandra:latest
     container_name: cass1
     hostname: cass1
-    mem_limit: 2g  # It's not strictly required, but it's better to have some memory limit
+    mem_limit: 2g
     healthcheck:
-        test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
-        interval: 5s
-        timeout: 5s
-        retries: 60
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       - cassandra
     ports:
-      - "9042:9042"  # Expose native binary CQL port for your apps
+      - "9042:9042"
     volumes:
-      - ./data/cass1:/var/lib/cassandra    # This is the volume that will persist data for cass1 node
-      - ./etc/cass1:/etc/cassandra   # Use your own config files for full control
-    
-    environment: &environment    # Declare and save environments variables into "environment"
-        CASSANDRA_SEEDS: "cass1,cass2"    # The first two nodes will be seeds
-        CASSANDRA_CLUSTER_NAME: SolarSystem
-        CASSANDRA_DC: Mars
-        CASSANDRA_RACK: West
-        CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
-        CASSANDRA_NUM_TOKENS: 128
+      - ./data/cass1:/var/lib/cassandra
+      - ./etc/cass1:/etc/cassandra
+
+    environment: &environment
+      CASSANDRA_SEEDS: "cass1,cass2"
+      CASSANDRA_CLUSTER_NAME: SolarSystem
+      CASSANDRA_DC: Mars
+      CASSANDRA_RACK: West
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_NUM_TOKENS: 128
+
   cass2:
-    image: cassandra:lastest
-    container_name: cassandra2
+    image: cassandra:latest
+    container_name: cass2
     hostname: cass2
     mem_limit: 2g
     healthcheck:
-        test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
-        interval: 5s
-        timeout: 5s
-        retries: 60
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       - cassandra
     ports:
@@ -75,35 +75,32 @@ services:
       - ./data/cass2:/var/lib/cassandra
       - ./etc/cass2:/etc/cassandra
     environment:
-        <<: *environment    # Use the same environment variables as cass1
+      <<: *environment
     depends_on:
-      - cass1    # cass2 will wait for cass1 to be ready before starting
-      condition: service_healthy
-
+      cass1:
+        condition: service_healthy
   cass3:
-    image: cassandra:lastest
-    container_name: cassandra3
+    image: cassandra:latest
+    container_name: cass3
     hostname: cass3
     mem_limit: 2g
     healthcheck:
-        test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
-        interval: 5s
-        timeout: 5s
-        retries: 60
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       - cassandra
     ports:
-      - "9044:9042"
+      - "9045:9042"
     volumes:
       - ./data/cass3:/var/lib/cassandra
       - ./etc/cass3:/etc/cassandra
-    full_control:
-        <<: *environment
     environment:
-        <<: *environment
+      <<: *environment
     depends_on:
-      - cass2
-      condition: service_healthy
+      cass2:
+        condition: service_healthy
 ```
 
 Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.
