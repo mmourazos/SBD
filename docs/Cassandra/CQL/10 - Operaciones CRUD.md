@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS sbd.miembros (
     fecha_alta timestamp,
     fecha_de_nacimiento date,
     PRIMARY KEY (id, fecha_alta)
-)
+) WITH comment = 'Tabla con datos de prueba.',
+  AND CLUSTERING ORDER BY (fecha_alta DESC);
+```
 
 Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Por ello, a partir de ahora utilizaremos un fichero de texto para almacenar las sentencias CQL que queremos ejecutar.
 
