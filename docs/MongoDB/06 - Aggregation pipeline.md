@@ -217,7 +217,7 @@ La operación `$out` permite guardar el resultado de una agregación en una cole
 }
 ```
 
-En el siguiente ejemplo definimos una función que convierte cadenas de la forma "$<numero>.<numero>" a valores numéricos decimales. Esta función la aplicamos sobre el campo `price` de los documentos de entrada.
+En el siguiente ejemplo definimos una función que convierte cadenas de la forma "$150.25" a valores numéricos decimales. Esta función la aplicamos sobre el campo `price` de los documentos de entrada.
 
 ```javascript
 db.listings.aggregate([
