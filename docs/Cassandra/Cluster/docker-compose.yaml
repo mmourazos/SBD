@@ -19,7 +19,7 @@ services:
     volumes:
       - ./data/cass1:/var/lib/cassandra
       - ./etc/cass1:/etc/cassandra
-      - ./scripts/cass1:/scripts
+      - ./scripts:/scripts
 
     environment: &environment
       CASSANDRA_SEEDS: "cass1,cass2"
@@ -46,7 +46,7 @@ services:
     volumes:
       - ./data/cass2:/var/lib/cassandra
       - ./etc/cass2:/etc/cassandra
-      - ./scripts/cass2:/scripts
+      - ./scripts:/scripts
     environment:
       <<: *environment
     depends_on:
@@ -69,7 +69,7 @@ services:
     volumes:
       - ./data/cass3:/var/lib/cassandra
       - ./etc/cass3:/etc/cassandra
-      - ./scripts/cass3:/scripts
+      - ./scripts:/scripts
     environment:
       <<: *environment
     depends_on:
