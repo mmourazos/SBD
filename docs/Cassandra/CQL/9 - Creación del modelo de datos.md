@@ -1,58 +1,36 @@
-# Lenguaje CQL (*Cassnadra Query Language*)
+# Creación del modelo de datos
 
-Este lenguaje tiene muchas similitudes con SQL, pero también algunas diferencias. En esta sección vamos a ver las principales diferencias entre ambos lenguajes.
+## Ejecución de scripts de CQL
 
-Cassandra **no permite realizar operaciones de *join*** entre tablas. Esto es debido a que las tablas en Cassandra están diseñadas para ser consultadas de forma independiente. Por lo tanto, si necesitamos realizar una consulta que implique datos de varias tablas, tendremos que realizar varias consultas y combinar los resultados en nuestra aplicación.
+Para ejecutar instrucciones CQL podemos simplemente lanzar una shell de CQLSH en un contenedor de Cassandra como vimos en la sección de creación del cluster:
 
-Si queremos hacer una agrupación de datos sólo podremos hacerlo con respecto a las columnas de la clave primaria. Por ejemplo, si tenemos una tabla con las columnas `id`, `name`, `age` y `city` y queremos agrupar por `city` y `age` tendremos que crear una tabla con una clave primaria compuesta por `city` y `age`. No podremos agrupar por `city` y `name` porque `name` no forma parte de la clave primaria.
+```bash
+docker exec -it cass1 cqlsh
+```
 
-Los elementos de una base de datos SQL tienen una correspondencia directa con los elementos de una base de datos Cassandra:
+Pero pronto nos daremos cuenta de que hay instrucciones que tienen una sintaxis demasiado compleja para ser ejecutadas desde la shell. Por ello, lo más cómodo es escribir las instrucciones CQL en un fichero de texto y ejecutarlas desde la shell de CQLSH.
 
-| SQL | Cassandra |
-| --- | --------- |
-| Base de datos | Keyspace |
-| Tabla | *Column family* - CF |
-| *Primary key* | *Primary key* / *Row key* |
-| *Column name* | *Column name* / *key* |
-| *Column value* | *Column value* |
+Los *scripts* de CQL son ficheros de texto con extensión `.cql` que contienen instrucciones CQL. Para ejecutar un *script* de CQL desde la shell de CQLSH utilizamos la sentencia `SOURCE`:
 
-![Estructura de un sistema Cassandra](Imágenes/Estructura.svg)
+```cql
+SOURCE 'path/to/script.cql';
+```
 
-## Tipos de datos en Cassandra
+Pero si lo que queremos es ejecutar un *script* de CQL desde la línea de comandos utilizaremos el siguiente comando:
 
-| Categoría | Tipo de dato CQL | Descripción |
-| --------- | ---------------- | ----------- |
-| String | `ascii` | Cadena de caracteres ASCII |
-| " | `text` | Cadena de caracteres UTF-8 |
-| " | `varchar` | Cadena de caracteres UTF-8 |
-| " | `inet` | Dirección IP |
-| Numeric | `int` | Número entero de 32 bits |
-| " | `bigint` | Número entero de 64 bits |
-| " | `float` | Número de coma flotante de 32 bits |
-| " | `double` | Número de coma flotante de 64 bits |
-| " | `decimal` | Número decimal de precisión variable |
-| " | `varint` | Número entero de precisión variable |
-| " | `counter` | Contador de 64 bits ( no se admite como clave) |
-| UUID | `uuid` | Identificador único universal |
-| " | `timeuuid` | Identificador único universal con información de tiempo |
-| Collections | `list` | Lista de elementos ordenada |
-| " | `set` | Conjunto de elementos no ordenado |
-| " | `map` | Mapa de pares clave-valor |
-| Misc | `boolean` | Valor booleano |
-| " | `blob` | Secuencia de bytes |
-| " | `timestamp` | Marca de tiempo |
+```bash
+cqlsh -f path/to/script.cql
+```
 
-## Comentarios en CQL
+Como en nuestro ejemplo vamos a utilizar contenedores Docker, vamos a hacer lo siguiente.
 
-Cassandra admite tres tipos de comentarios:
+Cuando creamos el fichero `docker-compose.yml` indicamos que el directorio `./scripts` del host se montase en el directorio `/scripts` de los contenedores. Por lo tanto, si queremos ejecutar un *script* de CQL desde la línea de comandos, lo que tenemos que hacer en primer lugar es copiar el *script* en el directorio `scripts` del host para luego ejecutar el siguiente comando:
 
-* Comentarios de una línea: `--`<
-* Comentarios de una línea: `//`
-* Comentarios de varias líneas: `/* */`
+```bash
+docker exec -it cass1 cqlsh -f /scripts/script.cql
+```
 
-## Creación del modelo de datos
-
-### Creación de un *keyspace*
+## Creación de un *keyspace*
 
 Para crear un *keyspace* utilizamos la sentencia `CREATE KEYSPACE`:
 

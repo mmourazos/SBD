@@ -1,28 +1,51 @@
-# Primeros pasos con CQL
+# Lenguaje CQL (*Cassandra Query Language*)
 
-En este tema veremos como realizar las operaciones básicas de CQL.
+Este lenguaje tiene muchas similitudes con SQL, pero también algunas diferencias. En esta sección vamos a ver las principales diferencias entre ambos lenguajes.
 
-La ide es poner miniejericios para que podáis practicar con CQL. A continuación se incluirá la solución pero recomiendo intentarlo antes de mirar la solución.
+Cassandra **no permite realizar operaciones de *join*** entre tablas. Esto es debido a que las tablas en Cassandra están diseñadas para ser consultadas de forma independiente. Por lo tanto, si necesitamos realizar una consulta que implique datos de varias tablas, tendremos que realizar varias consultas y combinar los resultados en nuestra aplicación.
 
-## Creación de un keyspace
+Si queremos hacer una agrupación de datos sólo podremos hacerlo con respecto a las columnas de la clave primaria. Por ejemplo, si tenemos una tabla con las columnas `id`, `name`, `age` y `city` y queremos agrupar por `city` y `age` tendremos que crear una tabla con una clave primaria compuesta por `city` y `age`. No podremos agrupar por `city` y `name` porque `name` no forma parte de la clave primaria.
 
-Se ha de crear un *keyspace* de nombre "SBD" con una estrategia de replicación simple con factor de replicación 1.
+Los elementos de una base de datos SQL tienen una correspondencia directa con los elementos de una base de datos Cassandra:
 
-Una vez creado el *keyspace* podremos comprobar que se ha creado correctamente con la sentencia `DESCRIBE KEYSPACES`:
+| SQL | Cassandra |
+| --- | --------- |
+| Base de datos | Keyspace |
+| Tabla | *Column family* - CF |
+| *Primary key* | *Primary key* / *Row key* |
+| *Column name* | *Column name* / *key* |
+| *Column value* | *Column value* |
 
-```cql
-DESCRIBE KEYSPACES;
-```
+![Estructura de un sistema Cassandra](Imágenes/Estructura.svg)
 
-### Solución
+## Tipos de datos en Cassandra
 
-```cql
-CREATE KEYSPACE SBD
-  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
-```
+| Categoría | Tipo de dato CQL | Descripción |
+| --------- | ---------------- | ----------- |
+| String | `ascii` | Cadena de caracteres ASCII |
+| " | `text` | Cadena de caracteres UTF-8 |
+| " | `varchar` | Cadena de caracteres UTF-8 |
+| " | `inet` | Dirección IP |
+| Numeric | `int` | Número entero de 32 bits |
+| " | `bigint` | Número entero de 64 bits |
+| " | `float` | Número de coma flotante de 32 bits |
+| " | `double` | Número de coma flotante de 64 bits |
+| " | `decimal` | Número decimal de precisión variable |
+| " | `varint` | Número entero de precisión variable |
+| " | `counter` | Contador de 64 bits ( no se admite como clave) |
+| UUID | `uuid` | Identificador único universal |
+| " | `timeuuid` | Identificador único universal con información de tiempo |
+| Collections | `list` | Lista de elementos ordenada |
+| " | `set` | Conjunto de elementos no ordenado |
+| " | `map` | Mapa de pares clave-valor |
+| Misc | `boolean` | Valor booleano |
+| " | `blob` | Secuencia de bytes |
+| " | `timestamp` | Marca de tiempo |
 
-## Creación de una tabla
+## Comentarios en CQL
 
-Hemos de crear dos tablas.
+Cassandra admite tres tipos de comentarios:
 
-La primera la llamaremos "miembros" con columnas: dni, nombre, apellidos, fecha de nacimiento y tipo ("alumno" o "profesor"), esta última a de ser además *static*. y "asignaturas" con columnas: id, nombre, curso, horas. Las columnas serán de tipo static y la PK ha de ser la combinación de DNI y fecha de nacimiento.
+* Comentarios de una línea: `--`<
+* Comentarios de una línea: `//`
+* Comentarios de varias líneas: `/* */`
