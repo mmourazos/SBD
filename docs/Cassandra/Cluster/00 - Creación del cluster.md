@@ -142,3 +142,11 @@ Para comprobar que los contenedores se han iniciado correctamente ejecutaremos e
 ```bash
 docker-compose ps
 ```
+
+## Abrir una consola de CQLSH
+
+Para abrir una consola de CQLSH ejecutaremos el siguiente comando:
+
+```bash
+docker exec -it cass1 cqlsh
+```

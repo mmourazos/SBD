@@ -14,7 +14,7 @@ let results = db.det_listings.aggregate([
       }
    },
    {
-      $set: { price: { $replaceAll: { input: '$price', find: '$', replacement: '' } } }
+      $set: { price: { $replaceAll: { input: '$price', find: '$', replacement: '' } } } 
    },
    {
       $set: {
@@ -25,7 +25,7 @@ let results = db.det_listings.aggregate([
    },
    {
       $group: {
-         _id: '$neighbourhood',
+         _id: { year: },
          avg_price: { $avg: '$price' },
          min_nights: { $min: '$minimum_nights' },
          max_nights: { $max: '$maximum_nights' },

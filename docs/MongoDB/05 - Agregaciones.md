@@ -19,7 +19,17 @@ Un ejemplo de *pipeline* de agregaciones sería el siguiente:
 
 Una agregación que transforme un campo de texto a numérico podría ser la siguiente:
 
-Como podemos ver este *pipeline* tiene dos etapas de agregación. En la primera filtramos (`$match`) los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
+```javascript
+db.listings.aggregate( [
+  {
+    $addFields: {
+      price: { $toInt: $substring: [ '$price', 1, { $strLenCP: '$price' } ] }
+    }
+  }
+] )
+```
+
+Como podemos ver este *pipeline* tiene1 dos etapas de agregación. En la primera etapa de agregación filtramos los documentos de entrada y nos quedamos con los que tengan un precio menor o igual a 100 y un mínimo de noches menor o igual a 3. En la segunda etapa de agregación agrupamos los documentos de entrada por barrio y contamos el número de listings.
 
 En esta operación de agregación se creará (`$addFields`) un nuevo campo (o se sobrescribirá en este caso), `price`, aplicando una serie de operaciones al valor previo del mismo (`$150.00`). La primera operación será `$substring` que obtendrá las posiciones que van de la 1 a la `$strLenCP: '$price'` (longitud total de la cadena `$price` original: 7). Esto dará como resultado una cadena en la que se suprime el primer símbolo ( que siempre es $ ). A continuación se aplica el operador `$toInt` a la cadena resultante (`150.00`). De maneral que finalmente guardaremos el valor numérico 150.00 en el campo `price`.
 
