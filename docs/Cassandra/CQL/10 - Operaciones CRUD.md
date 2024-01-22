@@ -56,8 +56,7 @@ cqlsh -f path/to/script.cql
 
 Finamente veamos cómo crear un *keyspace* y una tabla de ejemplo utilizando un *script* de CQL.
 
-```cql	
-
+```cql
 CREATE KEYSPACE sbd
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 2 };
 
@@ -95,6 +94,6 @@ DESCRIBE TABLES;
 
 Guardamos el código anterior en un fichero llamado `script01.cql` y lo ejecutamos:
 
-```bash	
+```bash
 docker exec -it cass1 cqlsh -f /scripts/script01.cql
 ```
