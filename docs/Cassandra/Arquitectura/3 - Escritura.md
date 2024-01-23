@@ -2,7 +2,7 @@
 
 ## Proceso de escritura en Cassandra
 
-![Escritura y lectura en Cassandra](./Imágenes/Escritura.svg)
+![Escritura y lectura en Cassandra](../Imágenes/Escritura.svg)
 
 El dato que entra en Cassandra se divide para ir a dos destinos diferentes:
 

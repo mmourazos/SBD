@@ -16,7 +16,7 @@ Los elementos de una base de datos SQL tienen una correspondencia directa con lo
 | *Column name* | *Column name* / *key* |
 | *Column value* | *Column value* |
 
-![Estructura de un sistema Cassandra](Imágenes/Estructura.svg)
+![Estructura de un sistema Cassandra](../Imágenes/Estructura.svg)
 
 ## Tipos de datos en Cassandra
 

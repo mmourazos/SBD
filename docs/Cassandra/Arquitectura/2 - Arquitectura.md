@@ -6,7 +6,7 @@ Un *cluster* de Cassandra se denomina *ring* o anillo. Este anillo está formado
 
 Cada nodo del anillo tiene la misma importancia que los demás, **no hay un nodo maestro** ya que se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.
 
-![Anillo de Cassandra](./Imágenes/Anillo.svg)
+![Anillo de Cassandra](../Imágenes/Anillo.svg)
 
 Todas estas característica hacen que no exista un **SPOF** (*Single Point Of Failure*), es decir, que no haya un punto único de fallo.
 
