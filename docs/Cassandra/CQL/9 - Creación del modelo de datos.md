@@ -189,3 +189,27 @@ Para eliminar una tabla utilizamos la sentencia `DROP TABLE`:
 ```cql
 DROP TABLE [ IF EXISTS ] <table_name>;
 ```
+
+## Ver la definición de una tabla
+
+Para ver la definición de una tabla utilizamos la sentencia `DESCRIBE` indicando a qué tabla nos referimos:
+
+```cql
+DESCRIBE TABLE <table_name>;
+```
+
+Por ejemplo, para ver la estructura de la tabla `sbd.miembros`:
+
+```cql
+DESCRIBE TABLE sbd.miembros;
+```
+
+## Importar datos ds CSV a una tabla
+
+```cql
+COPY keypsace.tableName (col1,col2,col3.....) FROM 'file/file.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+```
+
+## `IF NOT EXISTS`
+
+La utilidad de esta cláusula es evitar que se produzca un error si intentamos crear un *keyspace* o una tabla que ya existe. Si la cláusula `IF NOT EXISTS` está presente y el *keyspace* o la tabla ya existen, la sentencia no tiene ningún efecto.
