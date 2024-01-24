@@ -2,6 +2,8 @@
 
 Antes de empezar a ver las operaciones CRUD en CQL hemos de crear un *keyspace* y una tabla de ejemplo.
 
+## Creación de un *keyspace* y una tabla de ejemplo
+
 Para crear el *keyspace* ejecutaremos el siguiente comando:
 
 ```cql
@@ -57,33 +59,40 @@ cqlsh -f path/to/script.cql
 Finamente veamos cómo crear un *keyspace* y una tabla de ejemplo utilizando un *script* de CQL.
 
 ```cql
+-- Creamos un keyspace
 CREATE KEYSPACE sbd
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 2 };
 
 CREATE TABLE IF NOT EXISTS sbd.miembros (
-    id int PRIMARY KEY,
+    id uuid,
     nombre text,
     apellidos text,
     email text,
     rol text static,
     fecha_alta timestamp,
-    fecha_de_nacimiento date
-    PRIMARY KEY (id, fecha_alta)
-);
+    fecha_de_nacimiento date,
+    PRIMARY KEY (id, fecha_alta));
 
-// Creamos una segunda tabla de asignaturas
+-- Creamos una segunda tabla de asignaturas
 
 CREATE TABLE IF NOT EXISTS sbd.asignaturas (
-    id int PRIMARY KEY,
+    id uuid PRIMARY KEY,
     nombre text,
     curso int,
     profesor map <text, text>,
-    alumnos list<map<text, text>>
+    alumnos frozen<list <map<text, text>>>,
     fecha_inicio timestamp,
     fecha_fin timestamp
 );
 
-// Comprobamos que se han creado el keyspace y las tablas
+CREATE TABLE IF NOT EXISTS sbd.ciclos (
+    id uuid  PRIMARY KEY,
+    nombre text,
+    horas int,
+    modulos frozen<list<text>>
+);
+
+-- Comprobamos que se han creado el keyspace y las tablas
 
 DESCRIBE KEYSPACES;
 
@@ -97,3 +106,31 @@ Guardamos el código anterior en un fichero llamado `script01.cql` y lo ejecutam
 ```bash
 docker exec -it cass1 cqlsh -f /scripts/script01.cql
 ```
+
+**Notas:**
+
+* Hay que prestar especial atención a las **comas y los puntos y comas**. Si nos olvidamos de poner una coma o un punto y coma en el lugar adecuado obtendremos un error de sintaxis.
+* Los códigos de error indican la línea y la columna donde se ha producido el error **con respecto al inicio de la sentencia CQL**. No del script.
+
+## Operaciones de escritura
+
+Para escribir datos en una tabla se usará la sentencia `INSERT`:
+
+```cql
+INSERT INTO sbd.miembros (id, nombre, apellidos, email, rol, fecha_alta, fecha_de_nacimiento)
+VALUES (UUID(), 'Juan', 'Pérez', 'juan@gmail.com', 'alumno', NOW(), '1990-01-01');
+```
+
+Esta sentencia es idéntica a la sentencia `INSERT` de SQL.
+
+## Operaciones de lectura
+
+La sentencia `SELECT` de CQL es muy similar a la sentencia `SELECT` de SQL. La diferencia más importante es que en CQL no se pueden realizar *joins*.
+
+```cql
+SELECT * FROM sbd.miembros WHERE fecha_alta = '2020-01-01';
+```
+
+## Operaciones de actualización
+
+## Operaciones de borrado

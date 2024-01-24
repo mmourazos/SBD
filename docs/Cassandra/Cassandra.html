@@ -399,78 +399,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 <p>Un <em>cluster</em> de Cassandra se denomina <em>ring</em> o anillo. Este anillo está formado por varios nodos interconectados y configurados para propósitos de replicación. Los nodos serán <em>conscientes</em> de los otros nodos del anillo y de su estado y se comunicarán entre ellos para replicar los datos cumpliendo las condiciones de consistencia que se hayan establecido.</p>
 <p>Cada nodo del anillo tiene la misma importancia que los demás, <strong>no hay un nodo maestro</strong> ya que se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.</p>
 <figure>
-<svg alt="Anillo de Cassandra" width="119.09399mm" height="117.72265mm" viewBox="0 0 127.68529 126.21503" inkscape:version="1.3 (0e150ed6c4, 2023-07-21)" sodipodi:docname="Anillo.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" inkscape:zoom="1.0242632" inkscape:cx="109.34689" inkscape:cy="145.95858" inkscape:window-width="1920" inkscape:window-height="1009" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1">
-    <inkscape:page x="0" y="0" width="127.68529" height="126.21503" id="page51" margin="3mm" bleed="0"></inkscape:page>
-  </sodipodi:namedview>
-  <defs id="defs1"></defs>
-  <g inkscape:label="Capa 1" inkscape:groupmode="layer" id="layer1" transform="translate(-40.109424,-69.684018)">
-    <g id="g51">
-      <circle style="fill:none;stroke:#c6516f;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1" id="path1" cx="-134.27312" cy="103.95206" r="49.134686" transform="rotate(-90)"></circle>
-      <g id="g50" transform="translate(66.530161,57.869641)">
-        <g id="g16" transform="rotate(166.36366,42.336023,35.732533)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle15" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle16" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="35.385841" y="29.838154" id="text28"><tspan sodipodi:role="line" id="tspan28" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1" x="35.385841" y="29.838154">1</tspan></text>
-      </g>
-      <g id="g49" transform="rotate(40.00002,14.162612,148.25021)">
-        <g id="g22" transform="rotate(21.688369,97.185775,113.19382)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle21" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle22" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="71.844322" y="33.258106" id="text35"><tspan sodipodi:role="line" id="tspan35" style="stroke-width:1" x="71.844322" y="33.258106">2</tspan></text>
-      </g>
-      <g id="g42" transform="rotate(80.00001,131.60665,120.76251)">
-        <g id="g24" transform="rotate(120.12992,76.463006,100.51284)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle23" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle24" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="137.98077" y="103.74258" id="text36"><tspan sodipodi:role="line" id="tspan36" style="stroke-width:1" x="137.98077" y="103.74258">3</tspan></text>
-      </g>
-      <g id="g43" transform="rotate(120,141.53487,144.3434)">
-        <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle3" cx="-53.861992" cy="194.20761" r="12.238008" transform="rotate(-64.28571)"></circle>
-        <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle4" cx="-53.861992" cy="194.20761" r="10.41144" transform="rotate(-64.28571)"></circle>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="149.42441" y="135.36087" id="text37"><tspan sodipodi:role="line" id="tspan37" style="stroke-width:1" x="149.42441" y="135.36087">4</tspan></text>
-      </g>
-      <g id="g46" transform="rotate(160.00002,129.01669,170.70345)">
-        <g id="g6" transform="rotate(34.155869,-101.48074,259.34806)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle5" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle6" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="137.93942" y="166.9151" id="text38"><tspan sodipodi:role="line" id="tspan38" style="stroke-width:1" x="137.93942" y="166.9151">5</tspan></text>
-      </g>
-      <g id="g45" transform="rotate(-159.99998,99.009996,182.91538)">
-        <g id="g8" transform="rotate(132.59741,48.193743,127.60993)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle7" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle8" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="108.79707" y="183.72015" id="text39"><tspan sodipodi:role="line" id="tspan39" style="stroke-width:1" x="108.79707" y="183.72015">6</tspan></text>
-      </g>
-      <g id="g44" transform="rotate(-119.99999,64.887666,171.85592)">
-        <g id="g10" transform="rotate(-128.96101,92.594469,102.40369)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle9" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle10" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="75.548759" y="177.8652" id="text40"><tspan sodipodi:role="line" id="tspan40" style="stroke-width:1" x="75.548759" y="177.8652">7</tspan></text>
-      </g>
-      <g id="g47" transform="rotate(-79.99997,41.716399,138.1068)">
-        <g id="g12" transform="rotate(-30.519446,242.19425,76.861192)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle11" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle12" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="54.101692" y="152.13698" id="text41"><tspan sodipodi:role="line" id="tspan41" style="stroke-width:1" x="54.101692" y="152.13698">8</tspan></text>
-      </g>
-      <g id="g48" transform="rotate(-39.999983,37.748377,84.234226)">
-        <g id="g14" transform="rotate(67.922111,-1.9042025,88.853064)">
-          <circle style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle13" cx="45.116234" cy="45.116234" r="12.238008"></circle>
-          <circle style="fill:#758ae4;fill-opacity:1;stroke:#2a59f0;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" id="circle14" cx="45.116234" cy="45.116234" r="10.41144"></circle>
-        </g>
-        <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1e4bf3;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1" x="54.085167" y="118.52686" id="text42"><tspan sodipodi:role="line" id="tspan42" style="stroke-width:1" x="54.085167" y="118.52686">9</tspan></text>
-      </g>
-    </g>
-  </g>
-</svg>
+<img src="../Imágenes/Anillo.svg" alt="Anillo de Cassandra" />
 <figcaption aria-hidden="true">Anillo de Cassandra</figcaption>
 </figure>
 <p>Todas estas característica hacen que no exista un <strong>SPOF</strong> (<em>Single Point Of Failure</em>), es decir, que no haya un punto único de fallo.</p>
@@ -489,90 +418,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 <section id="proceso-de-escritura-en-cassandra" class="level3">
 <h3>Proceso de escritura en Cassandra</h3>
 <figure>
-<svg alt="Escritura y lectura en Cassandra" width="336mm" height="266.37271mm" viewBox="0 0 336 266.37271" sodipodi:docname="Escritura.svg" inkscape:version="1.3 (0e150ed6c4, 2023-07-21)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" inkscape:zoom="0.80753861" inkscape:cx="634.64458" inkscape:cy="503.3815" inkscape:window-width="1920" inkscape:window-height="1009" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1">
-    <inkscape:page x="0" y="0" width="336" height="266.37271" id="page44" margin="3mm" bleed="0"></inkscape:page>
-  </sodipodi:namedview>
-  <defs id="defs1">
-    <marker style="overflow:visible" id="marker42" refX="0" refY="0" orient="auto-start-reverse" inkscape:stockid="Triangle arrow" markerWidth="1" markerHeight="1" viewBox="0 0 1 1" inkscape:isstock="true" inkscape:collect="always" preserveAspectRatio="xMidYMid">
-      <path transform="scale(0.5)" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" d="M 5.77,0 -2.88,5 V -5 Z" id="path42"></path>
-    </marker>
-    <marker style="overflow:visible" id="Triangle" refX="0" refY="0" orient="auto-start-reverse" inkscape:stockid="Triangle arrow" markerWidth="1" markerHeight="1" viewBox="0 0 1 1" inkscape:isstock="true" inkscape:collect="always" preserveAspectRatio="xMidYMid">
-      <path transform="scale(0.5)" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" d="M 5.77,0 -2.88,5 V -5 Z" id="path135"></path>
-    </marker>
-    <inkscape:path-effect effect="lattice2" gridpoint0="38.063299,255.91495" gridpoint1="78.151243,255.91495" gridpoint2="38.063299,277.08163" gridpoint3="78.151243,277.08163" gridpoint4="48.085285,255.91495" gridpoint5="68.129257,255.91495" gridpoint6="47.626153,275.81902" gridpoint7="69.965784,276.04858" gridpoint8x9="57.648139,257.06278" gridpoint10x11="58.107271,277.08163" gridpoint12="38.063299,261.20662" gridpoint13="78.151243,261.20662" gridpoint14="38.063299,271.78996" gridpoint15="78.151243,271.78996" gridpoint16="43.032154,260.0702" gridpoint17="71.0469,259.48987" gridpoint18="47.626153,268.92039" gridpoint19="69.965784,269.72387" gridpoint20x21="56.727195,264.99874" gridpoint22x23="58.336837,274.42997" gridpoint24x26="38.063299,266.49829" gridpoint25x27="78.151243,266.49829" gridpoint28x30="51.091026,261.43429" gridpoint29x31="67.667445,262.24491" gridpoint32x33x34x35="58.336837,270.63048" id="path-effect17" is_visible="true" lpeversion="1" horizontal_mirror="false" vertical_mirror="false" perimetral="false" live_update="true"></inkscape:path-effect>
-    <inkscape:path-effect effect="lattice2" gridpoint0="38.063299,255.91495" gridpoint1="78.151243,255.91495" gridpoint2="38.063299,277.08163" gridpoint3="78.151243,277.08163" gridpoint4="48.085285,255.91495" gridpoint5="68.129257,255.91495" gridpoint6="47.626153,275.81902" gridpoint7="69.965784,276.04858" gridpoint8x9="57.648139,257.06278" gridpoint10x11="58.107271,277.08163" gridpoint12="38.063299,261.20662" gridpoint13="78.151243,261.20662" gridpoint14="38.063299,271.78996" gridpoint15="78.151243,271.78996" gridpoint16="44.527013,258.22227" gridpoint17="68.24404,258.6814" gridpoint18="47.626153,268.92039" gridpoint19="69.965784,269.72387" gridpoint20x21="58.222054,264.30576" gridpoint22x23="58.336837,274.42997" gridpoint24x26="38.063299,266.49829" gridpoint25x27="78.151243,266.49829" gridpoint28x30="47.167021,263.62871" gridpoint29x31="69.162304,263.28437" gridpoint32x33x34x35="58.336837,270.63048" id="path-effect15" is_visible="true" lpeversion="1" horizontal_mirror="false" vertical_mirror="false" perimetral="false" live_update="true"></inkscape:path-effect>
-  </defs>
-  <g inkscape:label="Capa 1" inkscape:groupmode="layer" id="layer1" transform="translate(54.387452,-14.217704)">
-    <rect style="fill:#b3ff80;fill-opacity:0.354839;stroke:none;stroke-width:1" id="rect1" width="330" height="129.68636" x="-51.387451" y="17.217705"></rect>
-    <rect style="fill:#ff5599;fill-opacity:0.354839;stroke:none;stroke-width:1" id="rect44" width="330" height="129.68636" x="-51.387451" y="147.90405"></rect>
-    <path style="fill:#0000ff;stroke:#c6516f;stroke-width:1;stroke-dasharray:3, 3;stroke-dashoffset:0" d="M -49.499999,147.40406 H 276.7251" id="path1"></path>
-    <g id="g18" transform="translate(-1.8765316)">
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;fill:#00006d;fill-opacity:0.759197;stroke:none;stroke-width:1;stroke-dasharray:3, 3;stroke-dashoffset:0" x="243.66422" y="141.52971" id="text1"><tspan sodipodi:role="line" id="tspan1" style="fill:#00006d;fill-opacity:0.759197;stroke-width:1" x="243.66422" y="141.52971">Memoria</tspan></text>
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;fill:#00006d;fill-opacity:0.759197;stroke:none;stroke-width:1;stroke-dasharray:3, 3;stroke-dashoffset:0" x="249.50922" y="158.93802" id="text2"><tspan sodipodi:role="line" id="tspan2" style="fill:#00006d;fill-opacity:0.759197;stroke-width:1" x="249.50922" y="158.93802">Disco</tspan></text>
-    </g>
-    <g id="g38" transform="translate(0,-37.570837)">
-      <g id="g78" transform="matrix(0.29555556,0,0,0.29555556,206.3918,72.085865)" style="stroke-width:2.53759;stroke-dasharray:none">
-        <g id="g27" transform="translate(-19.322941,-36.11291)" style="stroke-width:2.53759;stroke-dasharray:none">
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -204.2308,103.24035 v 150" id="path18"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -187.67524,103.24035 v 150" id="path19"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -171.11969,103.24035 v 150" id="path20"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -154.56413,103.24035 v 150" id="path21"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -138.00857,103.24035 v 150" id="path22"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -121.45301,103.24035 v 150" id="path23"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -104.89746,103.24035 v 150" id="path24"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -88.341908,103.24035 v 150" id="path25"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -71.786352,103.24035 v 150" id="path26"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -55.230797,103.24035 v 150" id="path27"></path>
-        </g>
-        <g id="g37" transform="rotate(90,-121.33582,150.52242)" style="stroke-width:2.53759;stroke-dasharray:none">
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -204.2308,103.24035 v 150" id="path28"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -187.67524,103.24035 v 150" id="path29"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -171.11969,103.24035 v 150" id="path30"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -154.56413,103.24035 v 150" id="path31"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -138.00857,103.24035 v 150" id="path32"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -121.45301,103.24035 v 150" id="path33"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -104.89746,103.24035 v 150" id="path34"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -88.341908,103.24035 v 150" id="path35"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -71.786352,103.24035 v 150" id="path36"></path>
-          <path style="fill:#00006d;fill-opacity:0.759197;stroke:#450000;stroke-width:2.53759;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m -55.230797,103.24035 v 150" id="path37"></path>
-        </g>
-      </g>
-    </g>
-    <text xml:space="preserve" style="font-size:3.175px;fill:#000000;stroke-width:0.264583" x="57.862732" y="40.297256" id="text3"><tspan sodipodi:role="line" id="tspan3" style="stroke-width:0.264583" x="57.862732" y="40.297256"></tspan></text>
-    <text xml:space="preserve" style="font-size:3.175px;fill:#000000;stroke-width:0.264583" x="-112.10904" y="28.931366" id="text4"><tspan sodipodi:role="line" id="tspan4" style="stroke-width:0.264583" x="-112.10904" y="28.931366"></tspan></text>
-    <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.90404px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#005500;stroke:none;stroke-width:0.264583;stroke-opacity:1" x="-8.3613977" y="71.004211" id="text5"><tspan sodipodi:role="line" id="tspan5" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.90404px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#005500;stroke:none;stroke-width:0.264583;stroke-opacity:1" x="-8.3613977" y="71.004211">Escritura</tspan><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.90404px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#005500;stroke:none;stroke-width:0.264583;stroke-opacity:1" x="-8.3613977" y="78.384254" id="tspan6">de</tspan><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.90404px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#005500;stroke:none;stroke-width:0.264583;stroke-opacity:1" x="-8.3613977" y="85.76432" id="tspan7">datos</tspan></text>
-    <circle style="fill:#447821;fill-opacity:0.352941;stroke:#000000;stroke-width:0.500001;stroke-dasharray:none;stroke-opacity:1" id="path7" cx="-8.1365395" cy="76.410957" r="18.480635"></circle>
-    <g id="g16" transform="translate(30.296222,20.229752)">
-      <g id="g11">
-        <g id="g9">
-          <rect style="fill:#0000ff;fill-opacity:0.354839;stroke:none;stroke-width:0.999996;stroke-dasharray:3, 3;stroke-dashoffset:0" id="rect2" width="100" height="70" x="125.71586" y="170.85425" rx="7.9344172" ry="8.7595968"></rect>
-          <path id="path16" style="fill:none;fill-opacity:0.354839;stroke:#450000;stroke-width:0.249575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m 38.063299,277.08163 c 7.19943,-0.95056 16.378315,-1.35939 25.970673,-1.04916 4.365261,0.14118 7.870855,0.40311 10.350754,0.63688 2.427613,0.22885 3.766517,0.41228 3.766517,0.41228 m -40.087944,-1.92424 c 3.40597,-0.91752 7.327885,-1.06962 12.247414,-1.01966 4.700705,0.0477 9.709633,0.17402 14.008435,0.17579 4.635894,0.002 7.545694,-0.0181 10.217152,0.23476 2.350922,0.22256 3.614943,0.60911 3.614943,0.60911 m -40.087944,-1.92425 c 3.528729,-1.54282 7.481329,-1.44214 12.458515,-1.08203 5.805101,0.42001 8.691192,0.66089 14.027333,0.43777 4.758202,-0.19895 7.333019,-0.53875 10.092822,-0.25915 2.296468,0.23265 3.509274,0.90341 3.509274,0.90341 M 38.063299,271.3089 c 3.635655,-2.13675 7.605442,-1.77116 12.595413,-1.0986 5.621842,0.75773 8.864849,1.12616 14.004834,0.68257 4.820676,-0.41603 7.233684,-1.06838 10.039076,-0.77415 2.269583,0.23804 3.448621,1.19018 3.448621,1.19018 m -40.087944,-1.92424 c 3.679886,-2.56926 7.614228,-1.95494 12.579715,-1.01357 5.518789,1.04628 8.897091,1.51097 13.984815,0.87187 4.891741,-0.61448 7.232429,-1.53289 10.091391,-1.25062 2.272854,0.2244 3.432023,1.39232 3.432023,1.39232 m -40.087944,-1.92425 c 3.636834,-2.75712 7.47163,-1.93437 12.3805,-0.80119 5.411929,1.24931 8.890959,1.76492 13.98959,0.9806 4.337959,-0.66731 7.937821,-1.82551 10.259405,-1.64009 2.306185,0.18419 3.458449,1.46068 3.458449,1.46068 m -40.087944,-1.92424 c 3.508707,-2.66403 7.187016,-1.69287 12.014328,-0.4658 5.288376,1.34427 8.872246,1.85929 14.019897,0.99697 4.423119,-0.74096 8.144827,-2.02252 10.526922,-1.90517 2.366828,0.11659 3.526797,1.374 3.526797,1.374 m -40.087944,-1.92425 c 3.596984,-2.36958 8.109226,-0.78973 11.356345,0.0676 3.896473,1.02878 6.840973,1.5788 10.481275,1.39382 3.577389,-0.18178 6.412848,-1.00083 9.730968,-1.8095 2.950277,-0.71902 6.204414,-1.435 8.519356,0.34808 m -40.087944,-1.92424 c 3.145796,-1.72411 6.450558,-0.69379 11.084736,0.4064 5.001065,1.1873 8.808211,1.56424 14.052212,0.77169 4.603699,-0.69579 8.607561,-1.89749 11.166487,-1.96824 2.545601,-0.0704 3.784509,0.79015 3.784509,0.79015 m -40.087944,-1.92424 c 3.057914,-1.03923 6.23605,-0.11587 10.791823,0.78422 4.853469,0.95891 8.741935,1.22605 13.947845,0.57274 4.626818,-0.58063 8.721967,-1.58861 11.376958,-1.74704 2.644464,-0.15779 3.971318,0.39008 3.971318,0.39008 m -40.087944,-1.92425 c 3.184867,-0.39771 6.348089,0.3241 10.872966,0.96708 4.718847,0.67054 8.623816,0.82977 13.65626,0.36683 4.536373,-0.4173 8.62601,-1.1541 11.363771,-1.36307 2.731983,-0.20853 4.194947,0.0292 4.194947,0.0292 m -40.087944,-1.92424 c 3.69623,0 6.989762,0.43208 11.582112,0.80031 4.61949,0.37041 8.413863,0.45325 13.070343,0.20847 4.265346,-0.22421 8.191773,-0.64529 10.981548,-0.83454 2.791398,-0.18935 4.453941,-0.17424 4.453941,-0.17424" inkscape:path-effect="#path-effect17" inkscape:original-d="M 38.063299,277.08163 H 78.151243 M 38.063299,275.15739 H 78.151243 M 38.063299,273.23314 H 78.151243 M 38.063299,271.3089 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 c 17.198105,0.52682 26.883909,0.0218 40.087944,0 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 h 40.087944 m -40.087944,-1.92424 h 40.087944" inkscape:transform-center-x="9.0399138" inkscape:transform-center-y="-1.4623648" transform="matrix(1.5751326,0,0,2.5481084,97.178004,-473.21056)" sodipodi:nodetypes="cccccccccccccccccccccccc"></path>
-          <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;fill:#0000bb;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" x="129.53743" y="180.5083" id="text17"><tspan sodipodi:role="line" id="tspan17" style="fill:#0000bb;fill-opacity:1;stroke:none;stroke-width:0.5" x="129.53743" y="180.5083">Index</tspan></text>
-        </g>
-      </g>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#00006d;fill-opacity:0.752941;stroke:none;stroke-width:0.750001;stroke-dasharray:none;stroke-opacity:1" x="175.78407" y="248.59259" id="text11"><tspan sodipodi:role="line" id="tspan11" style="fill:#00006d;fill-opacity:0.752941;stroke:none;stroke-width:0.75" x="175.78407" y="248.59259">SSTable</tspan></text>
-    </g>
-    <g id="g15" transform="translate(-1.6199255)">
-      <g id="g10">
-        <g id="g8">
-          <ellipse style="fill:#0000ff;fill-opacity:0.354839;stroke:#1f34d4;stroke-width:0.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="path2" cx="48.380074" cy="197.83006" rx="25" ry="6.4960628"></ellipse>
-          <path id="rect3" style="fill:#0000ff;fill-opacity:0.354839;stroke:none;stroke-width:1;stroke-dasharray:2.99999, 2.99999;stroke-dashoffset:0" d="m 23.379968,197.84064 v 36.50216 0.0253 h 0.0057 a 25,6.4960628 0 0 0 24.99434,6.47041 25,6.4960628 0 0 0 24.99434,-6.47041 h 0.0057 v -0.0253 -36.50216 h -0.0026 a 25,6.4960628 0 0 1 -24.99744,6.48539 25,6.4960628 0 0 1 -24.997441,-6.48539 z"></path>
-        </g>
-        <path id="path15" style="fill:none;fill-opacity:0.354839;stroke:#450000;stroke-width:0.499999;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" d="m 38.063299,277.08163 c 7.19943,-0.95056 16.378315,-1.35939 25.970673,-1.04916 4.365261,0.14118 7.870855,0.40311 10.350754,0.63688 2.427613,0.22885 3.766517,0.41228 3.766517,0.41228 m -40.087944,-1.92424 c 3.272858,-0.85309 7.13916,-0.96732 12.072971,-0.90386 7.637182,0.0982 6.87459,0.18627 14.133773,0.15879 4.700188,-0.0178 7.599418,-0.0598 10.284177,0.17164 2.3484,0.2024 3.597023,0.57343 3.597023,0.57343 m -40.087944,-1.92425 c 3.099194,-1.34068 6.885929,-1.12572 11.90657,-0.72595 5.694284,0.45339 9.097659,0.66485 14.422309,0.38306 4.961416,-0.26257 7.494071,-0.65961 10.300472,-0.44995 2.289901,0.17107 3.458593,0.79284 3.458593,0.79284 M 38.063299,271.3089 c 2.88068,-1.79296 6.577912,-1.24123 11.643631,-0.5081 5.600285,0.8105 9.404954,1.12181 14.682294,0.58619 4.507213,-0.45747 8.103331,-1.22095 10.3871,-1.08286 2.261497,0.13674 3.374919,1.00477 3.374919,1.00477 m -40.087944,-1.92424 c 2.671265,-2.12874 6.26596,-1.29053 11.335775,-0.28424 5.557988,1.10319 9.551356,1.48848 14.863658,0.7422 4.587377,-0.64445 8.235882,-1.71932 10.528111,-1.61747 2.268179,0.10079 3.3604,1.15951 3.3604,1.15951 m -40.087944,-1.92425 c 2.510472,-2.29314 5.998445,-1.25894 11.031396,-0.0778 5.49688,1.28998 9.583192,1.71558 14.932259,0.83407 4.648569,-0.76607 8.369423,-2.04424 10.704142,-1.97956 2.310548,0.064 3.420147,1.22333 3.420147,1.22333 m -40.087944,-1.92424 c 2.427891,-2.25806 5.81678,-1.14004 10.775669,0.0981 5.403475,1.34916 9.507893,1.77826 14.869877,0.85369 4.680756,-0.8071 8.485127,-2.1573 10.892415,-2.13033 2.384798,0.0267 3.549983,1.17853 3.549983,1.17853 m -40.087944,-1.92425 c 2.44414,-2.02242 5.754437,-0.93538 10.610539,0.24111 5.278829,1.2789 9.336473,1.67605 14.674218,0.80187 4.676903,-0.76596 8.564949,-2.05503 11.066749,-2.06639 2.482699,-0.0113 3.736438,1.02341 3.736438,1.02341 m -40.087944,-1.92424 c 2.571307,-1.61233 5.836518,-0.65433 10.574732,0.35913 5.130849,1.09743 9.091226,1.43265 14.358915,0.68833 4.632975,-0.65464 8.591622,-1.76885 11.197543,-1.81972 2.591598,-0.0506 3.956754,0.77226 3.956754,0.77226 m -40.087944,-1.92424 c 2.81383,-1.08115 6.078874,-0.31399 10.703745,0.47063 4.969832,0.84313 8.810184,1.09582 13.953526,0.53172 4.547934,-0.49879 8.548659,-1.36516 11.25179,-1.45774 2.694417,-0.0923 4.178883,0.45539 4.178883,0.45539 m -40.087944,-1.92425 c 3.173053,-0.50913 6.483549,0.0604 11.029856,0.60455 4.800624,0.57458 8.554954,0.73736 13.503531,0.35961 4.423738,-0.33769 8.420351,-0.94523 11.193068,-1.08328 2.769658,-0.13789 4.361489,0.11912 4.361489,0.11912 m -40.087944,-1.92424 c 3.69623,0 6.989762,0.43208 11.582112,0.80031 4.61949,0.37041 8.413863,0.45325 13.070343,0.20847 4.265346,-0.22421 8.191773,-0.64529 10.981548,-0.83454 2.791398,-0.18935 4.453941,-0.17424 4.453941,-0.17424" inkscape:path-effect="#path-effect15" inkscape:original-d="M 38.063299,277.08163 H 78.151243 M 38.063299,275.15739 H 78.151243 M 38.063299,273.23314 H 78.151243 M 38.063299,271.3089 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92424 h 40.087944 m -40.087944,-1.92425 h 40.087944 m -40.087944,-1.92424 h 40.087944" inkscape:transform-center-x="5.7391473" inkscape:transform-center-y="-0.57391472" transform="translate(-9.732372,-45.244146)"></path>
-      </g>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#00006d;fill-opacity:0.752941;stroke:none;stroke-width:0.750001;stroke-dasharray:none;stroke-opacity:1" x="48.353203" y="248.57687" id="text12"><tspan sodipodi:role="line" style="stroke-width:0.75" x="48.353203" y="248.57687" id="tspan14">Commit log</tspan></text>
-    </g>
-    <g id="g19" transform="translate(-2.4697127)">
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;fill:#00006d;fill-opacity:0.759197;stroke:none;stroke-width:1;stroke-dasharray:3, 3;stroke-dashoffset:0" x="-47.377552" y="141.52971" id="text16"><tspan sodipodi:role="line" id="tspan16" style="fill:#00006d;fill-opacity:0.759197;stroke-width:1" x="-47.377552" y="141.52971">Memoria</tspan></text>
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;fill:#00006d;fill-opacity:0.759197;stroke:none;stroke-width:1;stroke-dasharray:3, 3;stroke-dashoffset:0" x="-41.532536" y="158.93802" id="text18"><tspan sodipodi:role="line" id="tspan18" style="fill:#00006d;fill-opacity:0.759197;stroke-width:1" x="-41.532536" y="158.93802">Disco</tspan></text>
-    </g>
-    <path style="fill:#00006d;fill-opacity:0.752941;stroke:#000000;stroke-width:0.75;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)" d="M 10.594095,76.410956 H 137.27508" id="path39"></path>
-    <path style="fill:#00006d;fill-opacity:0.752941;stroke:#000000;stroke-width:0.750001;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker42)" d="M 46.760148,76.37242 V 193.74473" id="path40"></path>
-    <path style="fill:none;fill-opacity:0.752941;stroke:#000000;stroke-width:0.75;stroke-dasharray:0.75,0.75;stroke-opacity:1;marker-end:url(#marker42);stroke-dashoffset:0" d="m 184.18283,76.817395 h 21.81762 V 198.19829" id="path41"></path>
-    <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#1a0871;fill-opacity:0.847059;stroke:none;stroke-width:0.750001;stroke-dasharray:none;stroke-opacity:1" x="162.30713" y="105.8856" id="text44"><tspan sodipodi:role="line" id="tspan44" style="fill:#1a0871;fill-opacity:0.847059;stroke:none;stroke-width:0.75" x="162.30713" y="105.8856">Tabla en memoria</tspan></text>
-  </g>
-</svg>
+<img src="../Imágenes/Escritura.svg" alt="Escritura y lectura en Cassandra" />
 <figcaption aria-hidden="true">Escritura y lectura en Cassandra</figcaption>
 </figure>
 <p>El dato que entra en Cassandra se divide para ir a dos destinos diferentes:</p>
@@ -715,6 +561,90 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <section id="modelado-de-datos-en-cassandra" class="level2">
 <h2>Modelado de datos en Cassandra</h2>
 </section>
+<section id="conceptos-generales-en-modelado-de-datos" class="level2">
+<h2>Conceptos generales en modelado de datos</h2>
+<section id="normalización-de-datos" class="level3">
+<h3>Normalización de datos</h3>
+<p>La normalización es el proceso de diseñar las tablas y relaciones entre ellas de acuerdo a unas reglas diseñadas con el objetivo de <strong>eliminar la redundancia y la inconsistencia</strong>. Estas técnicas se aplican en los modelos relacionales y surgen de la necesidad de <strong>optimizar el almacenamiento de datos en disco</strong>. En la época en que surgieron estas técnicas, el almacenamiento en disco era muy caro y por tanto se buscaba optimizarlo. En la actualidad la situación ha cambiado y el almacenamiento en disco es muy barato, por lo que la normalización no es tan necesaria como antes. Esta es una de las razones por las que las bases de datos NoSQL como Cassandra no utiliza el modelo relacional.</p>
+<section id="ventajas-de-la-normalización" class="level4">
+<h4>Ventajas de la normalización</h4>
+<ul>
+<li><strong>Menor espacio de almacenamiento</strong>: Al eliminar la redundancia se reduce el espacio de almacenamiento.</li>
+<li><strong>Menor tiempo de escritura</strong>: Al eliminar la redundancia se reduce el tiempo de escritura.</li>
+<li><strong>Mayor integridad de los datos</strong>: Al eliminar la redundancia se evita la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).</li>
+</ul>
+</section>
+<section id="desventajas-de-la-normalización" class="level4">
+<h4>Desventajas de la normalización</h4>
+<ul>
+<li><strong>Mayor tiempo de lectura</strong>: Al eliminar la redundancia se aumenta el tiempo de lectura, ya que hay que realizar <strong>más consultas</strong> para obtener los datos.</li>
+<li><strong>Mayor complejidad en las consultas</strong>: Al eliminar la redundancia se aumenta la <strong>complejidad de las consultas</strong> (sentencias <a href="https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL"><em>join</em></a>).</li>
+</ul>
+</section>
+</section>
+<section id="desnormalización-de-datos" class="level3">
+<h3>Desnormalización de datos</h3>
+<p>La desnormalización es el proceso de añadir redundancia a los datos con el objetivo de <strong>mejorar el rendimiento</strong>. En Cassandra se desnormalizan los datos para evitar las consultas <a href="https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL"><em>join</em></a>, que serían muy costosas en Cassandra (Cassandra no admite sentencias <em>join</em>). Hay que tener en cuenta que el precio del espacio de almacenamiento en disco es muy barato en la actualidad y las velocidades de escritura y lectura son muy altas, por lo que la desnormalización no es un problema en este aspecto.</p>
+<section id="ventajas-de-la-desnormalización" class="level4">
+<h4>Ventajas de la desnormalización</h4>
+<p>Son a la inversa que las desventajas de la normalización:</p>
+<ul>
+<li><strong>Menor tiempo de lectura</strong>: Al añadir redundancia se reduce el tiempo de lectura, ya que hay que realizar <strong>menos consultas</strong> para obtener los datos.</li>
+<li><strong>Menor complejidad en las consultas</strong>: Al añadir redundancia se reduce la <strong>complejidad de las consultas</strong> (se pueden evitar las sentencias <a href="https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL"><em>join</em></a>, y los <em>join</em> anidados).</li>
+</ul>
+</section>
+<section id="desventajas-de-la-desnormalización" class="level4">
+<h4>Desventajas de la desnormalización</h4>
+<ul>
+<li><strong>Multiples escrituras</strong>: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.</li>
+<li><strong>Integridad manual de los datos</strong>: Al añadir redundancia se aumenta la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).</li>
+</ul>
+</section>
+</section>
+<section id="modelado-relacional-vs-cassandra" class="level3">
+<h3>Modelado relacional vs Cassandra</h3>
+<p>Cassandra es una base de datos diseñada con el objetivo de optimizar el rendimiento de las lecturas a escala. Para ello se sacrifica el rendimiento de las escrituras y la integridad de los datos. Por tanto, el modelado de datos en Cassandra es muy diferente al modelado de datos en bases de datos relacionales.</p>
+<p>En Cassandra se emplea la desnormalización de datos en el proceso de modelado.</p>
+<p>En un sistema de bases de datos relacional el modelado de datos sigue los siguientes pasos:</p>
+<pre class="mermaid"><code>graph TB
+ad([Analizar los datos]) --&gt; id([Identificar las
+entidades y
+relaciones])
+id --&gt; md([Diseñar las tablas
+aplicando normalización y
+claves foráneas])
+md --&gt; app([La aplicación accede
+al modelo de datos])</code></pre>
+<p>El proceso se inicia con los datos <em>crudos</em>. Se analizan sus características y se identifican las entidades y relaciones entre ellas. A continuación se diseñan las tablas aplicando la normalización para minimizar la redundancia y finalmente la aplicación accede al modelo de datos diseñando las consultas y demás operaciones <strong>condicionada por el diseño previo</strong>.</p>
+<p>En cambio en Cassandra (y otras bases de datos NoSQL) el proceso es el siguiente:</p>
+<pre class="mermaid"><code>graph TB
+app([Analizar las
+necesidades del
+usuario]) --&gt; q([Identificar las
+consultas necesarias])
+q --&gt; data([Diseñar las tablas
+en función de
+las consultas])</code></pre>
+<p>Partimos de analizar cómo necesitamos consumir los datos, qué operaciones necesitará realizar la aplicación sobre ellos. En función de estas necesidades se diseñan las tablas y finalmente se organizan los datos en función del diseño previo.</p>
+<p>Se parte de la aplicación y se <em>sube</em> hasta los datos, en vez de partir de los datos y <em>bajar</em> hasta la aplicación.</p>
+</section>
+<section id="flujo-de-trabajo-en-el-modelado-de-datos-en-cassandra" class="level3">
+<h3>Flujo de trabajo en el modelado de datos en Cassandra</h3>
+<p>El flujo de trabajo en el modelado de datos en Cassandra es el siguiente:</p>
+<pre class="mermaid"><code>graph LR
+mc[Modelo conceptual] --&gt; mcl[Mapeado del concepto
+a la lógica]
+awf[Flujo de trabajo
+de la aplicación] --&gt; mcl
+mcl --&gt; mld[Modelo lógico
+de los datos]
+mld --&gt; mlf[Optimizaciones 
+físicas]
+mlf --&gt; mfd[Modelo físico
+de los datos]</code></pre>
+<p>En primer lugar se analizará el flujo de trabajo de la aplicación (¿Qué hacen los usuarios en la aplicación?) y se determinan también cual es el modelo conceptual de los datos: qué entidades podemos encontrar y relaciones que existen entre las mismas. Con esta información empezaremos a enlazar la lógica de la aplicación al modelo de datos. Seguirán las optimizaciones físicas que se puedan detectar y finalmente el modelo físico de los datos, que es cómo se van a almacenar los datos en disco.</p>
+</section>
+</section>
 <section id="creación-de-un-cluster" class="level2">
 <h2>Creación de un cluster</h2>
 <p>Para realizar las pruebas con Cassandra crearemos un cluster de 3 nodos en local. Para ello utilizaremos Docker y Docker Compose. Los nodos del cluster serán los siguientes: cass1, cass2 y cass3. Los nodos cass1 y cass2 serán los nodos semilla del cluster. El nodo cass3 se unirá al cluster posteriormente.</p>
@@ -722,87 +652,87 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <h3>Obteniendo la imagen de Cassandra</h3>
 <p>Usaremos la imagen oficial de Cassandra que se encuentra en Docker Hub: <a href="https://hub.docker.com/_/cassandra">https://hub.docker.com/_/cassandra</a>.</p>
 <p>Para obtener la imagen ejecutaremos el siguiente comando:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull cassandra:latest</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull cassandra:latest</span></code></pre></div>
 </section>
 <section id="creando-el-docker-compose.yml" class="level3">
 <h3>Creando el <code>docker-compose.yml</code></h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;3.8&quot;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">networks</span><span class="kw">:</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cassandra</span><span class="kw">:</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass1</span><span class="kw">:</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass1</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass1</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9042:9042&quot;</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass1:/var/lib/cassandra</span><span class="co"> # Para almacenar los datos de la base de datos.</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass1:/etc/cassandra</span><span class="co"> # Para poder editar los archivos de configuración.</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./scripts:/scripts</span><span class="co"> # Para escribir y ejecutar scripts de CQL.</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span><span class="at"> </span><span class="ot">&amp;environment</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_SEEDS</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;cass1,cass2&quot;</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_CLUSTER_NAME</span><span class="kw">:</span><span class="at"> SolarSystem</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_DC</span><span class="kw">:</span><span class="at"> Mars</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_RACK</span><span class="kw">:</span><span class="at"> West</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_ENDPOINT_SNITCH</span><span class="kw">:</span><span class="at"> GossipingPropertyFileSnitch</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_NUM_TOKENS</span><span class="kw">:</span><span class="at"> </span><span class="dv">128</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass2</span><span class="kw">:</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass2</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass2</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9043:9042&quot;</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass2:/var/lib/cassandra</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass2:/etc/cassandra</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./scripts:/scripts</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">&lt;&lt;</span><span class="kw">:</span><span class="at"> </span><span class="ot">*environment</span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">cass1</span><span class="kw">:</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass3</span><span class="kw">:</span></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass3</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass3</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9045:9042&quot;</span></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass3:/var/lib/cassandra</span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass3:/etc/cassandra</span></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> .scripts:/scripts</span></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">&lt;&lt;</span><span class="kw">:</span><span class="at"> </span><span class="ot">*environment</span></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">cass2</span><span class="kw">:</span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;3.8&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">networks</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cassandra</span><span class="kw">:</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass1</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass1</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9042:9042&quot;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass1:/var/lib/cassandra</span><span class="co"> # Para almacenar los datos de la base de datos.</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass1:/etc/cassandra</span><span class="co"> # Para poder editar los archivos de configuración.</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./scripts:/scripts</span><span class="co"> # Para escribir y ejecutar scripts de CQL.</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span><span class="at"> </span><span class="ot">&amp;environment</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_SEEDS</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;cass1,cass2&quot;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_CLUSTER_NAME</span><span class="kw">:</span><span class="at"> SolarSystem</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_DC</span><span class="kw">:</span><span class="at"> Mars</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_RACK</span><span class="kw">:</span><span class="at"> West</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_ENDPOINT_SNITCH</span><span class="kw">:</span><span class="at"> GossipingPropertyFileSnitch</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">CASSANDRA_NUM_TOKENS</span><span class="kw">:</span><span class="at"> </span><span class="dv">128</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass2</span><span class="kw">:</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass2</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass2</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9043:9042&quot;</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass2:/var/lib/cassandra</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass2:/etc/cassandra</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./scripts:/scripts</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">&lt;&lt;</span><span class="kw">:</span><span class="at"> </span><span class="ot">*environment</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">cass1</span><span class="kw">:</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cass3</span><span class="kw">:</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> cassandra:latest</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> cass3</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> cass3</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 2g</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;CMD&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;cqlsh&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;-e&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;describe keyspaces&quot;</span><span class="kw">]</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">networks</span><span class="kw">:</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> cassandra</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;9045:9042&quot;</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data/cass3:/var/lib/cassandra</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./etc/cass3:/etc/cassandra</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> .scripts:/scripts</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">&lt;&lt;</span><span class="kw">:</span><span class="at"> </span><span class="ot">*environment</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">cass2</span><span class="kw">:</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span></code></pre></div>
 <p>Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.</p>
 <p>Cada nodo tiene tres volúmenes asociados:</p>
 <ul>
@@ -813,21 +743,21 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <p>Antes de arrancar el cluster hemos de crear los directorios <code>data/cass1</code>, <code>data/cass2</code> y <code>data/cass3</code> y los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
 <p>A continuación copiaremos los archivos de configuración de Cassandra en los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
 <p>Para ello hemos primero de obtener los archivos de configuración de Cassandra. Para ello los copiaremos de un contenedor de Cassandra que se ejecutará temporalmente.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-d</span> <span class="at">--name</span> temp cassandra:latest</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp temp:/etc/cassandra .</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stop temp</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-d</span> <span class="at">--name</span> temp cassandra:latest</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp temp:/etc/cassandra .</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stop temp</span></code></pre></div>
 <p>las opciones <code>-rm</code> y <code>-d</code> indican que el contenedor se elimine automáticamente al pararlo y que se ejecute en segundo plano.</p>
 </section>
 <section id="copiar-los-archivos-de-configuración-de-cassandra" class="level3">
 <h3>Copiar los archivos de configuración de Cassandra</h3>
 <p>Copiaremos los archivos de configuración de Cassandra en los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass1/</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass2/</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass3/</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass1/</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass2/</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass3/</span></code></pre></div>
 <p>La opción <code>-a</code> de <code>cp</code> indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.</p>
 <p>Todo esto lo hacemos para que podamos <strong>modificar los archivos de configuración de Cassandra</strong> de cada nodo de forma independiente editando los archivos de los directorios locales <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
 <p><strong>Nota respecto al volumen <code>scriptsp</code></strong>: El volumen <code>scripts</code> se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio <code>scripts</code> del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script.cql</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script.cql</span></code></pre></div>
 <p>No es necesario crear el directorio <code>/scripts</code> en los contenedores ya que se crea automáticamente al crear el volumen <code>scripts</code>.</p>
 <p>Sí es necesario crear el directorio <code>scripts</code> en el host… <em>creo</em>.</p>
 </section>
@@ -835,25 +765,25 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <h3>Iniciar el cluster</h3>
 <p>Los nodos <code>cass1</code> y <code>cass2</code> serán los nodos designados como semilla del cluster.</p>
 <p>Para iniciar el cluster ejecutaremos el siguiente comando:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span></code></pre></div>
 <p>y el resultado debería ser el siguiente:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> docker-compose <span class="ex">up</span> <span class="at">-d</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[+]</span> Running 3/3</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass1 Healthy                                                      0.0s </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass2 Healthy                                                      0.5s </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass3 Started                                                      0.7s</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> docker-compose <span class="ex">up</span> <span class="at">-d</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[+]</span> Running 3/3</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass1 Healthy                                                      0.0s </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass2 Healthy                                                      0.5s </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container cass3 Started                                                      0.7s</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span></span></code></pre></div>
 <p>Para comprobar que los contenedores se han iniciado correctamente ejecutaremos el siguiente comando:</p>
 <p><strong>Revisar esto.</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps</span></code></pre></div>
 </section>
 <section id="abrir-una-consola-de-cqlsh" class="level3">
 <h3>Abrir una consola de CQLSH</h3>
 <p>Para empezar a trabajar con Cassandra hemos de abrir una consola de CQLSH que nos permitirá ejecutar comandos CQL.</p>
 <p>Para abrir una consola de CQLSH ejecutaremos el siguiente comando:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh</span></code></pre></div>
 <p>Con este último paso estaremos listos para empezar a trabajar con Cassandra.</p>
-<p>version: “3.8” networks: cassandra: services: cass1: image: cassandra:latest container_name: cass1 hostname: cass1 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9042:9042” volumes: - ./data/cass1:/var/lib/cassandra - ./etc/cass1:/etc/cassandra - ./scripts/cass1:/scripts</p>
+<p>version: “3.8” networks: cassandra: services: cass1: image: cassandra:latest container_name: cass1 hostname: cass1 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9042:9042” volumes: - ./data/cass1:/var/lib/cassandra - ./etc/cass1:/etc/cassandra - ./scripts:/scripts</p>
 <pre><code>environment: &amp;environment
   CASSANDRA_SEEDS: &quot;cass1,cass2&quot;
   CASSANDRA_CLUSTER_NAME: SolarSystem
@@ -861,32 +791,11 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
   CASSANDRA_RACK: West
   CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
   CASSANDRA_NUM_TOKENS: 128</code></pre>
-<p>cass2: image: cassandra:latest container_name: cass2 hostname: cass2 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9043:9042” volumes: - ./data/cass2:/var/lib/cassandra - ./etc/cass2:/etc/cassandra - ./scripts/cass2:/scripts environment: &lt;&lt;: <em>environment depends_on: cass1: condition: service_healthy cass3: image: cassandra:latest container_name: cass3 hostname: cass3 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9045:9042” volumes: - ./data/cass3:/var/lib/cassandra - ./etc/cass3:/etc/cassandra - ./scripts/cass3:/scripts environment: &lt;&lt;: </em>environment depends_on: cass2: condition: service_healthy</p>
+<p>cass2: image: cassandra:latest container_name: cass2 hostname: cass2 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9043:9042” volumes: - ./data/cass2:/var/lib/cassandra - ./etc/cass2:/etc/cassandra - ./scripts:/scripts environment: &lt;&lt;: <em>environment depends_on: cass1: condition: service_healthy cass3: image: cassandra:latest container_name: cass3 hostname: cass3 mem_limit: 2g healthcheck: test: [“CMD”, “cqlsh”, “-e”, “describe keyspaces”] interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - “9045:9042” volumes: - ./data/cass3:/var/lib/cassandra - ./etc/cass3:/etc/cassandra - ./scripts:/scripts environment: &lt;&lt;: </em>environment depends_on: cass2: condition: service_healthy</p>
 </section>
 </section>
-<section id="primeros-pasos-con-cql" class="level2">
-<h2>Primeros pasos con CQL</h2>
-<p>En este tema veremos como realizar las operaciones básicas de CQL.</p>
-<p>La ide es poner miniejericios para que podáis practicar con CQL. A continuación se incluirá la solución pero recomiendo intentarlo antes de mirar la solución.</p>
-<section id="creación-de-un-keyspace" class="level3">
-<h3>Creación de un keyspace</h3>
-<p>Se ha de crear un <em>keyspace</em> de nombre “SBD” con una estrategia de replicación simple con factor de replicación 1.</p>
-<p>Una vez creado el <em>keyspace</em> podremos comprobar que se ha creado correctamente con la sentencia <code>DESCRIBE KEYSPACES</code>:</p>
-<pre class="cql"><code>DESCRIBE KEYSPACES;</code></pre>
-<section id="solución" class="level4">
-<h4>Solución</h4>
-<pre class="cql"><code>CREATE KEYSPACE SBD
-  WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : 1 };</code></pre>
-</section>
-</section>
-<section id="creación-de-una-tabla" class="level3">
-<h3>Creación de una tabla</h3>
-<p>Hemos de crear dos tablas.</p>
-<p>La primera la llamaremos “miembros” con columnas: dni, nombre, apellidos, fecha de nacimiento y tipo (“alumno” o “profesor”), esta última a de ser además <em>static</em>. y “asignaturas” con columnas: id, nombre, curso, horas. Las columnas serán de tipo static y la PK ha de ser la combinación de DNI y fecha de nacimiento.</p>
-</section>
-</section>
-<section id="lenguaje-cql-cassnadra-query-language" class="level2">
-<h2>Lenguaje CQL (<em>Cassnadra Query Language</em>)</h2>
+<section id="lenguaje-cql-cassandra-query-language" class="level2">
+<h2>Lenguaje CQL (<em>Cassandra Query Language</em>)</h2>
 <p>Este lenguaje tiene muchas similitudes con SQL, pero también algunas diferencias. En esta sección vamos a ver las principales diferencias entre ambos lenguajes.</p>
 <p>Cassandra <strong>no permite realizar operaciones de <em>join</em></strong> entre tablas. Esto es debido a que las tablas en Cassandra están diseñadas para ser consultadas de forma independiente. Por lo tanto, si necesitamos realizar una consulta que implique datos de varias tablas, tendremos que realizar varias consultas y combinar los resultados en nuestra aplicación.</p>
 <p>Si queremos hacer una agrupación de datos sólo podremos hacerlo con respecto a las columnas de la clave primaria. Por ejemplo, si tenemos una tabla con las columnas <code>id</code>, <code>name</code>, <code>age</code> y <code>city</code> y queremos agrupar por <code>city</code> y <code>age</code> tendremos que crear una tabla con una clave primaria compuesta por <code>city</code> y <code>age</code>. No podremos agrupar por <code>city</code> y <code>name</code> porque <code>name</code> no forma parte de la clave primaria.</p>
@@ -922,70 +831,7 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 </tbody>
 </table>
 <figure>
-<svg alt="Estructura de un sistema Cassandra" width="150.00011mm" height="99.374893mm" viewBox="0 0 150.00011 99.374893" inkscape:version="1.3 (0e150ed6c4, 2023-07-21)" sodipodi:docname="Estructura.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" inkscape:zoom="1" inkscape:cx="397" inkscape:cy="321.5" inkscape:window-width="1920" inkscape:window-height="1009" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1"></sodipodi:namedview>
-  <defs id="defs1"></defs>
-  <g inkscape:label="Capa 1" inkscape:groupmode="layer" id="layer1" transform="translate(5.4044162e-5,-5.2868191e-5)">
-    <g id="g56" transform="matrix(0.74937343,0,0,0.74905303,0.06265652,0.06273662)" style="stroke-width:1.33473">
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect36" width="16.375" height="19.500002" x="0.24999949" y="90.25" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect40" width="33.25" height="19.500002" x="36.5" y="67.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect12" width="82" height="19.500002" x="72.75" y="45.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect1" width="199.5" height="19.500002" x="0.24999949" y="0.24999949" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect2" width="69.5" height="19.500002" x="0.24999949" y="22.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect3" width="127" height="19.500002" x="72.75" y="22.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect4" width="69.5" height="19.500002" x="0.24999949" y="45.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect5" width="42" height="19.500002" x="157.75" y="45.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect6" width="33.25" height="19.500002" x="0.24999949" y="67.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect7" width="82" height="19.500002" x="72.75" y="67.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect9" width="26.166666" height="19.500002" x="72.75" y="112.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect10" width="16.375" height="19.500002" x="0.24999949" y="112.75" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect13" width="26.166666" height="19.500002" x="100.66666" y="112.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect14" width="26.166666" height="19.500002" x="128.58333" y="112.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect15" width="26.166666" height="19.500002" x="72.75" y="90.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect16" width="26.166666" height="19.500002" x="100.66666" y="90.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect17" width="26.166666" height="19.500002" x="128.58333" y="90.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect18" width="42" height="19.500002" x="157.75" y="67.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect19" width="19.5" height="19.500002" x="157.75" y="90.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect20" width="19.5" height="19.500002" x="180.25" y="90.25" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect21" width="19.5" height="19.500002" x="157.75" y="112.75" rx="3.3361204" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect22" width="19.5" height="19.500002" x="180.25" y="112.75" rx="3.3361204" ry="3.3375473"></rect>
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="99.946259" y="12.745053" id="text22"><tspan sodipodi:role="line" id="tspan22" style="fill:#000000;stroke:none;stroke-width:0.667367" x="99.946259" y="12.745053">CLUSTER</tspan></text>
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="35.171566" y="34.283871" id="text23"><tspan sodipodi:role="line" id="tspan23" style="fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="35.171566" y="34.283871">KeySpace1</tspan></text>
-      <text xml:space="preserve" style="font-weight:bold;font-size:8.46667px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="136.07016" y="34.283871" id="text24"><tspan sodipodi:role="line" id="tspan24" style="fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="136.07016" y="34.283871">KeySpace2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="35.344509" y="56.627811" id="text25"><tspan sodipodi:role="line" id="tspan25" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="35.344509" y="56.627811">Column Family1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="114.16341" y="56.627811" id="text26"><tspan sodipodi:role="line" id="tspan26" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="114.16341" y="56.627811">Column Family 1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="178.65353" y="52.774471" id="text27"><tspan sodipodi:role="line" id="tspan27" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="178.65353" y="52.774471">Column</tspan><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="178.65353" y="61.593922" id="tspan40">Family 2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="16.616617" y="79.765152" id="text28"><tspan sodipodi:role="line" id="tspan28" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="16.616617" y="79.765152">Row</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="113.49162" y="79.765152" id="text29"><tspan sodipodi:role="line" id="tspan29" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="113.49162" y="79.765152">Row</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="178.49162" y="79.765152" id="text30"><tspan sodipodi:role="line" id="tspan30" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="178.49162" y="79.765152">Row</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="52.866619" y="79.765152" id="text31"><tspan sodipodi:role="line" id="tspan31" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="52.866619" y="79.765152">Row</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="8.7820091" y="102.42879" id="text32"><tspan sodipodi:role="line" id="tspan32" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="8.7820091" y="102.42879">Col1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="8.5563555" y="124.89262" id="text33"><tspan sodipodi:role="line" id="tspan33" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="8.5563555" y="124.89262">Val.</tspan></text>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect33" width="16.375" height="19.500002" x="17.958332" y="112.75" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect34" width="16.375" height="19.500002" x="35.666668" y="112.75" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect35" width="16.375" height="19.500002" x="53.375" y="112.75" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect37" width="16.375" height="19.500002" x="17.958332" y="90.25" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect38" width="16.375" height="19.500002" x="35.666668" y="90.25" rx="3.3361208" ry="3.3375473"></rect>
-      <rect style="fill:#2a7fff;fill-opacity:0.847059;stroke:#000000;stroke-width:0.667367" id="rect39" width="16.375" height="19.500002" x="53.375" y="90.25" rx="3.3361208" ry="3.3375473"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="61.907009" y="102.42879" id="text41"><tspan sodipodi:role="line" id="tspan41" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="61.907009" y="102.42879">Col2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="44.198677" y="102.42879" id="text42"><tspan sodipodi:role="line" id="tspan42" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="44.198677" y="102.42879">Col1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="26.490341" y="102.42879" id="text43"><tspan sodipodi:role="line" id="tspan43" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="26.490341" y="102.42879">Col2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="86.177841" y="102.42879" id="text44"><tspan sodipodi:role="line" id="tspan44" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="86.177841" y="102.42879">Col1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="113.80167" y="102.42879" id="text45"><tspan sodipodi:role="line" id="tspan45" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="113.80167" y="102.42879">Col2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="141.71834" y="102.42879" id="text46"><tspan sodipodi:role="line" id="tspan46" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="141.71834" y="102.42879">Col3</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="167.84451" y="102.42879" id="text47"><tspan sodipodi:role="line" id="tspan47" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="167.84451" y="102.42879">Col1</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="190.05168" y="102.42879" id="text48"><tspan sodipodi:role="line" id="tspan48" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="190.05168" y="102.42879">Col2</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="26.264688" y="124.89262" id="text49"><tspan sodipodi:role="line" id="tspan49" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="26.264688" y="124.89262">Val.</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="43.973022" y="124.89262" id="text50"><tspan sodipodi:role="line" id="tspan50" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="43.973022" y="124.89262">Val.</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="61.681355" y="124.89262" id="text51"><tspan sodipodi:role="line" id="tspan51" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="61.681355" y="124.89262">Val.</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="85.952187" y="124.89262" id="text52"><tspan sodipodi:role="line" id="tspan52" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="85.952187" y="124.89262">Value</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="113.86884" y="124.89262" id="text53"><tspan sodipodi:role="line" id="tspan53" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="113.86884" y="124.89262">Value</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="141.78552" y="124.89262" id="text54"><tspan sodipodi:role="line" id="tspan54" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="141.78552" y="124.89262">Value</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="167.42354" y="124.89262" id="text55"><tspan sodipodi:role="line" id="tspan55" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="167.42354" y="124.89262">Value</tspan></text>
-      <text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;opacity:0.75;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667365" x="190.11885" y="124.89262" id="text56"><tspan sodipodi:role="line" id="tspan56" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:&#39;Linux Biolinum G&#39;;-inkscape-font-specification:&#39;Linux Biolinum G, Bold&#39;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:0.847059;stroke:none;stroke-width:0.667367" x="190.11885" y="124.89262">Value</tspan></text>
-    </g>
-  </g>
-</svg>
+<img src="../Imágenes/Estructura.svg" alt="Estructura de un sistema Cassandra" />
 <figcaption aria-hidden="true">Estructura de un sistema Cassandra</figcaption>
 </figure>
 <section id="tipos-de-datos-en-cassandra" class="level3">
@@ -1106,10 +952,24 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <li>Comentarios de varias líneas: <code>/* */</code></li>
 </ul>
 </section>
-<section id="creación-del-modelo-de-datos" class="level3">
-<h3>Creación del modelo de datos</h3>
-<section id="creación-de-un-keyspace-1" class="level4">
-<h4>Creación de un <em>keyspace</em></h4>
+</section>
+<section id="creación-del-modelo-de-datos" class="level2">
+<h2>Creación del modelo de datos</h2>
+<section id="ejecución-de-scripts-de-cql" class="level3">
+<h3>Ejecución de scripts de CQL</h3>
+<p>Para ejecutar instrucciones CQL podemos simplemente lanzar una shell de CQLSH en un contenedor de Cassandra como vimos en la sección de creación del cluster:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh</span></code></pre></div>
+<p>Pero pronto nos daremos cuenta de que hay instrucciones que tienen una sintaxis demasiado compleja para ser ejecutadas desde la shell. Por ello, lo más cómodo es escribir las instrucciones CQL en un fichero de texto y ejecutarlas desde la shell de CQLSH.</p>
+<p>Los <em>scripts</em> de CQL son ficheros de texto con extensión <code>.cql</code> que contienen instrucciones CQL. Para ejecutar un <em>script</em> de CQL desde la shell de CQLSH utilizamos la sentencia <code>SOURCE</code>:</p>
+<pre class="cql"><code>SOURCE &#39;path/to/script.cql&#39;;</code></pre>
+<p>Pero si lo que queremos es ejecutar un <em>script</em> de CQL desde la línea de comandos utilizaremos el siguiente comando:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cqlsh</span> <span class="at">-f</span> path/to/script.cql</span></code></pre></div>
+<p>Como en nuestro ejemplo vamos a utilizar contenedores Docker, vamos a hacer lo siguiente.</p>
+<p>Cuando creamos el fichero <code>docker-compose.yml</code> indicamos que el directorio <code>./scripts</code> del host se montase en el directorio <code>/scripts</code> de los contenedores. Por lo tanto, si queremos ejecutar un <em>script</em> de CQL desde la línea de comandos, lo que tenemos que hacer en primer lugar es copiar el <em>script</em> en el directorio <code>scripts</code> del host para luego ejecutar el siguiente comando:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script.cql</span></code></pre></div>
+</section>
+<section id="creación-de-un-keyspace" class="level3">
+<h3>Creación de un <em>keyspace</em></h3>
 <p>Para crear un <em>keyspace</em> utilizamos la sentencia <code>CREATE KEYSPACE</code>:</p>
 <pre class="cql"><code>CREATE KEYSPACE &lt;keyspace_name&gt;
   WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : &lt;n&gt; };</code></pre>
@@ -1119,7 +979,6 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
   WITH REPLICATION = { &#39;class&#39; : &#39;NetworkTopologyStrategy&#39;, &#39;dc1&#39; : 1, &#39;dc2&#39; : 3 };</code></pre>
 <p>Para indicar que vamos a utilizar el <em>keyspace</em> <code>my_keyspace</code> utilizamos la sentencia <code>USE</code>:</p>
 <pre class="cql"><code>USE my_keyspace;</code></pre>
-</section>
 <section id="modificar-un-keyspace" class="level4">
 <h4>Modificar un <em>keyspace</em></h4>
 <p>Para modificar un <em>keyspace</em> utilizamos la sentencia <code>ALTER KEYSPACE</code>:</p>
@@ -1131,7 +990,7 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <p>Para borrar un <em>keyspace</em> utilizamos la sentencia <code>DROP KEYSPACE</code>:</p>
 <pre class="cql"><code>DROP KEYSPACE &lt;keyspace_name&gt;;</code></pre>
 </section>
-<section id="creación-de-una-tabla-1" class="level4">
+<section id="creación-de-una-tabla" class="level4">
 <h4>Creación de una tabla</h4>
 <p>Para crear una tabla utilizamos la sentencia <code>CREATE TABLE</code>:</p>
 <pre class="cql"><code>CREATE TABLE &lt;table_name&gt; [     IF NOT EXISTS ] (
@@ -1218,23 +1077,69 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <pre class="cql"><code>CREATE KEYSPACE sbd
   WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : 2 };</code></pre>
 <p>a continuación creamos la tabla <code>miembros</code>:</p>
-<pre class="cql"><code>CREATE TABLE miembros (
+<pre class="cql"><code>CREATE TABLE IF NOT EXISTS sbd.miembros (
     id int PRIMARY KEY,
     nombre text,
     apellidos text,
-    edad int,
-    rol text,
+    email text,
+    rol text static,
     fecha_alta timestamp,
     fecha_de_nacimiento date
-);</code></pre>
+)
+WITH comment = &#39;Tabla con datos de prueba.&#39;;</code></pre>
+<p>Si la <em>partition key</em> es compuesta la definiremos de la siguiente forma:</p>
+<pre class="cql"><code>CREATE TABLE IF NOT EXISTS sbd.miembros (
+    id int,
+    nombre text,
+    apellidos text,
+    email text,
+    rol text static,
+    fecha_alta timestamp,
+    fecha_de_nacimiento date,
+    PRIMARY KEY (id, fecha_alta)
+) WITH comment = &#39;Tabla con datos de prueba.&#39;,
+  AND CLUSTERING ORDER BY (fecha_alta DESC);</code></pre>
 <p>Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Por ello, a partir de ahora utilizaremos un fichero de texto para almacenar las sentencias CQL que queremos ejecutar.</p>
 <p>Un <em>script</em> de CQL es un fichero de texto con extensión <code>.cql</code> que contiene sentencias CQL. Para ejecutar un <em>script</em> de CQL desde dentro de CQLSH utilizaremos la sentencia <code>SOURCE</code>:</p>
 <pre class="cql"><code>SOURCE &#39;path/to/script.cql&#39;;</code></pre>
 <p>Si lo que necesitamos es ejecutar un <em>script</em> de CQL desde la línea de comandos utilizaremos el siguiente comando:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cqlsh</span> <span class="at">-f</span> path/to/script.cql</span></code></pre></div>
-<section id="create" class="level3">
-<h3>Create</h3>
-</section>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cqlsh</span> <span class="at">-f</span> path/to/script.cql</span></code></pre></div>
+<p>Finamente veamos cómo crear un <em>keyspace</em> y una tabla de ejemplo utilizando un <em>script</em> de CQL.</p>
+<pre class="cql"><code>CREATE KEYSPACE sbd
+  WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : 2 };
+
+CREATE TABLE IF NOT EXISTS sbd.miembros (
+    id int PRIMARY KEY,
+    nombre text,
+    apellidos text,
+    email text,
+    rol text static,
+    fecha_alta timestamp,
+    fecha_de_nacimiento date
+    PRIMARY KEY (id, fecha_alta)
+);
+
+// Creamos una segunda tabla de asignaturas
+
+CREATE TABLE IF NOT EXISTS sbd.asignaturas (
+    id int PRIMARY KEY,
+    nombre text,
+    curso int,
+    profesor map &lt;text, text&gt;,
+    alumnos list&lt;map&lt;text, text&gt;&gt;
+    fecha_inicio timestamp,
+    fecha_fin timestamp
+);
+
+// Comprobamos que se han creado el keyspace y las tablas
+
+DESCRIBE KEYSPACES;
+
+USE sbd;
+
+DESCRIBE TABLES;</code></pre>
+<p>Guardamos el código anterior en un fichero llamado <code>script01.cql</code> y lo ejecutamos:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script01.cql</span></code></pre></div>
 </section>
 </body>
 </html>
