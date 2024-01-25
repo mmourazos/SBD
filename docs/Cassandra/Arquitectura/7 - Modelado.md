@@ -1,5 +1,3 @@
-# Modelado de datos en Cassandra
-
 # Conceptos generales en modelado de datos
 
 ## Normalización de datos
@@ -17,7 +15,6 @@ La normalización es el proceso de diseñar las tablas y relaciones entre ellas 
 * **Mayor tiempo de lectura**: Al eliminar la redundancia se aumenta el tiempo de lectura, ya que hay que realizar **más consultas** para obtener los datos.
 * **Mayor complejidad en las consultas**: Al eliminar la redundancia se aumenta la **complejidad de las consultas** (sentencias [*join*](https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL)).
 
-
 ## Desnormalización de datos
 
 La desnormalización es el proceso de añadir redundancia a los datos con el objetivo de **mejorar el rendimiento**. En Cassandra se desnormalizan los datos para evitar las consultas [*join*](https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL), que serían muy costosas en Cassandra (Cassandra no admite sentencias *join*). Hay que tener en cuenta que el precio del espacio de almacenamiento en disco es muy barato en la actualidad y las velocidades de escritura y lectura son muy altas, por lo que la desnormalización no es un problema en este aspecto.
@@ -31,7 +28,7 @@ Son a la inversa que las desventajas de la normalización:
 
 ### Desventajas de la desnormalización
 
-* **Multiples escrituras**: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.
+* **Múltiples escrituras**: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.
 * **Integridad manual de los datos**: Al añadir redundancia se aumenta la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).
 
 ## Modelado relacional vs Cassandra

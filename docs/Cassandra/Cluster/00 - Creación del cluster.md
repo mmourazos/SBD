@@ -94,7 +94,7 @@ services:
         condition: service_healthy
 ```
 
-Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.
+Este archivo de configuración crea un *cluster* de 3 nodos de Cassandra en local.
 
 Cada nodo tiene tres volúmenes asociados:
 
@@ -102,7 +102,7 @@ Cada nodo tiene tres volúmenes asociados:
 * `/etc/cass1:/etc/cassandra`: Contiene los archivos de configuración del nodo.
 * `./scripts:/scripts`: Contendrá los scripts de CQL que vayamos escribiendo.
 
-Antes de arrancar el cluster hemos de crear los directorios `data/cass1`, `data/cass2` y `data/cass3` y los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
+Antes de arrancar el *cluster* hemos de crear los directorios `data/cass1`, `data/cass2` y `data/cass3` y los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
 
 A continuación copiaremos los archivos de configuración de Cassandra en los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`.
 
@@ -116,21 +116,25 @@ docker stop temp
 
 las opciones `-rm` y `-d` indican que el contenedor se elimine automáticamente al pararlo y que se ejecute en segundo plano.
 
+Ahora tendremos un directorio `cassandra` con los archivos de configuración que hemos copiado de la máquina temporal.
+
 ## Copiar los archivos de configuración de Cassandra
 
 Copiaremos los archivos de configuración de Cassandra en los directorios `etc/cass1`, `etc/cass2` y `etc/cass3`:
 
 ```bash
-cp -a cassandra/cassandra.yaml cassandra/cass1/
-cp -a cassandra/cassandra.yaml cassandra/cass2/
-cp -a cassandra/cassandra.yaml cassandra/cass3/
+cp -a ./cassandra ./etc/cass1/
+cp -a ./cassandra ./etc/cass2/
+cp -a ./cassandra ./etc/cass3/
 ```
 
 La opción `-a` de `cp` indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.
 
+Si estamos en Windows hemos de hacer lo mismo copiando directamente el contenido del directorio `cassandra` a `etc/cass1` y los demás.
+
 Todo esto lo hacemos para que podamos **modificar los archivos de configuración de Cassandra** de cada nodo de forma independiente editando los archivos de los directorios locales `etc/cass1`, `etc/cass2` y `etc/cass3`.
 
-**Nota respecto al volumen `scriptsp`**: El volumen `scripts` se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio `scripts` del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:
+**Nota respecto al volumen `scripts`**: El volumen `scripts` se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio `scripts` del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:
 
 ```bash
 docker exec -it cass1 cqlsh -f /scripts/script.cql
@@ -140,11 +144,11 @@ No es necesario crear el directorio `/scripts` en los contenedores ya que se cre
 
 Sí es necesario crear el directorio `scripts` en el host... *creo*.
 
-## Iniciar el cluster
+## Iniciar el *cluster*
 
-Los nodos `cass1` y `cass2` serán los nodos designados como semilla del cluster.
+Los nodos `cass1` y `cass2` serán los nodos designados como semilla del *cluster*.
 
-Para iniciar el cluster ejecutaremos el siguiente comando:
+Para iniciar el *cluster* ejecutaremos el siguiente comando:
 
 ```bash
 docker-compose up -d
