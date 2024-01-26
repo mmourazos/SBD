@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS sbd.miembros (
   AND CLUSTERING ORDER BY (fecha_alta DESC);
 ```
 
-Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Por ello, a partir de ahora utilizaremos un fichero de texto para almacenar las sentencias CQL que queremos ejecutar.
+Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Lo más cómodo sería escribir un *script* CQL en un fichero de texto plano y ejecutarlo con `cqlsh`.
 
-Un *script* de CQL es un fichero de texto con extensión `.cql` que contiene sentencias CQL. Para ejecutar un *script* de CQL desde dentro de CQLSH utilizaremos la sentencia `SOURCE`:
+Para ejecutar un *script* de CQL desde dentro de CQLSH utilizaremos la sentencia `SOURCE`:
 
 ```cql
 SOURCE 'path/to/script.cql';
 ```
 
-Si lo que necesitamos es ejecutar un *script* de CQL desde la línea de comandos utilizaremos el siguiente comando:
+Y si lo que necesitamos es ejecutar un *script* de CQL desde la línea de comandos utilizaremos el siguiente comando:
 
 ```bash
 cqlsh -f path/to/script.cql
@@ -101,16 +101,18 @@ USE sbd;
 DESCRIBE TABLES;
 ```
 
-Guardamos el código anterior en un fichero llamado `script01.cql` y lo ejecutamos:
+Guardamos el código anterior en un fichero llamado `script01.cql` y lo copiamos a un volumen al que tenga acceso el contenedor con Cassandra donde vamos a ejecutar `cqlsh`. En la sección donde se explica cómo crear el *cluster* se usó un volumen común a todos los contenedores que se llamón `scripts`. Si guardamos el fichero `.cql` en este directorio podremos escribir el comando:
 
 ```bash
 docker exec -it cass1 cqlsh -f /scripts/script01.cql
 ```
 
+y nuestro código CQL se ejecutará.
+
 **Notas:**
 
 * Hay que prestar especial atención a las **comas y los puntos y comas**. Si nos olvidamos de poner una coma o un punto y coma en el lugar adecuado obtendremos un error de sintaxis.
-* Los códigos de error indican la línea y la columna donde se ha producido el error **con respecto al inicio de la sentencia CQL**. No del script.
+* Los códigos de error indican la línea y la columna donde se ha producido el error **con respecto al inicio de la sentencia CQL** que lo produjo. No del script.
 
 ## Operaciones de escritura
 
@@ -129,14 +131,6 @@ Si el registro ya existe el registro se sobreescribirá.
 
 Las cláusulas `IF NOT EXISTS` y `USING` son opcionales.
 
-### JSON
-
-La cláusula `JSON` sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:
-
-```cql
-INSERT INTO sbd.miembros JSON '{"id": 123, "nombre": "Juan", "apellidos": "Pérez", "email": "juan@gmail.com", "rol": "alumno", "fecha_alta": "2020-01-01", "fecha_de_nacimiento": "1990-01-01"}';
-```
-
 ### `IF NOT EXISTS`
 
 La cláusula `IF NOT EXISTS` sirve para indicar que no se ha de insertar el registro si ya existe un registro con la misma *primary key*.
@@ -145,7 +139,7 @@ El uso de `IF NOT EXISTS` tiene un coste de rendimiento.
 
 ### `USING`
 
-La cláusula `USING` es opcional. Se utiliza para indicar opciones de escritura. Las opciones de escritura son dos:
+La cláusula `USING` es opcional y se utiliza para indicar opciones de escritura. Las opciones posibles son dos:
 
 * `TTL`: Tiempo de vida del registro. Una vez transcurrido este tiempo el registro se borrará automáticamente (se marcará para borrado).
 * `TIMESTAMP`: *Timestamp* del registro. Si no se especifica se utilizará el *timestamp* actual. Esta opción no es compatible con `IF NOT EXISTS`.
@@ -157,15 +151,23 @@ VALUES (UUID(), 'Juan', 'Pérez', 'juan@gmail.com', 'alumno', NOW(), '1990-01-01
 
 Esta sentencia es idéntica a la sentencia `INSERT` de SQL.
 
+### JSON
+
+La cláusula `JSON` sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:
+
+```cql
+INSERT INTO sbd.miembros JSON '{"id": 123, "nombre": "Juan", "apellidos": "Pérez", "email": "juan@gmail.com", "rol": "alumno", "fecha_alta": "2020-01-01", "fecha_de_nacimiento": "1990-01-01"}';
+```
+
 ### `UUID()` y `NOW()`
 
-La función `UUID()` es muy importante ya que genera un identificador único. Es importante ya que como nos encontramos en un entorno distribuido si no utilizamos un identificador único podríamos tener problemas de colisiones. Por ejemplo podríamos realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de `UUID()` previene este problema.
+La función `UUID()` es muy importante ya que genera un identificador único. Es importante ya que, al encontrarnos en un entorno distribuido, si no utilizamos un identificador único podríamos tener problemas de colisiones. Podría suceder que se intentasen realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de `UUID()` previene este problema.
 
-Por su parte la función `NOW()` sirve para generar *timestamps*. El valor que devuelve `NOW()` del tipo timeuuid. Un timeuuid es un identificador **único** que contiene un *timestamp*. El *timestamp* se puede obtener a partir del timeuuid utilizando la función `dateOf()`. Los valores generados por `NOW()`, al giual que los generados por `UUID()`, **son únicos**.
+Por su parte la función `NOW()` sirve para generar *timestamps*. El valor que devuelve `NOW()` el del tipo `timeuuid`. Un `timeuuid` es un identificador **único** que contiene un *timestamp*. El *timestamp* se puede obtener a partir del `timeuuid` utilizando la función `dateOf()`. Los valores generados por `NOW()`, al giual que los generados por `UUID()`, **son únicos**.
 
 ## Operaciones de lectura
 
-La sentencia `SELECT` de CQL es muy similar a la sentencia `SELECT` de SQL. La diferencia más importante es que en CQL no se pueden realizar *joins*.
+La sentencia `SELECT` de CQL es muy similar a la sentencia `SELECT` de SQL. La diferencia más importante es que en CQL **no se pueden realizar *joins***.
 
 La sintaxis de la sentencia `SELECT` es la siguiente:
 
@@ -182,6 +184,8 @@ ORDER BY <column_name> ASC | DESC
 LIMIT <n>
 ALLOW FILTERING;
 ```
+
+### `GROUP BY`
 
 Cuando agrupamos por una columna hay que tener en cuenta que ésta **ha de formar parte de la partition key**
 
@@ -225,8 +229,8 @@ Los operadores pueden ser:
 * `>=`
 * `<=`
 * `IN`: Sirve para comparar un valor con una lista de valores separados por comas: `WHERE id IN (1, 2, 3)`. Y se puede usar con la *partition key*.
-* `CONTAINS`
-* `CONTAINS KEY`
+* `CONTAINS`: Sirve para filtrar por los datos de una colección. Los tipos `collection` son `set`, `list` y `map`.
+* `CONTAINS KEY`: Sirve para filtrar por las claves de un mapa.
 
 ```cql
 SELECT * FROM sbd.miembros WHERE id = 123 AND fecha_alta < '2020-01-01';
@@ -268,9 +272,40 @@ SET nombre = 'Juanito'
 WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = '2020-01-01';
 ```
 
+La cláusula `WHERE` sirve para especificar la fila o filas que van a ser modificadas.
+
+* Para especificar una única fila hemos de indicar cual es el valor de la clave primarios que queremos modificar: `primary_key_name = primary_key_value, ...`. Si ésta está formada por varias columnas: `primary_key_c1_name = primary_key_c1_value AND ...` y se han de suministrar los valores de todos los campos que formen parte de la *primary key*
+* Si queremos actualizar varias filas hemos de incluir la cláusula `IN` seguida de una lista de valores separados por comas: `primary_key_name IN (primary_key_value, ...)`. Esto sólo se puede aplicar al último campo de la *partition key*.
+
+### *Upsert*
+
+El comportamiento de `UPDATE` es similar al de `INSERT`. Si la fila que vamos a modificar no existe se creará. Si existe se actualizará.
+
 ## Operaciones de borrado
 
-Para borrar datos de una tabla usaremos el comando `DELETE`:
+Para borrar datos de una tabla usaremos el comando `DELETE` que tiene la siguiente sintaxis:
+
+```cql	
+DELETE <column_name>, <column_name>, ...
+FROM <keyspace>.<table_name>
+USING TIMESTAMP <valor>
+WHERE <column_name> OPERATOR <value>
+  AND <column_name> OPERATOR <value>
+  ...
+IF EXISTS | IF <condición>
+  AND <condición>
+  ...
+```
+
+Los borrados serán a nivel de columnas. Es decir, si queremos borrar un conjunto de columnas hemos de indicarlas explícitamente. Si queremos borrar una fila completa no hemos de indicar ninguna columna.
+
+### `USING TIMESTAMP`
+
+La cláusula `USING TIMESTAMP` sirve para indicar a partir de que *timestamp* se han de borrar los datos. Es decir, Cassandra marcará para borrado aquellas filas que son anteriores al *timestamp* indicado.
+
+### Borrado de varias filas
+
+Para seleccionar más de una fila para borrado se han de seguir los mismos pasos que en el caso de la sentencia `UPDATE`.
 
 ```cql
 DELETE FROM sbd.miembros
@@ -279,4 +314,10 @@ WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = '2020-01-01';
 
 Si en lugar de indicar `id` y `fecha_alta` indicamos únicamente `id` se borrarán todos los registros con ese `id`, es decir, esa partición.
 
-En Cassandra, cuando realizamos una operación de borrado, en realidad lo estamos haciendo es insertar un registro con la marca de borrado. Se recomienda hacer el menor número de operaciones de borrado posible y, cuando hayamos de borrar, hacerlo en bloques de datos grandes.
+### ¿Como se borran los datos en Cassandra?
+
+Los borrados en Cassandra están diseñados de forma que se priorice el rendimiento.
+
+Cassandra trata una operación de borrado com si se tratara de una inserción o un *upsert*. Lo que se añade es una marca de borrado o *tombstone*. Los *tombstones* tienen fecha de expiración de manera que, cuando esta se alcanza se realizará el borrado como parte del proceso de compactación de Cassandra.
+
+Se recomienda hacer el menor número de operaciones de borrado posible y, cuando sea posible, hacer borrados de grandes bloques de datos en lugar de hacerlo registro a registro.

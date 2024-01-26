@@ -395,7 +395,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 </section>
 <section id="arquitectura-de-cassandra" class="level2">
 <h2>Arquitectura de Cassandra</h2>
-<p>A diferencia de un <em>cluster</em> maestro-esclavo, en el que el nodo maestro es el responsable de encargarles a los nodos esclavos la ejecución de las consultas, en Cassandra todos los nodos son iguales y no hay un nodo maestro. En un cluster maestro-esclavo el nodo maestro supone un punto único de fallo, mientras que en Cassandra, al no existir nodos maestros, no hay un punto único de fallo. Cuando realizamos una operación en Cassandra habrá un nodo encargado de gestionarla pero ese nodo va cambiando con cada operación.</p>
+<p>A diferencia de un <em>cluster</em> maestro-esclavo, en el que el nodo maestro es el responsable de encargarle a los nodos esclavos la ejecución de las consultas, en Cassandra todos los nodos son iguales y no hay un nodo maestro. En un cluster maestro-esclavo el nodo maestro supone un punto único de fallo, mientras que en Cassandra, al no existir nodos maestros, no hay un punto único de fallo. Cuando realizamos una operación en Cassandra habrá un nodo encargado de gestionarla pero ese nodo va cambiando con cada operación.</p>
 <p>Un <em>cluster</em> de Cassandra se denomina <em>ring</em> o anillo. Este anillo está formado por varios nodos interconectados y configurados para propósitos de replicación. Los nodos serán <em>conscientes</em> de los otros nodos del anillo y de su estado y se comunicarán entre ellos para replicar los datos cumpliendo las condiciones de consistencia que se hayan establecido.</p>
 <p>Cada nodo del anillo tiene la misma importancia que los demás, <strong>no hay un nodo maestro</strong> ya que se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.</p>
 <figure>
@@ -410,7 +410,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 </section>
 <section id="jerarquía-de-cassandra" class="level3">
 <h3>Jerarquía de Cassandra</h3>
-<p>En primer lugar tendremos el cluster, que estará formado por uno o varios <em>anillos</em> o <em>datacenters</em>. Cada <em>datacenter</em> estará formado a su vez por uno o más <em>racks</em>, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.</p>
+<p>En primer lugar tendremos el <em>cluster</em>, que estará formado por uno o varios <em>anillos</em> o <em>datacenters</em>. Cada <em>datacenter</em> estará formado a su vez por uno o más <em>racks</em>, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.–</p>
 </section>
 </section>
 <section id="escritura-y-lectura-en-cassandra" class="level2">
@@ -517,7 +517,6 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <li>Random Partitioner.</li>
 <li>ByteOrdered Partitioner.</li>
 </ul>
-<p>Todos ellos garantizan que los datos se distribuyen de forma uniforme entre los nodos.</p>
 </section>
 <section id="estrategia-de-replicación" class="level4">
 <h4>Estrategia de replicación</h4>
@@ -537,8 +536,38 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <li>Simple.</li>
 <li>Ec2Snitch.</li>
 <li>Rackinferring.</li>
-<li>…</li>
+<li>…ññadslafkñjbbccd</li>
 </ul>
+</section>
+</section>
+<section id="primary-key-partition-key-y-clustering-key" class="level3">
+<h3><em>Primary key, partition key y clustering key</em></h3>
+<p>Una <em>primary key</em> en Cassandra estará compuesta de <strong>una <em>partition key</em></strong> (simple o compuesta) <strong>y cero o más <em>culstering keys</em></strong>. Al definir una <em>primary key</em> la columna o columnas que conforman la <strong><em>partition key</em> siempre aparecerán antes</strong> que los campos que conforman las <em>clustering keys</em>.</p>
+<p>La <em>primary key</em> de una tabla de Cassandra puede tener la siguiente estructura:</p>
+<ul>
+<li><strong>Un único campo</strong>: en cuyo caso ese campo tiene que ser único para todos los registros de la tabla. Es decir, una columna con valores únicos.</li>
+<li><strong>Dos o más campos</strong>: en este caso lo que tiene que ser único es la combinación de los dos campos. Pueden definirse de dos formas:
+<ul>
+<li><code>PRIMARY KEY (&lt;campo1&gt;, &lt;campo2&gt;, …)</code>: aquí el <code>&lt;campo1&gt;</code> será la <strong><em>partition key</em></strong> y el resto de campos serán <em>clustering keys</em>.</li>
+<li><code>PRIMARY KEY ((&lt;campo1, campo2), &lt;campo3&gt;, …)</code>: en este ejemplo <code>&lt;campo1&gt;</code> y <code>&lt;campo2&gt;</code> constituyen la <em>partition key</em> y el resto serán <em>clustering keys</em> (ver <strong>partition key compuesta</strong>).</li>
+</ul></li>
+</ul>
+<section id="partition-key" class="level4">
+<h4><em>Partition key</em></h4>
+<p>La principal función de una <em>partition key</em> es la distribuir los datos de una manera uniforme entre los nodos del <em>cluster</em> y permitir consultas de una manera eficiente. Esto se llevará a cabo aplicando una <strong>función de <em>hash</em></strong> a la <em>partition key</em>. Con el <em>hash</em> resultante se determinará qué nodo del <em>cluster</em> le corresponde y la <strong>partición</strong> dentro de dicho nodo.</p>
+<section id="partition-key-simple" class="level5">
+<h5><em>Partition key</em> simple</h5>
+<p>Si la <em>partition key</em> está formada a partir de una única columna, los valores de este campo serán los que se usen para calcular el <em>hash</em>. Una vez calculado el <em>hash</em> este determinará en que <strong>partición</strong> se va a guardar el registro. Al mismo tiempo <strong>también</strong> estamos determinando <strong>el nodo</strong> donde se va a almacenar ya que <strong>todos los elementos de una partición han de estar almacenados en el mismo nodo</strong>.</p>
+</section>
+<section id="partition-key-compuesta" class="level5">
+<h5><em>Partition key</em> compuesta</h5>
+<p>Una <em>partition key</em> compuesta estará formada por dos o más columnas. Esto implica que se utilizarán varias columnas para determinar dónde se va a almacenar el dato. Esta técncia se utilizará <strong>cuando la cantidad de datos a almacenar es demasiado grande para guardarse en una única partición</strong>. Cuando usamos más de una columna en la <em>partition key</em> los datos se dividirán en <em>pedazos</em> o <em>buckets</em>. Los datos serguirán estando agrupados pero en fragmentos más pequeños. Este método puede ser efectivo en la reducción de <em>puntos calientes</em> o <strong>congestión en escrituras</strong>, cuando la partición de un nodo recibe gran cantidad de escrituras.</p>
+</section>
+</section>
+<section id="clustering-key" class="level4">
+<h4><em>Clustering key</em></h4>
+<p><em>Clustering</em> es el proceso de ordenar los datos de una partición y se basa en las columnas definidas como las <strong><em>clustering keys</em></strong>. La definición de las columnas que serán <em>clustering keys</em> ha de hacerse con antelación. Esto ha de hacerse así ya que la elección de las columnas que serán <em>clustering keys</em> depende de cómo vamos a usar los datos en la aplicación. Es decir, la elección de las <em>clustering keys</em> tendrá un gran impacto en el rendimiento de la aplicación que consuma esos datos.</p>
+<p>Todos los datos de una partición se almacenan de forma contigua en el dispositivo de almacenamiento ordenados según las columnas definidas como <em>clustering keys</em>. Esto hace que la recuperación de los datos sea muy eficiente (siempre que se haga respecto a estas columnas).</p>
 </section>
 </section>
 </section>
@@ -557,9 +586,6 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 </ul>
 <p>El quorum se define según la siguiente fórmula:</p>
 <p><span class="math inline">\(quorum = ( factor\ de\ replicación / 2) + 1\)</span></p>
-</section>
-<section id="modelado-de-datos-en-cassandra" class="level2">
-<h2>Modelado de datos en Cassandra</h2>
 </section>
 <section id="conceptos-generales-en-modelado-de-datos" class="level2">
 <h2>Conceptos generales en modelado de datos</h2>
@@ -596,7 +622,7 @@ fallo --&gt; fin_nok(fin: fallo de lectura)</code></pre>
 <section id="desventajas-de-la-desnormalización" class="level4">
 <h4>Desventajas de la desnormalización</h4>
 <ul>
-<li><strong>Multiples escrituras</strong>: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.</li>
+<li><strong>Múltiples escrituras</strong>: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.</li>
 <li><strong>Integridad manual de los datos</strong>: Al añadir redundancia se aumenta la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).</li>
 </ul>
 </section>
@@ -733,38 +759,40 @@ de los datos]</code></pre>
 <span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
 <span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">cass2</span><span class="kw">:</span></span>
 <span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span></code></pre></div>
-<p>Este archivo de configuración crea un cluster de 3 nodos de Cassandra en local.</p>
+<p>Este archivo de configuración crea un <em>cluster</em> de 3 nodos de Cassandra en local.</p>
 <p>Cada nodo tiene tres volúmenes asociados:</p>
 <ul>
 <li><code>/data/cass1:/var/lib/cassandra</code>: Contiene los ficheros de la base de datos del nodo.</li>
 <li><code>/etc/cass1:/etc/cassandra</code>: Contiene los archivos de configuración del nodo.</li>
 <li><code>./scripts:/scripts</code>: Contendrá los scripts de CQL que vayamos escribiendo.</li>
 </ul>
-<p>Antes de arrancar el cluster hemos de crear los directorios <code>data/cass1</code>, <code>data/cass2</code> y <code>data/cass3</code> y los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
+<p>Antes de arrancar el <em>cluster</em> hemos de crear los directorios <code>data/cass1</code>, <code>data/cass2</code> y <code>data/cass3</code> y los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
 <p>A continuación copiaremos los archivos de configuración de Cassandra en los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
 <p>Para ello hemos primero de obtener los archivos de configuración de Cassandra. Para ello los copiaremos de un contenedor de Cassandra que se ejecutará temporalmente.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-d</span> <span class="at">--name</span> temp cassandra:latest</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp temp:/etc/cassandra .</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stop temp</span></code></pre></div>
 <p>las opciones <code>-rm</code> y <code>-d</code> indican que el contenedor se elimine automáticamente al pararlo y que se ejecute en segundo plano.</p>
+<p>Ahora tendremos un directorio <code>cassandra</code> con los archivos de configuración que hemos copiado de la máquina temporal.</p>
 </section>
 <section id="copiar-los-archivos-de-configuración-de-cassandra" class="level3">
 <h3>Copiar los archivos de configuración de Cassandra</h3>
 <p>Copiaremos los archivos de configuración de Cassandra en los directorios <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass1/</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass2/</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> cassandra/cassandra.yaml cassandra/cass3/</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> ./cassandra ./etc/cass1/</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> ./cassandra ./etc/cass2/</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-a</span> ./cassandra ./etc/cass3/</span></code></pre></div>
 <p>La opción <code>-a</code> de <code>cp</code> indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.</p>
+<p>Si estamos en Windows hemos de hacer lo mismo copiando directamente el contenido del directorio <code>cassandra</code> a <code>etc/cass1</code> y los demás.</p>
 <p>Todo esto lo hacemos para que podamos <strong>modificar los archivos de configuración de Cassandra</strong> de cada nodo de forma independiente editando los archivos de los directorios locales <code>etc/cass1</code>, <code>etc/cass2</code> y <code>etc/cass3</code>.</p>
-<p><strong>Nota respecto al volumen <code>scriptsp</code></strong>: El volumen <code>scripts</code> se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio <code>scripts</code> del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:</p>
+<p><strong>Nota respecto al volumen <code>scripts</code></strong>: El volumen <code>scripts</code> se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio <code>scripts</code> del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script.cql</span></code></pre></div>
 <p>No es necesario crear el directorio <code>/scripts</code> en los contenedores ya que se crea automáticamente al crear el volumen <code>scripts</code>.</p>
 <p>Sí es necesario crear el directorio <code>scripts</code> en el host… <em>creo</em>.</p>
 </section>
 <section id="iniciar-el-cluster" class="level3">
-<h3>Iniciar el cluster</h3>
-<p>Los nodos <code>cass1</code> y <code>cass2</code> serán los nodos designados como semilla del cluster.</p>
-<p>Para iniciar el cluster ejecutaremos el siguiente comando:</p>
+<h3>Iniciar el <em>cluster</em></h3>
+<p>Los nodos <code>cass1</code> y <code>cass2</code> serán los nodos designados como semilla del <em>cluster</em>.</p>
+<p>Para iniciar el <em>cluster</em> ejecutaremos el siguiente comando:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span></code></pre></div>
 <p>y el resultado debería ser el siguiente:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> docker-compose <span class="ex">up</span> <span class="at">-d</span></span>
@@ -1069,10 +1097,27 @@ de los datos]</code></pre>
 </section>
 </section>
 </section>
+<section id="ver-la-definición-de-una-tabla" class="level3">
+<h3>Ver la definición de una tabla</h3>
+<p>Para ver la definición de una tabla utilizamos la sentencia <code>DESCRIBE</code> indicando a qué tabla nos referimos:</p>
+<pre class="cql"><code>DESCRIBE TABLE &lt;table_name&gt;;</code></pre>
+<p>Por ejemplo, para ver la estructura de la tabla <code>sbd.miembros</code>:</p>
+<pre class="cql"><code>DESCRIBE TABLE sbd.miembros;</code></pre>
+</section>
+<section id="importar-datos-ds-csv-a-una-tabla" class="level3">
+<h3>Importar datos ds CSV a una tabla</h3>
+<pre class="cql"><code>COPY keypsace.tableName (col1,col2,col3.....) FROM &#39;file/file.csv&#39; WITH DELIMITER=&#39;,&#39; AND HEADER=TRUE;</code></pre>
+</section>
+<section id="if-not-exists" class="level3">
+<h3><code>IF NOT EXISTS</code></h3>
+<p>La utilidad de esta cláusula es evitar que se produzca un error si intentamos crear un <em>keyspace</em> o una tabla que ya existe. Si la cláusula <code>IF NOT EXISTS</code> está presente y el <em>keyspace</em> o la tabla ya existen, la sentencia no tiene ningún efecto.</p>
+</section>
 </section>
 <section id="operaciones-crud-en-cql" class="level2">
 <h2>Operaciones CRUD en CQL</h2>
 <p>Antes de empezar a ver las operaciones CRUD en CQL hemos de crear un <em>keyspace</em> y una tabla de ejemplo.</p>
+<section id="creación-de-un-keyspace-y-una-tabla-de-ejemplo" class="level3">
+<h3>Creación de un <em>keyspace</em> y una tabla de ejemplo</h3>
 <p>Para crear el <em>keyspace</em> ejecutaremos el siguiente comando:</p>
 <pre class="cql"><code>CREATE KEYSPACE sbd
   WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : 2 };</code></pre>
@@ -1099,47 +1144,230 @@ WITH comment = &#39;Tabla con datos de prueba.&#39;;</code></pre>
     PRIMARY KEY (id, fecha_alta)
 ) WITH comment = &#39;Tabla con datos de prueba.&#39;,
   AND CLUSTERING ORDER BY (fecha_alta DESC);</code></pre>
-<p>Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Por ello, a partir de ahora utilizaremos un fichero de texto para almacenar las sentencias CQL que queremos ejecutar.</p>
-<p>Un <em>script</em> de CQL es un fichero de texto con extensión <code>.cql</code> que contiene sentencias CQL. Para ejecutar un <em>script</em> de CQL desde dentro de CQLSH utilizaremos la sentencia <code>SOURCE</code>:</p>
+<p>Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Lo más cómodo sería escribir un <em>script</em> CQL en un fichero de texto plano y ejecutarlo con <code>cqlsh</code>.</p>
+<p>Para ejecutar un <em>script</em> de CQL desde dentro de CQLSH utilizaremos la sentencia <code>SOURCE</code>:</p>
 <pre class="cql"><code>SOURCE &#39;path/to/script.cql&#39;;</code></pre>
-<p>Si lo que necesitamos es ejecutar un <em>script</em> de CQL desde la línea de comandos utilizaremos el siguiente comando:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cqlsh</span> <span class="at">-f</span> path/to/script.cql</span></code></pre></div>
+<p>Y si lo que necesitamos es ejecutar un <em>script</em> de CQL desde la línea de comandos utilizaremos el siguiente comando:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cqlsh</span> <span class="at">-f</span> path/to/script.cql</span></code></pre></div>
 <p>Finamente veamos cómo crear un <em>keyspace</em> y una tabla de ejemplo utilizando un <em>script</em> de CQL.</p>
-<pre class="cql"><code>CREATE KEYSPACE sbd
+<pre class="cql"><code>-- Creamos un keyspace
+CREATE KEYSPACE sbd
   WITH REPLICATION = { &#39;class&#39; : &#39;SimpleStrategy&#39;, &#39;replication_factor&#39; : 2 };
 
 CREATE TABLE IF NOT EXISTS sbd.miembros (
-    id int PRIMARY KEY,
+    id uuid,
     nombre text,
     apellidos text,
     email text,
     rol text static,
     fecha_alta timestamp,
-    fecha_de_nacimiento date
-    PRIMARY KEY (id, fecha_alta)
-);
+    fecha_de_nacimiento date,
+    PRIMARY KEY (id, fecha_alta));
 
-// Creamos una segunda tabla de asignaturas
+-- Creamos una segunda tabla de asignaturas
 
 CREATE TABLE IF NOT EXISTS sbd.asignaturas (
-    id int PRIMARY KEY,
+    id uuid PRIMARY KEY,
     nombre text,
     curso int,
     profesor map &lt;text, text&gt;,
-    alumnos list&lt;map&lt;text, text&gt;&gt;
+    alumnos frozen&lt;list &lt;map&lt;text, text&gt;&gt;&gt;,
     fecha_inicio timestamp,
     fecha_fin timestamp
 );
 
-// Comprobamos que se han creado el keyspace y las tablas
+CREATE TABLE IF NOT EXISTS sbd.ciclos (
+    id uuid  PRIMARY KEY,
+    nombre text,
+    horas int,
+    modulos frozen&lt;list&lt;text&gt;&gt;
+);
+
+-- Comprobamos que se han creado el keyspace y las tablas
 
 DESCRIBE KEYSPACES;
 
 USE sbd;
 
 DESCRIBE TABLES;</code></pre>
-<p>Guardamos el código anterior en un fichero llamado <code>script01.cql</code> y lo ejecutamos:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script01.cql</span></code></pre></div>
+<p>Guardamos el código anterior en un fichero llamado <code>script01.cql</code> y lo copiamos a un volumen al que tenga acceso el contenedor con Cassandra donde vamos a ejecutar <code>cqlsh</code>. En la sección donde se explica cómo crear el <em>cluster</em> se usó un volumen común a todos los contenedores que se llamón <code>scripts</code>. Si guardamos el fichero <code>.cql</code> en este directorio podremos escribir el comando:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> cass1 cqlsh <span class="at">-f</span> /scripts/script01.cql</span></code></pre></div>
+<p>y nuestro código CQL se ejecutará.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>Hay que prestar especial atención a las <strong>comas y los puntos y comas</strong>. Si nos olvidamos de poner una coma o un punto y coma en el lugar adecuado obtendremos un error de sintaxis.</li>
+<li>Los códigos de error indican la línea y la columna donde se ha producido el error <strong>con respecto al inicio de la sentencia CQL</strong> que lo produjo. No del script.</li>
+</ul>
+</section>
+<section id="operaciones-de-escritura" class="level3">
+<h3>Operaciones de escritura</h3>
+<p>Para escribir datos en una tabla se usará la sentencia <code>INSERT</code>. La sintaxis de la sentencia <code>INSERT</code> es la siguiente:</p>
+<pre class="cql"><code>INSERT INTO &lt;keyspace&gt;.&lt;table_name&gt; (&lt;column_name&gt;, &lt;column_name&gt;, ...)
+VALUES (&lt;value&gt;, &lt;value&gt;, ...) | JSON &lt;json_value&gt;
+IF NOT EXISTS
+USING &lt;option&gt; &lt;value&gt;;</code></pre>
+<p>No es necesario indicar todos los campos de la tabla. Pero sí se han de indicar todos los campos de la <em>primary key</em>.</p>
+<p>Si el registro ya existe el registro se sobreescribirá.</p>
+<p>Las cláusulas <code>IF NOT EXISTS</code> y <code>USING</code> son opcionales.</p>
+<section id="if-not-exists-1" class="level4">
+<h4><code>IF NOT EXISTS</code></h4>
+<p>La cláusula <code>IF NOT EXISTS</code> sirve para indicar que no se ha de insertar el registro si ya existe un registro con la misma <em>primary key</em>.</p>
+<p>El uso de <code>IF NOT EXISTS</code> tiene un coste de rendimiento.</p>
+</section>
+<section id="using" class="level4">
+<h4><code>USING</code></h4>
+<p>La cláusula <code>USING</code> es opcional y se utiliza para indicar opciones de escritura. Las opciones posibles son dos:</p>
+<ul>
+<li><code>TTL</code>: Tiempo de vida del registro. Una vez transcurrido este tiempo el registro se borrará automáticamente (se marcará para borrado).</li>
+<li><code>TIMESTAMP</code>: <em>Timestamp</em> del registro. Si no se especifica se utilizará el <em>timestamp</em> actual. Esta opción no es compatible con <code>IF NOT EXISTS</code>.</li>
+</ul>
+<pre class="cql"><code>INSERT INTO sbd.miembros (id, nombre, apellidos, email, rol, fecha_alta, fecha_de_nacimiento)
+VALUES (UUID(), &#39;Juan&#39;, &#39;Pérez&#39;, &#39;juan@gmail.com&#39;, &#39;alumno&#39;, NOW(), &#39;1990-01-01&#39;);</code></pre>
+<p>Esta sentencia es idéntica a la sentencia <code>INSERT</code> de SQL.</p>
+</section>
+<section id="json" class="level4">
+<h4>JSON</h4>
+<p>La cláusula <code>JSON</code> sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:</p>
+<pre class="cql"><code>INSERT INTO sbd.miembros JSON &#39;{&quot;id&quot;: 123, &quot;nombre&quot;: &quot;Juan&quot;, &quot;apellidos&quot;: &quot;Pérez&quot;, &quot;email&quot;: &quot;juan@gmail.com&quot;, &quot;rol&quot;: &quot;alumno&quot;, &quot;fecha_alta&quot;: &quot;2020-01-01&quot;, &quot;fecha_de_nacimiento&quot;: &quot;1990-01-01&quot;}&#39;;</code></pre>
+</section>
+<section id="uuid-y-now" class="level4">
+<h4><code>UUID()</code> y <code>NOW()</code></h4>
+<p>La función <code>UUID()</code> es muy importante ya que genera un identificador único. Es importante ya que, al encontrarnos en un entorno distribuido, si no utilizamos un identificador único podríamos tener problemas de colisiones. Podría suceder que se intentasen realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de <code>UUID()</code> previene este problema.</p>
+<p>Por su parte la función <code>NOW()</code> sirve para generar <em>timestamps</em>. El valor que devuelve <code>NOW()</code> el del tipo <code>timeuuid</code>. Un <code>timeuuid</code> es un identificador <strong>único</strong> que contiene un <em>timestamp</em>. El <em>timestamp</em> se puede obtener a partir del <code>timeuuid</code> utilizando la función <code>dateOf()</code>. Los valores generados por <code>NOW()</code>, al giual que los generados por <code>UUID()</code>, <strong>son únicos</strong>.</p>
+</section>
+</section>
+<section id="operaciones-de-lectura" class="level3">
+<h3>Operaciones de lectura</h3>
+<p>La sentencia <code>SELECT</code> de CQL es muy similar a la sentencia <code>SELECT</code> de SQL. La diferencia más importante es que en CQL <strong>no se pueden realizar <em>joins</em></strong>.</p>
+<p>La sintaxis de la sentencia <code>SELECT</code> es la siguiente:</p>
+<pre class="cql"><code>SELECT &lt;nombre_columna&gt;, &lt;nombre_columna&gt;, ...
+FROM &lt;keyspace&gt;.&lt;nombre_tabla&gt;
+WHERE &lt;nombre_columna&gt;
+  &lt;operador&gt; &lt;valor&gt;
+  AND &lt;column_name&gt;
+  OPERATOR &lt;value&gt;
+  ...
+GROUP BY &lt;column_name&gt;
+ORDER BY &lt;column_name&gt; ASC | DESC
+LIMIT &lt;n&gt;
+ALLOW FILTERING;</code></pre>
+<section id="group-by" class="level4">
+<h4><code>GROUP BY</code></h4>
+<p>Cuando agrupamos por una columna hay que tener en cuenta que ésta <strong>ha de formar parte de la partition key</strong></p>
+</section>
+<section id="where" class="level4">
+<h4><code>WHERE</code></h4>
+<p>La cláusula <code>WHERE</code> es muy importante ya que nos permite filtrar los datos que queremos obtener.</p>
+<section id="columnas-válidas-para-where" class="level5">
+<h5>Columnas válidas para <code>WHERE</code></h5>
+<p>En la cláusula <code>WHERE</code> sólo se pueden utilizar campos que:</p>
+<ul>
+<li>Formen parte de la <em>partition key</em></li>
+<li>Formen parte de de la <em>clustering key</em> <strong>SIEMPRE que vayan precedidos por TODOS los campos de la <em>partition key</em></strong>. Además hay que tener en cuenta dos salvedades:
+<ul>
+<li>Las comparaciones respecto a los campos de la <em>partition key</em> han de ser siempre de igualdad.</li>
+<li>Las comparaciones respecto a los campos de la <em>clustering key</em> pueden ser de igualdad o de desigualdad.</li>
+</ul></li>
+<li>Formen parte de un índice creado con la sentencia <code>CREATE INDEX</code>.</li>
+</ul>
+<pre class="cql"><code>CREATE TABLE cycling.cyclist_points (
+   id UUID, 
+   firstname text, 
+   lastname text, 
+   race_title text, 
+   race_points int, 
+   PRIMARY KEY (id, race_points ));
+
+SELECT sum(race_points) 
+FROM cycling.cyclist_points 
+WHERE id=e3b19ec4-774a-4d1c-9e5a-decec1e30aac 
+      AND race_points &gt; 7;</code></pre>
+</section>
+</section>
+<section id="operadores" class="level4">
+<h4>Operadores</h4>
+<p>Los operadores pueden ser:</p>
+<ul>
+<li><code>=</code></li>
+<li><code>!=</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;=</code></li>
+<li><code>IN</code>: Sirve para comparar un valor con una lista de valores separados por comas: <code>WHERE id IN (1, 2, 3)</code>. Y se puede usar con la <em>partition key</em>.</li>
+<li><code>CONTAINS</code>: Sirve para filtrar por los datos de una colección. Los tipos <code>collection</code> son <code>set</code>, <code>list</code> y <code>map</code>.</li>
+<li><code>CONTAINS KEY</code>: Sirve para filtrar por las claves de un mapa.</li>
+</ul>
+<pre class="cql"><code>SELECT * FROM sbd.miembros WHERE id = 123 AND fecha_alta &lt; &#39;2020-01-01&#39;;</code></pre>
+<p>Aunque al hacer la comparación estemos expresando la fecha como una cadena de texto, internamente, Cassandra la convertirá a un tipo <code>timestamp</code> y realizará la comparación.</p>
+<p>En Cassandra <strong>nunca se debe de hacer <code>SELECT *</code></strong>. Siempre se ha de seleccionar utilizando, como mínimo, algún campo de la <em>partition key</em>. En el caso de realizar un <code>SELECT *</code> se producirá un <em>full table scan</em>. Esto es, se leerán todos los datos de la tabla en todos los nodos del <em>cluster</em>.</p>
+</section>
+<section id="allow-filtering" class="level4">
+<h4><code>ALLOW FILTERING</code></h4>
+<p>Si no se especifica la <em>partition key</em> en la cláusula <code>WHERE</code> se producirá un error. Si queremos realizar una consulta que no incluya la <em>partition key</em> hemos de indicar que permitimos filtrar los datos utilizando la cláusula <code>ALLOW FILTERING</code>. Esta cláusula es muy peligrosa ya que puede provocar que se produzca un <em>full table scan</em>.</p>
+</section>
+<section id="full-table-scan" class="level4">
+<h4><em>Full table scan</em></h4>
+<p>Un <em>full table scan</em> es una operación que lee todos los datos de una tabla. En Cassandra, al ser un sistema distribuido, esto es muy costoso. Por ello, <strong>nunca se debe de hacer un <em>full table scan</em></strong>.</p>
+</section>
+</section>
+<section id="operaciones-de-actualización" class="level3">
+<h3>Operaciones de actualización</h3>
+<p>Para actualizar los valores de los datos usaremos el comando <code>UPDATE</code>. La sintaxis de este comando es la siguiente:</p>
+<pre class="cql"><code>UPDATE &lt;keyspace&gt;.&lt;table_name&gt;
+USING TTL &lt;valor&gt; | USING TIMESTAMP &lt;valor&gt; 
+SET &lt;column_name&gt; = &lt;value&gt;, &lt;column_name&gt; = &lt;value&gt;, ...
+WHERE &lt;column_name&gt; OPERATOR &lt;value&gt;
+  AND &lt;column_name&gt; OPERATOR &lt;value&gt;
+  ...
+IF EXISTS | IF &lt;condición&gt;
+  AND &lt;condición&gt;
+  ...</code></pre>
+<p>Como en el caso de la sentencia <code>INSERT</code>, las cláusulas <code>USING</code>, <code>IF EXISTS</code> y <code>IF</code> son opcionales. Las cláusulas <code>IF EXISTS</code> e <code>IF</code> tienen un coste de rendimiento.</p>
+<pre class="cql"><code>UPDATE sbd.miembros
+SET nombre = &#39;Juanito&#39;
+WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = &#39;2020-01-01&#39;;</code></pre>
+<p>La cláusula <code>WHERE</code> sirve para especificar la fila o filas que van a ser modificadas.</p>
+<ul>
+<li>Para especificar una única fila hemos de indicar cual es el valor de la clave primarios que queremos modificar: <code>primary_key_name = primary_key_value, ...</code>. Si ésta está formada por varias columnas: <code>primary_key_c1_name = primary_key_c1_value AND ...</code> y se han de suministrar los valores de todos los campos que formen parte de la <em>primary key</em></li>
+<li>Si queremos actualizar varias filas hemos de incluir la cláusula <code>IN</code> seguida de una lista de valores separados por comas: <code>primary_key_name IN (primary_key_value, ...)</code>. Esto sólo se puede aplicar al último campo de la <em>partition key</em>.</li>
+</ul>
+<section id="upsert" class="level4">
+<h4><em>Upsert</em></h4>
+<p>El comportamiento de <code>UPDATE</code> es similar al de <code>INSERT</code>. Si la fila que vamos a modificar no existe se creará. Si existe se actualizará.</p>
+</section>
+</section>
+<section id="operaciones-de-borrado" class="level3">
+<h3>Operaciones de borrado</h3>
+<p>Para borrar datos de una tabla usaremos el comando <code>DELETE</code> que tiene la siguiente sintaxis:</p>
+<pre class="cql"><code>DELETE &lt;column_name&gt;, &lt;column_name&gt;, ...
+FROM &lt;keyspace&gt;.&lt;table_name&gt;
+USING TIMESTAMP &lt;valor&gt;
+WHERE &lt;column_name&gt; OPERATOR &lt;value&gt;
+  AND &lt;column_name&gt; OPERATOR &lt;value&gt;
+  ...
+IF EXISTS | IF &lt;condición&gt;
+  AND &lt;condición&gt;
+  ...</code></pre>
+<p>Los borrados serán a nivel de columnas. Es decir, si queremos borrar un conjunto de columnas hemos de indicarlas explícitamente. Si queremos borrar una fila completa no hemos de indicar ninguna columna.</p>
+<section id="using-timestamp" class="level4">
+<h4><code>USING TIMESTAMP</code></h4>
+<p>La cláusula <code>USING TIMESTAMP</code> sirve para indicar a partir de que <em>timestamp</em> se han de borrar los datos. Es decir, Cassandra marcará para borrado aquellas filas que son anteriores al <em>timestamp</em> indicado.</p>
+</section>
+<section id="borrado-de-varias-filas" class="level4">
+<h4>Borrado de varias filas</h4>
+<p>Para seleccionar más de una fila para borrado se han de seguir los mismos pasos que en el caso de la sentencia <code>UPDATE</code>.</p>
+<pre class="cql"><code>DELETE FROM sbd.miembros
+WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = &#39;2020-01-01&#39;;</code></pre>
+<p>Si en lugar de indicar <code>id</code> y <code>fecha_alta</code> indicamos únicamente <code>id</code> se borrarán todos los registros con ese <code>id</code>, es decir, esa partición.</p>
+</section>
+<section id="como-se-borran-los-datos-en-cassandra" class="level4">
+<h4>¿Como se borran los datos en Cassandra?</h4>
+<p>Los borrados en Cassandra están diseñados de forma que se priorice el rendimiento.</p>
+<p>Cassandra trata una operación de borrado com si se tratara de una inserción o un <em>upsert</em>. Lo que se añade es una marca de borrado o <em>tombstone</em>. Los <em>tombstones</em> tienen fecha de expiración de manera que, cuando esta se alcanza se realizará el borrado como parte del proceso de compactación de Cassandra.</p>
+<p>Se recomienda hacer el menor número de operaciones de borrado posible y, cuando sea posible, hacer borrados de grandes bloques de datos en lugar de hacerlo registro a registro.</p>
+</section>
+</section>
 </section>
 </body>
 </html>
