@@ -185,7 +185,7 @@ LIMIT <n>
 ALLOW FILTERING;
 ```
 
-#### `GROUP BY`
+### `GROUP BY`
 
 Cuando agrupamos por una columna hay que tener en cuenta que ésta **ha de formar parte de la partition key**
 
@@ -229,8 +229,8 @@ Los operadores pueden ser:
 * `>=`
 * `<=`
 * `IN`: Sirve para comparar un valor con una lista de valores separados por comas: `WHERE id IN (1, 2, 3)`. Y se puede usar con la *partition key*.
-* `CONTAINS`
-* `CONTAINS KEY`
+* `CONTAINS`: Sirve para filtrar por los datos de una colección. Los tipos `collection` son ` set`, `list` y `map`.
+* `CONTAINS KEY`: Sirve para filtrar por las claves de un mapa.
 
 ```cql
 SELECT * FROM sbd.miembros WHERE id = 123 AND fecha_alta < '2020-01-01';
