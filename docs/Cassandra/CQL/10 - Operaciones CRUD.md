@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS sbd.miembros (
   AND CLUSTERING ORDER BY (fecha_alta DESC);
 ```
 
-Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Por ello, a partir de ahora utilizaremos un fichero de texto para almacenar las sentencias CQL que queremos ejecutar.
+Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Lo más cómodo sería escribir un *script* CQL en un fichero de texto plano y ejecutarlo con `cqlsh`.
 
-Un *script* de CQL es un fichero de texto con extensión `.cql` que contiene sentencias CQL. Para ejecutar un *script* de CQL desde dentro de CQLSH utilizaremos la sentencia `SOURCE`:
+Para ejecutar un *script* de CQL desde dentro de CQLSH utilizaremos la sentencia `SOURCE`:
 
 ```cql
 SOURCE 'path/to/script.cql';
 ```
 
-Si lo que necesitamos es ejecutar un *script* de CQL desde la línea de comandos utilizaremos el siguiente comando:
+Y si lo que necesitamos es ejecutar un *script* de CQL desde la línea de comandos utilizaremos el siguiente comando:
 
 ```bash
 cqlsh -f path/to/script.cql
@@ -101,16 +101,18 @@ USE sbd;
 DESCRIBE TABLES;
 ```
 
-Guardamos el código anterior en un fichero llamado `script01.cql` y lo ejecutamos:
+Guardamos el código anterior en un fichero llamado `script01.cql` y lo copiamos a un volumen al que tenga acceso el contenedor con Cassandra donde vamos a ejecutar `cqlsh`. En la sección donde se explica cómo crear el *cluster* se usó un volumen común a todos los contenedores que se llamón `scripts`. Si guardamos el fichero `.cql` en este directorio podremos escribir el comando:
 
 ```bash
 docker exec -it cass1 cqlsh -f /scripts/script01.cql
 ```
 
+y nuestro código CQL se ejecutará.
+
 **Notas:**
 
 * Hay que prestar especial atención a las **comas y los puntos y comas**. Si nos olvidamos de poner una coma o un punto y coma en el lugar adecuado obtendremos un error de sintaxis.
-* Los códigos de error indican la línea y la columna donde se ha producido el error **con respecto al inicio de la sentencia CQL**. No del script.
+* Los códigos de error indican la línea y la columna donde se ha producido el error **con respecto al inicio de la sentencia CQL** que lo produjo. No del script.
 
 ## Operaciones de escritura
 
@@ -129,14 +131,6 @@ Si el registro ya existe el registro se sobreescribirá.
 
 Las cláusulas `IF NOT EXISTS` y `USING` son opcionales.
 
-### JSON
-
-La cláusula `JSON` sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:
-
-```cql
-INSERT INTO sbd.miembros JSON '{"id": 123, "nombre": "Juan", "apellidos": "Pérez", "email": "juan@gmail.com", "rol": "alumno", "fecha_alta": "2020-01-01", "fecha_de_nacimiento": "1990-01-01"}';
-```
-
 ### `IF NOT EXISTS`
 
 La cláusula `IF NOT EXISTS` sirve para indicar que no se ha de insertar el registro si ya existe un registro con la misma *primary key*.
@@ -145,7 +139,7 @@ El uso de `IF NOT EXISTS` tiene un coste de rendimiento.
 
 ### `USING`
 
-La cláusula `USING` es opcional. Se utiliza para indicar opciones de escritura. Las opciones de escritura son dos:
+La cláusula `USING` es opcional y se utiliza para indicar opciones de escritura. Las opciones posibles son dos:
 
 * `TTL`: Tiempo de vida del registro. Una vez transcurrido este tiempo el registro se borrará automáticamente (se marcará para borrado).
 * `TIMESTAMP`: *Timestamp* del registro. Si no se especifica se utilizará el *timestamp* actual. Esta opción no es compatible con `IF NOT EXISTS`.
@@ -157,15 +151,23 @@ VALUES (UUID(), 'Juan', 'Pérez', 'juan@gmail.com', 'alumno', NOW(), '1990-01-01
 
 Esta sentencia es idéntica a la sentencia `INSERT` de SQL.
 
+### JSON
+
+La cláusula `JSON` sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:
+
+```cql
+INSERT INTO sbd.miembros JSON '{"id": 123, "nombre": "Juan", "apellidos": "Pérez", "email": "juan@gmail.com", "rol": "alumno", "fecha_alta": "2020-01-01", "fecha_de_nacimiento": "1990-01-01"}';
+```
+
 ### `UUID()` y `NOW()`
 
-La función `UUID()` es muy importante ya que genera un identificador único. Es importante ya que como nos encontramos en un entorno distribuido si no utilizamos un identificador único podríamos tener problemas de colisiones. Por ejemplo podríamos realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de `UUID()` previene este problema.
+La función `UUID()` es muy importante ya que genera un identificador único. Es importante ya que, al encontrarnos en un entorno distribuido, si no utilizamos un identificador único podríamos tener problemas de colisiones. Podría suceder que se intentasen realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de `UUID()` previene este problema.
 
-Por su parte la función `NOW()` sirve para generar *timestamps*. El valor que devuelve `NOW()` del tipo timeuuid. Un timeuuid es un identificador **único** que contiene un *timestamp*. El *timestamp* se puede obtener a partir del timeuuid utilizando la función `dateOf()`. Los valores generados por `NOW()`, al giual que los generados por `UUID()`, **son únicos**.
+Por su parte la función `NOW()` sirve para generar *timestamps*. El valor que devuelve `NOW()` el del tipo `timeuuid`. Un `timeuuid` es un identificador **único** que contiene un *timestamp*. El *timestamp* se puede obtener a partir del `timeuuid` utilizando la función `dateOf()`. Los valores generados por `NOW()`, al giual que los generados por `UUID()`, **son únicos**.
 
 ## Operaciones de lectura
 
-La sentencia `SELECT` de CQL es muy similar a la sentencia `SELECT` de SQL. La diferencia más importante es que en CQL no se pueden realizar *joins*.
+La sentencia `SELECT` de CQL es muy similar a la sentencia `SELECT` de SQL. La diferencia más importante es que en CQL **no se pueden realizar *joins***.
 
 La sintaxis de la sentencia `SELECT` es la siguiente:
 
@@ -182,6 +184,8 @@ ORDER BY <column_name> ASC | DESC
 LIMIT <n>
 ALLOW FILTERING;
 ```
+
+#### `GROUP BY`
 
 Cuando agrupamos por una columna hay que tener en cuenta que ésta **ha de formar parte de la partition key**
 
