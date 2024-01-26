@@ -229,7 +229,7 @@ Los operadores pueden ser:
 * `>=`
 * `<=`
 * `IN`: Sirve para comparar un valor con una lista de valores separados por comas: `WHERE id IN (1, 2, 3)`. Y se puede usar con la *partition key*.
-* `CONTAINS`: Sirve para filtrar por los datos de una colección. Los tipos `collection` son ` set`, `list` y `map`.
+* `CONTAINS`: Sirve para filtrar por los datos de una colección. Los tipos `collection` son `set`, `list` y `map`.
 * `CONTAINS KEY`: Sirve para filtrar por las claves de un mapa.
 
 ```cql
@@ -272,9 +272,40 @@ SET nombre = 'Juanito'
 WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = '2020-01-01';
 ```
 
+La cláusula `WHERE` sirve para especificar la fila o filas que van a ser modificadas.
+
+* Para especificar una única fila hemos de indicar cual es el valor de la clave primarios que queremos modificar: `primary_key_name = primary_key_value, ...`. Si ésta está formada por varias columnas: `primary_key_c1_name = primary_key_c1_value AND ...` y se han de suministrar los valores de todos los campos que formen parte de la *primary key*
+* Si queremos actualizar varias filas hemos de incluir la cláusula `IN` seguida de una lista de valores separados por comas: `primary_key_name IN (primary_key_value, ...)`. Esto sólo se puede aplicar al último campo de la *partition key*.
+
+### *Upsert*
+
+El comportamiento de `UPDATE` es similar al de `INSERT`. Si la fila que vamos a modificar no existe se creará. Si existe se actualizará.
+
 ## Operaciones de borrado
 
-Para borrar datos de una tabla usaremos el comando `DELETE`:
+Para borrar datos de una tabla usaremos el comando `DELETE` que tiene la siguiente sintaxis:
+
+```cql	
+DELETE <column_name>, <column_name>, ...
+FROM <keyspace>.<table_name>
+USING TIMESTAMP <valor>
+WHERE <column_name> OPERATOR <value>
+  AND <column_name> OPERATOR <value>
+  ...
+IF EXISTS | IF <condición>
+  AND <condición>
+  ...
+```
+
+Los borrados serán a nivel de columnas. Es decir, si queremos borrar un conjunto de columnas hemos de indicarlas explícitamente. Si queremos borrar una fila completa no hemos de indicar ninguna columna.
+
+### `USING TIMESTAMP`
+
+La cláusula `USING TIMESTAMP` sirve para indicar a partir de que *timestamp* se han de borrar los datos. Es decir, Cassandra marcará para borrado aquellas filas que son anteriores al *timestamp* indicado.
+
+### Borrado de varias filas
+
+Para seleccionar más de una fila para borrado se han de seguir los mismos pasos que en el caso de la sentencia `UPDATE`.
 
 ```cql
 DELETE FROM sbd.miembros
@@ -283,4 +314,10 @@ WHERE id = 12345678-1234-1234-1234-123456789012 AND fecha_alta = '2020-01-01';
 
 Si en lugar de indicar `id` y `fecha_alta` indicamos únicamente `id` se borrarán todos los registros con ese `id`, es decir, esa partición.
 
-En Cassandra, cuando realizamos una operación de borrado, en realidad lo estamos haciendo es insertar un registro con la marca de borrado. Se recomienda hacer el menor número de operaciones de borrado posible y, cuando hayamos de borrar, hacerlo en bloques de datos grandes.
+### ¿Como se borran los datos en Cassandra?
+
+Los borrados en Cassandra están diseñados de forma que se priorice el rendimiento.
+
+Cassandra trata una operación de borrado com si se tratara de una inserción o un *upsert*. Lo que se añade es una marca de borrado o *tombstone*. Los *tombstones* tienen fecha de expiración de manera que, cuando esta se alcanza se realizará el borrado como parte del proceso de compactación de Cassandra.
+
+Se recomienda hacer el menor número de operaciones de borrado posible y, cuando sea posible, hacer borrados de grandes bloques de datos en lugar de hacerlo registro a registro.
