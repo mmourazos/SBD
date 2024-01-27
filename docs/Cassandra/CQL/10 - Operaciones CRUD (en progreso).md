@@ -285,7 +285,7 @@ El comportamiento de `UPDATE` es similar al de `INSERT`. Si la fila que vamos a 
 
 Para borrar datos de una tabla usaremos el comando `DELETE` que tiene la siguiente sintaxis:
 
-```cql	
+```cql
 DELETE <column_name>, <column_name>, ...
 FROM <keyspace>.<table_name>
 USING TIMESTAMP <valor>
