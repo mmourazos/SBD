@@ -1,0 +1,1591 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\usepackage{svg}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Cassandra},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Cassandra}
+\author{}
+\date{}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\mainmatter
+\section{Introducción a Cassandra}\label{introducciuxf3n-a-cassandra}
+
+Apache Cassandra es un sistema de gestión de bases de datos NoSQL distribuido, altamente escalable y de alto rendimiento. Fue diseñado para gestionar grandes cantidades de datos en múltiples servidores, proporcionando alta disponibilidad (C\textbf{A}P) sin un único punto de fallo (CA\textbf{P}).
+
+Cassandra es un proyecto de \textbf{código abierto} desarrollado por Apache Software Foundation y escrito en Java. Es una base de datos gratuita con un modelo de negocio basado en servicios y soporte.
+
+Se trata de una base de datos NoSQL \textbf{columnar} lo que significa que los datos se almacenan en columnas en lugar de filas. Esto se traduce en un acceso más eficiente a los datos cuando lo que se consulta es un subconjunto de las columnas de una tabla. Estos tipos de base de datos son especialmente apropiados para consultas analíticas.
+
+Esta base de datos, como suele suceder con las bases de datos NoSQL, no garantiza los principios ACID (Atomicity Consistency Isolation Durability. En su lugar garantiza los principios BASE:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\emph{Basic Availability}}: la base de datos siempre está disponible.
+\item
+  \textbf{\emph{Soft state}}: los datos pueden cambiar con el tiempo, incluso sin una entrada de datos.
+\item
+  \textbf{\emph{Eventual consistency}}: la base de datos llegará a un estado consistente en algún momento.
+\end{itemize}
+
+\subsection{¿Cómo usaremos Cassandra?}\label{cuxf3mo-usaremos-cassandra}
+
+La forma más sencilla de usar Cassandra es mediante el uso de contenedores Docker. Para ello podemos usar el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ run }\AttributeTok{{-}{-}name}\NormalTok{ cassandra }\AttributeTok{{-}p}\NormalTok{ 9042:9042 }\AttributeTok{{-}d}\NormalTok{ cassandra:latest}
+\end{Highlighting}
+\end{Shaded}
+
+Este comando lo usaremos la primera vez que queramos usar Cassandra. En las siguientes ocasiones podremos usar el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ start cassandra}
+\end{Highlighting}
+\end{Shaded}
+
+y para parar el contenedor:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ stop cassandra}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez que el contenedor esté en ejecución podremos conectarnos a él usando el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cassandra cqlsh}
+\end{Highlighting}
+\end{Shaded}
+
+de esta forma obtendremos una consola de Cassandra ejecutado una \emph{shell} de CQL (cqlsh) desde la que podremos ejecutar comandos CQL.
+
+\subsection{¿Qué es CQL?}\label{quuxe9-es-cql}
+
+Cassandra Query Language (CQL) es un lenguaje de consulta similar a SQL que nos permitirá interactuar con Cassandra. Cassandra dispone de \emph{drivers} para Java (JDBC), Python (DBAPI2), Node.JS (Datastax), Go (gocql) y C++.
+
+\subsection{¿Qué es una base de datos columnar?}\label{quuxe9-es-una-base-de-datos-columnar}
+
+En una base de datos columnar los datos se almacenan en columnas en lugar de filas. Esto permite que las consultas sean más rápidas.
+
+Estas bases de datos están concebidas para recuperar datos en forma de columnas. Esto es útil cuando se desea recuperar un subconjunto de columnas de una tabla que contiene un gran número de columnas. Estas consultas son típicas en aplicaciones analíticas.
+
+Todos los valores de la misma columna se encuentran juntos en el disco. Esto permite que las consultas, cuando sólo nos interesa un subconjunto de columnas, sean más rápidas.
+
+\subsection{Características de Cassandra}\label{caracteruxedsticas-de-cassandra}
+
+Cassandra tiene las siguientes características que la diferencian de otras bases de datos:
+
+\begin{itemize}
+\tightlist
+\item
+  Base de datos distribuida.
+\item
+  Tolerante a fallos.
+\item
+  Escalable linealmente y de forma horizontal.
+\item
+  No sigue el patrón \textbf{maestro-esclavo}.
+\item
+  \textbf{Permite especificar el nivel de consistencia de las operaciones}.
+\end{itemize}
+
+En primer lugar Cassandra es una \textbf{base de datos distribuida}. Esto quiere decir que los datos se almacenan en múltiples nodos de un cluster. Esto permite que \textbf{los datos estén replicados} y que la base de datos sea \textbf{tolerante a fallos}.
+
+Cassandra es \textbf{escalable linealmente}. Esto quiere decir que si añadimos más nodos a la base de datos el rendimiento de la misma aumentará de forma lineal. De esta forma podemos escalar la base de datos de forma horizontal.
+
+\textbf{No sigue el patrón maestro-esclavo}. Todos los nodos son iguales y no hay un nodo maestro, es decir, es una base de datos \textbf{peer-to-peer}.
+
+\subsubsection{Desventajas de Cassandra}\label{desventajas-de-cassandra}
+
+Para escalar Cassandra de forma horizontal es necesario añadir nuevos nodos a la base de datos. Esto puede ser complicado en algunos casos.
+
+Para maximizar el rendimiento tendremos que conocer cuales serán las consultas que se realizarán a la base de datos con antelación a su creación. Esto puede ser complicado en algunos casos.
+
+\section{Arquitectura de Cassandra}\label{arquitectura-de-cassandra}
+
+A diferencia de un \emph{cluster} maestro-esclavo, en el que el nodo maestro es el responsable de encargarle a los nodos esclavos la ejecución de las consultas, en Cassandra todos los nodos son iguales y no hay un nodo maestro. En un cluster maestro-esclavo el nodo maestro supone un punto único de fallo, mientras que en Cassandra, al no existir nodos maestros, no hay un punto único de fallo. Cuando realizamos una operación en Cassandra habrá un nodo encargado de gestionarla pero ese nodo va cambiando con cada operación.
+
+Un \emph{cluster} de Cassandra se denomina \emph{ring} o anillo. Este anillo está formado por varios nodos interconectados y configurados para propósitos de replicación. Los nodos serán \emph{conscientes} de los otros nodos del anillo y de su estado y se comunicarán entre ellos para replicar los datos cumpliendo las condiciones de consistencia que se hayan establecido.
+
+Cada nodo del anillo tiene la misma importancia que los demás, \textbf{no hay un nodo maestro} ya que se trata de un sistema P2P. Del mismo modo, en cada nodo habrá una instancia de Cassandra. Los nodos deberán de encontrarse, idealmente, en ubicaciones diferentes para evitar que un desastre natural pueda afectar a todos los nodos simultáneamente.
+
+\begin{figure}
+\centering
+\includesvg{../Imágenes/Anillo.svg}
+\caption{Anillo de Cassandra}
+\end{figure}
+
+Todas estas característica hacen que no exista un \textbf{SPOF} (\emph{Single Point Of Failure}), es decir, que no haya un punto único de fallo.
+
+Un anillo de Cassandra también se denomina \textbf{\emph{datacenter}}.
+
+\subsection{Nodos virtuales}\label{nodos-virtuales}
+
+Cada nodo del anillo se puede dividir a su vez en \emph{nodos virtuales} (vnodes) concepto similar al de varias máquinas virtuales en una única máquina física. Cada nodo virtual se encarga de una parte del anillo del nodo \emph{real}. De esta forma, si añadimos un nuevo nodo al anillo, este se dividirá en nodos virtuales y cada nodo virtual se encargará de una parte del anillo. Es decir, de una parte de los datos que le corresponde gestionar al nuevo nodo del anillo. Esto permite que el anillo se reequilibre de forma automática. Un nodo \emph{real} puede distribuir sus datos entre varios nodos virtuales. Esto permite mejorar la disponibilidad de los datos al aumentar la replicación. Esto es similar a lo que sucede cuando establecemos varios servicios de una máquina de modo que se ejecuten en diferentes máquinas virtuales o contenedores.
+
+\subsection{Jerarquía de Cassandra}\label{jerarquuxeda-de-cassandra}
+
+En primer lugar tendremos el \emph{cluster}, que estará formado por uno o varios \emph{anillos} o \emph{datacenters}. Cada \emph{datacenter} estará formado a su vez por uno o más \emph{racks}, que serán la agrupación lógica de varios servidores o nodos. Finalmente, los nodos estarán constituidos por uno o varios nodos virtuales.--
+
+\section{Escritura y lectura en Cassandra}\label{escritura-y-lectura-en-cassandra}
+
+\subsection{Proceso de escritura en Cassandra}\label{proceso-de-escritura-en-cassandra}
+
+\begin{figure}
+\centering
+\includesvg{../Imágenes/Escritura.svg}
+\caption{Escritura y lectura en Cassandra}
+\end{figure}
+
+El dato que entra en Cassandra se divide para ir a dos destinos diferentes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\emph{memtable}}: es una \textbf{tabla en memoria} que se utiliza para almacenar los datos que se van a escribir en disco. Cuando la \emph{memtable} se llena, se vuelca en disco en forma de \emph{SSTable}.
+\item
+  \textbf{\emph{Commit log}}: es un \textbf{registro de todas las operaciones} de escritura que se han realizado en Cassandra. Se utiliza para \textbf{recuperar los datos en caso de} que se produzca un \textbf{fallo} en el sistema.
+\end{itemize}
+
+Podríamos decir que la \emph{SSTable} es la base de datos en sí, mientras que la \emph{memtable} y el \emph{commit log} son mecanismos de Cassandra para mejorar el rendimiento y la disponibilidad de los datos.
+
+(La \textbf{SS} en \emph{SSTable} significa \emph{Sorted String} y se refiere a que los datos se almacenan en disco de forma ordenada. Las \emph{SSTable} se almacenan en disco en forma de archivos).
+
+Según se van volcando los datos de la \emph{memtable} a la \emph{SSTable} se irán borrando entradas en el \emph{commit log}.
+
+\subsubsection{\texorpdfstring{\emph{memtable}}{memtable}}\label{memtable}
+
+Consiste en una serie de particiones en memoria. Su utilidad es la de ofrecer gran velocidad de escritura y lectura. Funciona como una caché.
+
+Cuando alcanza un tamaño determinado (indicado en la configuración), se vuelca en disco en forma de \emph{SSTable}.
+
+\subsubsection{\texorpdfstring{\emph{commit log}}{commit log}}\label{commit-log}
+
+Los \emph{commitlogs} son logs de sólo escritura (\emph{append only}) de todos los cambios locales a un nodo de Cassandra. Cualquier dato escrito en Cassandra se escribirá primero en un \emph{commit log} antes de escribirse en una \emph{memtable}. Esto proporciona seguridad frente a un apagado inesperado. Al iniciarse un nodo, cualquier cambio registrado en el \emph{commit log} se aplicará a las \emph{memtables}.
+
+\subsubsection{\texorpdfstring{\emph{SSTable}}{SSTable}}\label{sstable}
+
+Consiste en una serie de ficheros en disco que contienen los datos de las particiones. Estos ficheros serán \textbf{inmutables}. Los datos, una vez se escriben en la \emph{SSTable} \textbf{no se podrán modificar}. Las operaciones de modificación se realizarán creando nuevos ficheros, con las modificaciones, con un nuevo \emph{timestamp}.
+
+Cada \emph{SSTable} tendrá asociadas las siguientes estructuras de datos (se crean cuando se crea una \emph{SSTable}):
+
+\begin{itemize}
+\tightlist
+\item
+  Data (\texttt{Data.db}): contiene los datos de la \emph{SSTable}.
+\item
+  Primary index (\texttt{Index.db}): contiene los índices de las claves de las columnas con punteros a sus posiciones en el fichero de datos.
+\item
+  Bloom filter (\texttt{Filter.db}): estructura almacenada en memoria que sirve para comprobar si una clave existe en la \emph{memtable} antes de acceder a la \emph{SSTable}.
+\item
+  Compression information (\texttt{CompressionInfo.db}): contiene información sobre la compresión de los datos.
+\item
+  Statistics (\texttt{Statistics.db}): contiene información estadística sobre los datos de la \emph{SSTable}.
+\item
+  Secondary index (\texttt{SI\_.*.db}): contiene los índices secundarios. Pueden existir varios en cada \emph{SSTable}.
+\item
+  \ldots{}
+\end{itemize}
+
+\section{Compactaciones y lecturas en Cassandra}\label{compactaciones-y-lecturas-en-cassandra}
+
+\subsection{Compactaciones}\label{compactaciones}
+
+Consiste en combinar varias \emph{SSTable} en una sola para eliminar datos obsoletos y reducir el número de ficheros en disco.
+
+Cassandra tomará todas las versiones de una fila y las combinará en una sola versión con las versiones más recientes de cada columna.
+
+Ese dato lo almacenará en una nueva \emph{SSTable} y borrará las antiguas.
+
+Hay que tener en cuenta que este proceso es muy costoso en términos de CPU y E/S, por lo que se debe de realizar de forma controlada. Dará lugar a picos de uso de CPU y disco. Si el espacio en disco es limitado, se puede llegar a llenar por completo antes de que se haya completado la compactación.
+
+\subsection{Borrado de datos en Cassandra}\label{borrado-de-datos-en-cassandra}
+
+Un borrado se realiza como una escritura. Se realiza un borrado lógico creando \emph{tombstones} (lapidas) que indican que una columna ha sido borrada. Los datos de estas \emph{tombstones} se irán borrando \emph{de verdad} en las compactaciones.
+
+\subsection{Lectura}\label{lectura}
+
+Una lectura intentará en primer lugar obtener el dato de la \emph{memtable}. Si no lo encuentra ahí, aún tiene la posibilidad de encontrarlo en otra caché llamada \emph{row cache}.
+
+La \emph{row cache} es simplemente una memoria donde se almacenan las filas a las que se ha accedido más recientemente.
+
+Si el dato no se encontró ni en la \emph{memtable} ni en la \emph{row cache}, se acudirá al \emph{Bloom filter} de la \emph{SSTable} que nos podrá decir si el dato existe en la \emph{SSTable} o no. Si el \emph{Bloom filter} nos dice que el dato existe, se acudirá al índice de la \emph{SSTable} para encontrar la posición del dato en el fichero de datos. Si el \emph{Bloom filter} nos dice que el dato no existe, se devolverá un error.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart TB}
+\NormalTok{l([lectura]) {-}{-}\textgreater{} memcache}
+\NormalTok{memcache {-}{-}\textgreater{} f1\{encontrado?\}}
+\NormalTok{f1 {-}{-}encontrado {-}{-}\textgreater{} fin\_ok(fin: dato devuelto)}
+\NormalTok{f1 {-}{-}no encontrado {-}{-}\textgreater{} rc[row cache]}
+\NormalTok{rc {-}{-}\textgreater{} f2\{¿econtrado?\}}
+\NormalTok{f2 {-}{-} encontrado {-}{-}\textgreater{} fin\_ok}
+\NormalTok{f2 {-}{-} no encontrado {-}{-}\textgreater{} bf([Bloom filter])}
+\NormalTok{bf {-}{-}\textgreater{} st\{¿Está en la}
+\NormalTok{SSTable?\}}
+\NormalTok{st {-}{-} está {-}{-}\textgreater{} da[Acceso en disco}
+\NormalTok{a la SSTable]}
+\NormalTok{da {-}{-}\textgreater{} fin\_ok}
+\NormalTok{st {-}{-} no está {-}{-}\textgreater{} fallo(Dato no econtrado)}
+\NormalTok{fallo {-}{-}\textgreater{} fin\_nok(fin: fallo de lectura)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Distribución y replicación}\label{distribuciuxf3n-y-replicaciuxf3n}
+
+Distribución y replicación son los conceptos básicos que emplea Cassandra para garantizar la disponibilidad y tolerancia a fallos. En Cassandra ambas tareas se realizan do forma simultánea. Cuando un dato se distribuye, también se replica. Además de esto los datos se van a organizar en función de su clave primaria (PK). La PK (\textbf{\emph{Partition Key}} \textbf{no confundir con \emph{primary key}}) determina en qué nodo se van a escribir lo datos.
+
+\subsection{Elementos involucrados en la distribución y replicación}\label{elementos-involucrados-en-la-distribuciuxf3n-y-replicaciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nodos virtuales (\emph{Vnodes})}: aumentan el grado de granularidad de los datos.
+\item
+  \textbf{Particionador}: determina en qué nodo se va a almacenar un dato en función de su PK.
+\item
+  \textbf{Estrategia de replicación}: determina el número de copias que se van a almacenar de cada dato.
+\item
+  \textbf{\emph{Snitch}}: determina la topología de la red.
+\end{itemize}
+
+\subsubsection{Nodos virtuales (Vnodes)}\label{nodos-virtuales-vnodes}
+
+Aumentan el grado de granularidad de los datos. Al comportarse como nodos \emph{reales} permiten que un nodo almacene más datos que los que le corresponderían en una distribución sin \emph{Vnodes}. Esto hace que haya datos replicados en más nodos y reduce el riesgo de que la caída de un nodo provoque la pérdida de datos.
+
+El intervalo de PKs que le correspondería a un nodo se calcula a partir del valor de dos tokens. El primer token se calcula a partir del hash de la dirección IP del nodo. El segundo token se calcula a partir del hash del nombre del cluster.
+
+Cuando añadimos un nuevo nodo, éste asume la responsabilidad sobre un conjunto de datos que le correspondía a otros nodos. Esto hace que se tenga que realizar un proceso de redistribución de datos. Este proceso se realiza de forma automática y transparente para el usuario.
+
+La proporción de \emph{Vnodes} por nodo es configurable.
+
+\subsubsection{Particionador}\label{particionador}
+
+El particionador es el encargado de determinar en qué nodo se va a almacenar un dato en función de su PK. El algoritmo de distribución de datos utiliza una \textbf{función hash} para calcular el token de un dato a partir de su \textbf{PK}. El token es un número de 64 bits que se utiliza para determinar en qué nodo se va a almacenar el dato (en relación a los tokens del nodo). Como dijimos cada nodo tendrá dos tokens y el dado ha de almacenarse en el nodo \emph{entre cuyos tokens} se encuentre el token del dato. Es decir, si un nodo tiene los tokens 1 y 100 y el hash del dato fuese 50 el dato se almacenará en dicho nodo.
+
+Obviamente los tokens se generan de forma que todo el rango de posibles valores de hash de un dato esté cubierto por los rangos de tokens de los nodos.
+
+Cassandra proporciona tres particionadores:
+
+\begin{itemize}
+\tightlist
+\item
+  Murmur 3Partitioner (por defecto).
+\item
+  Random Partitioner.
+\item
+  ByteOrdered Partitioner.
+\end{itemize}
+
+\subsubsection{Estrategia de replicación}\label{estrategia-de-replicaciuxf3n}
+
+Cassandra utiliza la replicación para asegurar la disponibilidad y tolerancia a fallos. El \textbf{factor de replicación} es el valor que indica el número de copias que se van a almacenar de cada dato y \textbf{no debe sobrepasar el número de nodos del \emph{datacenter}}. El valor de esta propiedad se puede modificar en tiempo de ejecución.
+
+La replicación se realiza de forma automática y transparente para el usuario. Cassandra proporciona dos estrategias de replicación:
+
+\begin{itemize}
+\tightlist
+\item
+  SimpleStrategy (por defecto): Usado para clusters con un único \emph{datacenter}. Las réplicas se distribuyen en los nodos de forma secuencial.
+\item
+  NetworkTopologyStrategy: Usado para clusters con varios datacenters. Las réplicas se distribuyen en los nodos de forma secuencial en función de los datacenters. Se puede definir el factor de replicación por datacenter.
+\end{itemize}
+
+\subsubsection{Snitch}\label{snitch}
+
+El snitch es el encargado de determinar la topología de la red. Es decir, determina a qué \emph{datacenter} y a qué rack pertenece cada nodo. Cassandra proporciona varios snitches:
+
+\begin{itemize}
+\tightlist
+\item
+  Dynamic.
+\item
+  GoogleCloudSnitch.
+\item
+  Simple.
+\item
+  Ec2Snitch.
+\item
+  Rackinferring.
+\item
+  \ldots ññadslafkñjbbccd
+\end{itemize}
+
+\subsection{\texorpdfstring{\emph{Primary key, partition key y clustering key}}{Primary key, partition key y clustering key}}\label{primary-key-partition-key-y-clustering-key}
+
+Una \emph{primary key} en Cassandra estará compuesta de \textbf{una \emph{partition key}} (simple o compuesta) \textbf{y cero o más \emph{culstering keys}}. Al definir una \emph{primary key} la columna o columnas que conforman la \textbf{\emph{partition key} siempre aparecerán antes} que los campos que conforman las \emph{clustering keys}.
+
+La \emph{primary key} de una tabla de Cassandra puede tener la siguiente estructura:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Un único campo}: en cuyo caso ese campo tiene que ser único para todos los registros de la tabla. Es decir, una columna con valores únicos.
+\item
+  \textbf{Dos o más campos}: en este caso lo que tiene que ser único es la combinación de los dos campos. Pueden definirse de dos formas:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{PRIMARY\ KEY\ (\textless{}campo1\textgreater{},\ \textless{}campo2\textgreater{},\ …)}: aquí el \texttt{\textless{}campo1\textgreater{}} será la \textbf{\emph{partition key}} y el resto de campos serán \emph{clustering keys}.
+  \item
+    \texttt{PRIMARY\ KEY\ ((\textless{}campo1,\ campo2),\ \textless{}campo3\textgreater{},\ …)}: en este ejemplo \texttt{\textless{}campo1\textgreater{}} y \texttt{\textless{}campo2\textgreater{}} constituyen la \emph{partition key} y el resto serán \emph{clustering keys} (ver \textbf{partition key compuesta}).
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\emph{Partition key}}{Partition key}}\label{partition-key}
+
+La principal función de una \emph{partition key} es la distribuir los datos de una manera uniforme entre los nodos del \emph{cluster} y permitir consultas de una manera eficiente. Esto se llevará a cabo aplicando una \textbf{función de \emph{hash}} a la \emph{partition key}. Con el \emph{hash} resultante se determinará qué nodo del \emph{cluster} le corresponde y la \textbf{partición} dentro de dicho nodo.
+
+\paragraph{\texorpdfstring{\emph{Partition key} simple}{Partition key simple}}\label{partition-key-simple}
+
+Si la \emph{partition key} está formada a partir de una única columna, los valores de este campo serán los que se usen para calcular el \emph{hash}. Una vez calculado el \emph{hash} este determinará en que \textbf{partición} se va a guardar el registro. Al mismo tiempo \textbf{también} estamos determinando \textbf{el nodo} donde se va a almacenar ya que \textbf{todos los elementos de una partición han de estar almacenados en el mismo nodo}.
+
+\paragraph{\texorpdfstring{\emph{Partition key} compuesta}{Partition key compuesta}}\label{partition-key-compuesta}
+
+Una \emph{partition key} compuesta estará formada por dos o más columnas. Esto implica que se utilizarán varias columnas para determinar dónde se va a almacenar el dato. Esta técncia se utilizará \textbf{cuando la cantidad de datos a almacenar es demasiado grande para guardarse en una única partición}. Cuando usamos más de una columna en la \emph{partition key} los datos se dividirán en \emph{pedazos} o \emph{buckets}. Los datos serguirán estando agrupados pero en fragmentos más pequeños. Este método puede ser efectivo en la reducción de \emph{puntos calientes} o \textbf{congestión en escrituras}, cuando la partición de un nodo recibe gran cantidad de escrituras.
+
+\subsubsection{\texorpdfstring{\emph{Clustering key}}{Clustering key}}\label{clustering-key}
+
+\emph{Clustering} es el proceso de ordenar los datos de una partición y se basa en las columnas definidas como las \textbf{\emph{clustering keys}}. La definición de las columnas que serán \emph{clustering keys} ha de hacerse con antelación. Esto ha de hacerse así ya que la elección de las columnas que serán \emph{clustering keys} depende de cómo vamos a usar los datos en la aplicación. Es decir, la elección de las \emph{clustering keys} tendrá un gran impacto en el rendimiento de la aplicación que consuma esos datos.
+
+Todos los datos de una partición se almacenan de forma contigua en el dispositivo de almacenamiento ordenados según las columnas definidas como \emph{clustering keys}. Esto hace que la recuperación de los datos sea muy eficiente (siempre que se haga respecto a estas columnas).
+
+\section{Consistencia}\label{consistencia}
+
+Teniendo en cuenta el teorema CAP (Consistency Availability Partition tolerance), Cassandra sacrifica la consistencia para garantizar la disponibilidad (availability) y tolerancia a fallos (partitioning). Esto significa que los datos no se replican de forma síncrona en todos los nodos. En su lugar, se replican de forma asíncrona en los nodos que se le indiquen en la estrategia de replicación. Esto hace que los datos no estén disponibles en todos los nodos al mismo tiempo. Por lo tanto, si se realiza una lectura en un nodo, es posible que no se obtenga el dato más actualizado.
+
+Se puede definir el grado de consistencia que deseamos a la hora de realizar una lectura o escritura. Pero hay que tener en cuenta que cuanto mayor sea el nivel de consistencia exigido peor serán las otras propiedades de Cassandra (disponibilidad y tolerancia a fallos). Es decir, cuanto mayor sea la consistencia requerida menor será el rendimiento. Si exigimos máxima consistencia en escritura el dato habrá que \textbf{escribirlo a todos los nodos} lo que será más lento y costoso. Del mismo modo, si exigimos máxima consistencia en la lectura habrá que \textbf{consultar a todos los nodos} para asegurarnos de que vamos a obtener el valor más reciente del dato.
+
+Los niveles de consistencia que se pueden especificar son:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Any}: Sólo para escrituras. Se garantiza que la escritura se ha realizado en al menos un nodo.
+\item
+  \textbf{One/Two/Three}: En escrituras se garantiza que el datos ha sido replicado en uno/dos/tres nodos. En lecturas se garantiza que se ha leído el dato más actual de uno/dos/tres nodos.
+\item
+  \textbf{Quorum}: En escrituras se garantiza que el dato ha sido replicado en un \emph{quorum} de nodos. En lecturas se garantiza que se ha leído el dato más actual de un \emph{quorum} de nodos.
+\item
+  \textbf{Local quorum}: En escrituras se garantiza que el dato ha sido replicado en el \emph{quorum} del datacenter local. En lecturas se garantiza que se ha leído el dato más actual de un \emph{quorum} del datacenter local.
+\item
+  \textbf{Each quorum}: En escrituras se garantiza que el dato ha sido replicado en un \emph{quorum} de veces de todos los datacenters. En lecturas se garantiza que se ha leído el dato más actual de un *quorum de nodos de todos los datacenters.
+\item
+  \textbf{All}: En escrituras se garantiza que el dato ha sido replicado en todos los nodos. En lecturas se garantiza que se ha leído el dato más actual de todos los nodos.
+\end{itemize}
+
+El quorum se define según la siguiente fórmula:
+
+\(quorum = ( factor\ de\ replicación / 2) + 1\)
+
+\section{Conceptos generales en modelado de datos}\label{conceptos-generales-en-modelado-de-datos}
+
+\subsection{Normalización de datos}\label{normalizaciuxf3n-de-datos}
+
+La normalización es el proceso de diseñar las tablas y relaciones entre ellas de acuerdo a unas reglas diseñadas con el objetivo de \textbf{eliminar la redundancia y la inconsistencia}. Estas técnicas se aplican en los modelos relacionales y surgen de la necesidad de \textbf{optimizar el almacenamiento de datos en disco}. En la época en que surgieron estas técnicas, el almacenamiento en disco era muy caro y por tanto se buscaba optimizarlo. En la actualidad la situación ha cambiado y el almacenamiento en disco es muy barato, por lo que la normalización no es tan necesaria como antes. Esta es una de las razones por las que las bases de datos NoSQL como Cassandra no utiliza el modelo relacional.
+
+\subsubsection{Ventajas de la normalización}\label{ventajas-de-la-normalizaciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Menor espacio de almacenamiento}: Al eliminar la redundancia se reduce el espacio de almacenamiento.
+\item
+  \textbf{Menor tiempo de escritura}: Al eliminar la redundancia se reduce el tiempo de escritura.
+\item
+  \textbf{Mayor integridad de los datos}: Al eliminar la redundancia se evita la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).
+\end{itemize}
+
+\subsubsection{Desventajas de la normalización}\label{desventajas-de-la-normalizaciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Mayor tiempo de lectura}: Al eliminar la redundancia se aumenta el tiempo de lectura, ya que hay que realizar \textbf{más consultas} para obtener los datos.
+\item
+  \textbf{Mayor complejidad en las consultas}: Al eliminar la redundancia se aumenta la \textbf{complejidad de las consultas} (sentencias \href{https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL}{\emph{join}}).
+\end{itemize}
+
+\subsection{Desnormalización de datos}\label{desnormalizaciuxf3n-de-datos}
+
+La desnormalización es el proceso de añadir redundancia a los datos con el objetivo de \textbf{mejorar el rendimiento}. En Cassandra se desnormalizan los datos para evitar las consultas \href{https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL}{\emph{join}}, que serían muy costosas en Cassandra (Cassandra no admite sentencias \emph{join}). Hay que tener en cuenta que el precio del espacio de almacenamiento en disco es muy barato en la actualidad y las velocidades de escritura y lectura son muy altas, por lo que la desnormalización no es un problema en este aspecto.
+
+\subsubsection{Ventajas de la desnormalización}\label{ventajas-de-la-desnormalizaciuxf3n}
+
+Son a la inversa que las desventajas de la normalización:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Menor tiempo de lectura}: Al añadir redundancia se reduce el tiempo de lectura, ya que hay que realizar \textbf{menos consultas} para obtener los datos.
+\item
+  \textbf{Menor complejidad en las consultas}: Al añadir redundancia se reduce la \textbf{complejidad de las consultas} (se pueden evitar las sentencias \href{https://es.wikipedia.org/wiki/Sentencia_JOIN_en_SQL}{\emph{join}}, y los \emph{join} anidados).
+\end{itemize}
+
+\subsubsection{Desventajas de la desnormalización}\label{desventajas-de-la-desnormalizaciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Múltiples escrituras}: Al añadir redundancia se aumenta el tiempo de escritura, ya que hay que escribir los datos en varios sitios.
+\item
+  \textbf{Integridad manual de los datos}: Al añadir redundancia se aumenta la posibilidad de que los datos se corrompan (dos copias del mismo dato con distintos valores).
+\end{itemize}
+
+\subsection{Modelado relacional vs Cassandra}\label{modelado-relacional-vs-cassandra}
+
+Cassandra es una base de datos diseñada con el objetivo de optimizar el rendimiento de las lecturas a escala. Para ello se sacrifica el rendimiento de las escrituras y la integridad de los datos. Por tanto, el modelado de datos en Cassandra es muy diferente al modelado de datos en bases de datos relacionales.
+
+En Cassandra se emplea la desnormalización de datos en el proceso de modelado.
+
+En un sistema de bases de datos relacional el modelado de datos sigue los siguientes pasos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph TB}
+\NormalTok{ad([Analizar los datos]) {-}{-}\textgreater{} id([Identificar las}
+\NormalTok{entidades y}
+\NormalTok{relaciones])}
+\NormalTok{id {-}{-}\textgreater{} md([Diseñar las tablas}
+\NormalTok{aplicando normalización y}
+\NormalTok{claves foráneas])}
+\NormalTok{md {-}{-}\textgreater{} app([La aplicación accede}
+\NormalTok{al modelo de datos])}
+\end{Highlighting}
+\end{Shaded}
+
+El proceso se inicia con los datos \emph{crudos}. Se analizan sus características y se identifican las entidades y relaciones entre ellas. A continuación se diseñan las tablas aplicando la normalización para minimizar la redundancia y finalmente la aplicación accede al modelo de datos diseñando las consultas y demás operaciones \textbf{condicionada por el diseño previo}.
+
+En cambio en Cassandra (y otras bases de datos NoSQL) el proceso es el siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph TB}
+\NormalTok{app([Analizar las}
+\NormalTok{necesidades del}
+\NormalTok{usuario]) {-}{-}\textgreater{} q([Identificar las}
+\NormalTok{consultas necesarias])}
+\NormalTok{q {-}{-}\textgreater{} data([Diseñar las tablas}
+\NormalTok{en función de}
+\NormalTok{las consultas])}
+\end{Highlighting}
+\end{Shaded}
+
+Partimos de analizar cómo necesitamos consumir los datos, qué operaciones necesitará realizar la aplicación sobre ellos. En función de estas necesidades se diseñan las tablas y finalmente se organizan los datos en función del diseño previo.
+
+Se parte de la aplicación y se \emph{sube} hasta los datos, en vez de partir de los datos y \emph{bajar} hasta la aplicación.
+
+\subsection{Flujo de trabajo en el modelado de datos en Cassandra}\label{flujo-de-trabajo-en-el-modelado-de-datos-en-cassandra}
+
+El flujo de trabajo en el modelado de datos en Cassandra es el siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph LR}
+\NormalTok{mc[Modelo conceptual] {-}{-}\textgreater{} mcl[Mapeado del concepto}
+\NormalTok{a la lógica]}
+\NormalTok{awf[Flujo de trabajo}
+\NormalTok{de la aplicación] {-}{-}\textgreater{} mcl}
+\NormalTok{mcl {-}{-}\textgreater{} mld[Modelo lógico}
+\NormalTok{de los datos]}
+\NormalTok{mld {-}{-}\textgreater{} mlf[Optimizaciones }
+\NormalTok{físicas]}
+\NormalTok{mlf {-}{-}\textgreater{} mfd[Modelo físico}
+\NormalTok{de los datos]}
+\end{Highlighting}
+\end{Shaded}
+
+En primer lugar se analizará el flujo de trabajo de la aplicación (¿Qué hacen los usuarios en la aplicación?) y se determinan también cual es el modelo conceptual de los datos: qué entidades podemos encontrar y relaciones que existen entre las mismas. Con esta información empezaremos a enlazar la lógica de la aplicación al modelo de datos. Seguirán las optimizaciones físicas que se puedan detectar y finalmente el modelo físico de los datos, que es cómo se van a almacenar los datos en disco.
+
+\section{Creación de un cluster}\label{creaciuxf3n-de-un-cluster}
+
+Para realizar las pruebas con Cassandra crearemos un cluster de 3 nodos en local. Para ello utilizaremos Docker y Docker Compose. Los nodos del cluster serán los siguientes: cass1, cass2 y cass3. Los nodos cass1 y cass2 serán los nodos semilla del cluster. El nodo cass3 se unirá al cluster posteriormente.
+
+\subsection{Obteniendo la imagen de Cassandra}\label{obteniendo-la-imagen-de-cassandra}
+
+Usaremos la imagen oficial de Cassandra que se encuentra en Docker Hub: \url{https://hub.docker.com/_/cassandra}.
+
+Para obtener la imagen ejecutaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ pull cassandra:latest}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Creando el \texttt{docker-compose.yml}}{Creando el docker-compose.yml}}\label{creando-el-docker-compose.yml}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{version}\KeywordTok{:}\AttributeTok{ }\StringTok{"3.8"}
+\FunctionTok{networks}\KeywordTok{:}
+\AttributeTok{  }\FunctionTok{cassandra}\KeywordTok{:}
+\FunctionTok{services}\KeywordTok{:}
+\AttributeTok{  }\FunctionTok{cass1}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{image}\KeywordTok{:}\AttributeTok{ cassandra:latest}
+\AttributeTok{    }\FunctionTok{container\_name}\KeywordTok{:}\AttributeTok{ cass1}
+\AttributeTok{    }\FunctionTok{hostname}\KeywordTok{:}\AttributeTok{ cass1}
+\AttributeTok{    }\FunctionTok{mem\_limit}\KeywordTok{:}\AttributeTok{ 2g}
+\AttributeTok{    }\FunctionTok{healthcheck}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{test}\KeywordTok{:}\AttributeTok{ }\KeywordTok{[}\StringTok{"CMD"}\KeywordTok{,}\AttributeTok{ }\StringTok{"cqlsh"}\KeywordTok{,}\AttributeTok{ }\StringTok{"{-}e"}\KeywordTok{,}\AttributeTok{ }\StringTok{"describe keyspaces"}\KeywordTok{]}
+\AttributeTok{      }\FunctionTok{interval}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{timeout}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{retries}\KeywordTok{:}\AttributeTok{ }\DecValTok{60}
+\AttributeTok{    }\FunctionTok{networks}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ cassandra}
+\AttributeTok{    }\FunctionTok{ports}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"9042:9042"}
+\AttributeTok{    }\FunctionTok{volumes}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./data/cass1:/var/lib/cassandra}\CommentTok{ \# Para almacenar los datos de la base de datos.}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./etc/cass1:/etc/cassandra}\CommentTok{ \# Para poder editar los archivos de configuración.}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./scripts:/scripts}\CommentTok{ \# Para escribir y ejecutar scripts de CQL.}
+
+\AttributeTok{    }\FunctionTok{environment}\KeywordTok{:}\AttributeTok{ }\OtherTok{\&environment}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_SEEDS}\KeywordTok{:}\AttributeTok{ }\StringTok{"cass1,cass2"}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_CLUSTER\_NAME}\KeywordTok{:}\AttributeTok{ SolarSystem}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_DC}\KeywordTok{:}\AttributeTok{ Mars}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_RACK}\KeywordTok{:}\AttributeTok{ West}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_ENDPOINT\_SNITCH}\KeywordTok{:}\AttributeTok{ GossipingPropertyFileSnitch}
+\AttributeTok{      }\FunctionTok{CASSANDRA\_NUM\_TOKENS}\KeywordTok{:}\AttributeTok{ }\DecValTok{128}
+
+\AttributeTok{  }\FunctionTok{cass2}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{image}\KeywordTok{:}\AttributeTok{ cassandra:latest}
+\AttributeTok{    }\FunctionTok{container\_name}\KeywordTok{:}\AttributeTok{ cass2}
+\AttributeTok{    }\FunctionTok{hostname}\KeywordTok{:}\AttributeTok{ cass2}
+\AttributeTok{    }\FunctionTok{mem\_limit}\KeywordTok{:}\AttributeTok{ 2g}
+\AttributeTok{    }\FunctionTok{healthcheck}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{test}\KeywordTok{:}\AttributeTok{ }\KeywordTok{[}\StringTok{"CMD"}\KeywordTok{,}\AttributeTok{ }\StringTok{"cqlsh"}\KeywordTok{,}\AttributeTok{ }\StringTok{"{-}e"}\KeywordTok{,}\AttributeTok{ }\StringTok{"describe keyspaces"}\KeywordTok{]}
+\AttributeTok{      }\FunctionTok{interval}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{timeout}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{retries}\KeywordTok{:}\AttributeTok{ }\DecValTok{60}
+\AttributeTok{    }\FunctionTok{networks}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ cassandra}
+\AttributeTok{    }\FunctionTok{ports}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"9043:9042"}
+\AttributeTok{    }\FunctionTok{volumes}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./data/cass2:/var/lib/cassandra}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./etc/cass2:/etc/cassandra}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./scripts:/scripts}
+\AttributeTok{    }\FunctionTok{environment}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{\textless{}\textless{}}\KeywordTok{:}\AttributeTok{ }\OtherTok{*environment}
+\AttributeTok{    }\FunctionTok{depends\_on}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{cass1}\KeywordTok{:}
+\AttributeTok{        }\FunctionTok{condition}\KeywordTok{:}\AttributeTok{ service\_healthy}
+\AttributeTok{  }\FunctionTok{cass3}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{image}\KeywordTok{:}\AttributeTok{ cassandra:latest}
+\AttributeTok{    }\FunctionTok{container\_name}\KeywordTok{:}\AttributeTok{ cass3}
+\AttributeTok{    }\FunctionTok{hostname}\KeywordTok{:}\AttributeTok{ cass3}
+\AttributeTok{    }\FunctionTok{mem\_limit}\KeywordTok{:}\AttributeTok{ 2g}
+\AttributeTok{    }\FunctionTok{healthcheck}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{test}\KeywordTok{:}\AttributeTok{ }\KeywordTok{[}\StringTok{"CMD"}\KeywordTok{,}\AttributeTok{ }\StringTok{"cqlsh"}\KeywordTok{,}\AttributeTok{ }\StringTok{"{-}e"}\KeywordTok{,}\AttributeTok{ }\StringTok{"describe keyspaces"}\KeywordTok{]}
+\AttributeTok{      }\FunctionTok{interval}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{timeout}\KeywordTok{:}\AttributeTok{ 5s}
+\AttributeTok{      }\FunctionTok{retries}\KeywordTok{:}\AttributeTok{ }\DecValTok{60}
+\AttributeTok{    }\FunctionTok{networks}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ cassandra}
+\AttributeTok{    }\FunctionTok{ports}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"9045:9042"}
+\AttributeTok{    }\FunctionTok{volumes}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./data/cass3:/var/lib/cassandra}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ ./etc/cass3:/etc/cassandra}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ .scripts:/scripts}
+\AttributeTok{    }\FunctionTok{environment}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{\textless{}\textless{}}\KeywordTok{:}\AttributeTok{ }\OtherTok{*environment}
+\AttributeTok{    }\FunctionTok{depends\_on}\KeywordTok{:}
+\AttributeTok{      }\FunctionTok{cass2}\KeywordTok{:}
+\AttributeTok{        }\FunctionTok{condition}\KeywordTok{:}\AttributeTok{ service\_healthy}
+\end{Highlighting}
+\end{Shaded}
+
+Este archivo de configuración crea un \emph{cluster} de 3 nodos de Cassandra en local.
+
+Cada nodo tiene tres volúmenes asociados:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{/data/cass1:/var/lib/cassandra}: Contiene los ficheros de la base de datos del nodo.
+\item
+  \texttt{/etc/cass1:/etc/cassandra}: Contiene los archivos de configuración del nodo.
+\item
+  \texttt{./scripts:/scripts}: Contendrá los scripts de CQL que vayamos escribiendo.
+\end{itemize}
+
+Antes de arrancar el \emph{cluster} hemos de crear los directorios \texttt{data/cass1}, \texttt{data/cass2} y \texttt{data/cass3} y los directorios \texttt{etc/cass1}, \texttt{etc/cass2} y \texttt{etc/cass3}.
+
+A continuación copiaremos los archivos de configuración de Cassandra en los directorios \texttt{etc/cass1}, \texttt{etc/cass2} y \texttt{etc/cass3}.
+
+Para ello hemos primero de obtener los archivos de configuración de Cassandra. Para ello los copiaremos de un contenedor de Cassandra que se ejecutará temporalmente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ run }\AttributeTok{{-}{-}rm} \AttributeTok{{-}d} \AttributeTok{{-}{-}name}\NormalTok{ temp cassandra:latest}
+\ExtensionTok{docker}\NormalTok{ cp temp:/etc/cassandra .}
+\ExtensionTok{docker}\NormalTok{ stop temp}
+\end{Highlighting}
+\end{Shaded}
+
+las opciones \texttt{-rm} y \texttt{-d} indican que el contenedor se elimine automáticamente al pararlo y que se ejecute en segundo plano.
+
+Ahora tendremos un directorio \texttt{cassandra} con los archivos de configuración que hemos copiado de la máquina temporal.
+
+\subsection{Copiar los archivos de configuración de Cassandra}\label{copiar-los-archivos-de-configuraciuxf3n-de-cassandra}
+
+Copiaremos los archivos de configuración de Cassandra en los directorios \texttt{etc/cass1}, \texttt{etc/cass2} y \texttt{etc/cass3}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cp} \AttributeTok{{-}a}\NormalTok{ ./cassandra ./etc/cass1/}
+\FunctionTok{cp} \AttributeTok{{-}a}\NormalTok{ ./cassandra ./etc/cass2/}
+\FunctionTok{cp} \AttributeTok{{-}a}\NormalTok{ ./cassandra ./etc/cass3/}
+\end{Highlighting}
+\end{Shaded}
+
+La opción \texttt{-a} de \texttt{cp} indica que se copien los archivos de forma recursiva y que se conserven los permisos, propietarios y fechas de los archivos.
+
+Si estamos en Windows hemos de hacer lo mismo copiando directamente el contenido del directorio \texttt{cassandra} a \texttt{etc/cass1} y los demás.
+
+Todo esto lo hacemos para que podamos \textbf{modificar los archivos de configuración de Cassandra} de cada nodo de forma independiente editando los archivos de los directorios locales \texttt{etc/cass1}, \texttt{etc/cass2} y \texttt{etc/cass3}.
+
+\textbf{Nota respecto al volumen \texttt{scripts}}: El volumen \texttt{scripts} se ha creado para poder escribir y ejecutar scripts de CQL desde dentro de los contenedores. Para ello hemos de copiar los scripts de CQL en el directorio \texttt{scripts} del directorio raíz del proyecto. Los scripts de CQL se ejecutarán desde dentro de los contenedores con el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cass1 cqlsh }\AttributeTok{{-}f}\NormalTok{ /scripts/script.cql}
+\end{Highlighting}
+\end{Shaded}
+
+No es necesario crear el directorio \texttt{/scripts} en los contenedores ya que se crea automáticamente al crear el volumen \texttt{scripts}.
+
+Sí es necesario crear el directorio \texttt{scripts} en el host\ldots{} \emph{creo}.
+
+\subsection{\texorpdfstring{Iniciar el \emph{cluster}}{Iniciar el cluster}}\label{iniciar-el-cluster}
+
+Los nodos \texttt{cass1} y \texttt{cass2} serán los nodos designados como semilla del \emph{cluster}.
+
+Para iniciar el \emph{cluster} ejecutaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker{-}compose}\NormalTok{ up }\AttributeTok{{-}d}
+\end{Highlighting}
+\end{Shaded}
+
+y el resultado debería ser el siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{\textgreater{}}\NormalTok{ docker{-}compose }\ExtensionTok{up} \AttributeTok{{-}d}
+\ExtensionTok{[+]}\NormalTok{ Running 3/3}
+ \ExtensionTok{✔}\NormalTok{ Container cass1 Healthy                                                      0.0s }
+ \ExtensionTok{✔}\NormalTok{ Container cass2 Healthy                                                      0.5s }
+ \ExtensionTok{✔}\NormalTok{ Container cass3 Started                                                      0.7s}
+\OperatorTok{\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Para comprobar que los contenedores se han iniciado correctamente ejecutaremos el siguiente comando:
+
+\textbf{Revisar esto.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker{-}compose}\NormalTok{ ps}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Abrir una consola de CQLSH}\label{abrir-una-consola-de-cqlsh}
+
+Para empezar a trabajar con Cassandra hemos de abrir una consola de CQLSH que nos permitirá ejecutar comandos CQL.
+
+Para abrir una consola de CQLSH ejecutaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cass1 cqlsh}
+\end{Highlighting}
+\end{Shaded}
+
+Con este último paso estaremos listos para empezar a trabajar con Cassandra.
+
+version: ``3.8'' networks: cassandra: services: cass1: image: cassandra:latest container\_name: cass1 hostname: cass1 mem\_limit: 2g healthcheck: test: {[}``CMD'', ``cqlsh'', ``-e'', ``describe keyspaces''{]} interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - ``9042:9042'' volumes: - ./data/cass1:/var/lib/cassandra - ./etc/cass1:/etc/cassandra - ./scripts:/scripts
+
+\begin{verbatim}
+environment: &environment
+  CASSANDRA_SEEDS: "cass1,cass2"
+  CASSANDRA_CLUSTER_NAME: SolarSystem
+  CASSANDRA_DC: Mars
+  CASSANDRA_RACK: West
+  CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+  CASSANDRA_NUM_TOKENS: 128
+\end{verbatim}
+
+cass2: image: cassandra:latest container\_name: cass2 hostname: cass2 mem\_limit: 2g healthcheck: test: {[}``CMD'', ``cqlsh'', ``-e'', ``describe keyspaces''{]} interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - ``9043:9042'' volumes: - ./data/cass2:/var/lib/cassandra - ./etc/cass2:/etc/cassandra - ./scripts:/scripts environment: \textless\textless: \emph{environment depends\_on: cass1: condition: service\_healthy cass3: image: cassandra:latest container\_name: cass3 hostname: cass3 mem\_limit: 2g healthcheck: test: {[}``CMD'', ``cqlsh'', ``-e'', ``describe keyspaces''{]} interval: 5s timeout: 5s retries: 60 networks: - cassandra ports: - ``9045:9042'' volumes: - ./data/cass3:/var/lib/cassandra - ./etc/cass3:/etc/cassandra - ./scripts:/scripts environment: \textless\textless: }environment depends\_on: cass2: condition: service\_healthy
+
+\section{\texorpdfstring{Lenguaje CQL (\emph{Cassandra Query Language})}{Lenguaje CQL (Cassandra Query Language)}}\label{lenguaje-cql-cassandra-query-language}
+
+Este lenguaje tiene muchas similitudes con SQL, pero también algunas diferencias. En esta sección vamos a ver las principales diferencias entre ambos lenguajes.
+
+Cassandra \textbf{no permite realizar operaciones de \emph{join}} entre tablas. Esto es debido a que las tablas en Cassandra están diseñadas para ser consultadas de forma independiente. Por lo tanto, si necesitamos realizar una consulta que implique datos de varias tablas, tendremos que realizar varias consultas y combinar los resultados en nuestra aplicación.
+
+Si queremos hacer una agrupación de datos sólo podremos hacerlo con respecto a las columnas de la clave primaria. Por ejemplo, si tenemos una tabla con las columnas \texttt{id}, \texttt{name}, \texttt{age} y \texttt{city} y queremos agrupar por \texttt{city} y \texttt{age} tendremos que crear una tabla con una clave primaria compuesta por \texttt{city} y \texttt{age}. No podremos agrupar por \texttt{city} y \texttt{name} porque \texttt{name} no forma parte de la clave primaria.
+
+Los elementos de una base de datos SQL tienen una correspondencia directa con los elementos de una base de datos Cassandra:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+SQL & Cassandra \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Base de datos & Keyspace \\
+Tabla & \emph{Column family} - CF \\
+\emph{Primary key} & \emph{Primary key} / \emph{Row key} \\
+\emph{Column name} & \emph{Column name} / \emph{key} \\
+\emph{Column value} & \emph{Column value} \\
+\end{longtable}
+
+\begin{figure}
+\centering
+\includesvg{../Imágenes/Estructura.svg}
+\caption{Estructura de un sistema Cassandra}
+\end{figure}
+
+\subsection{Tipos de datos en Cassandra}\label{tipos-de-datos-en-cassandra}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Categoría & Tipo de dato CQL & Descripción \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+String & \texttt{ascii} & Cadena de caracteres ASCII \\
+'' & \texttt{text} & Cadena de caracteres UTF-8 \\
+'' & \texttt{varchar} & Cadena de caracteres UTF-8 \\
+'' & \texttt{inet} & Dirección IP \\
+Numeric & \texttt{int} & Número entero de 32 bits \\
+'' & \texttt{bigint} & Número entero de 64 bits \\
+'' & \texttt{float} & Número de coma flotante de 32 bits \\
+'' & \texttt{double} & Número de coma flotante de 64 bits \\
+'' & \texttt{decimal} & Número decimal de precisión variable \\
+'' & \texttt{varint} & Número entero de precisión variable \\
+'' & \texttt{counter} & Contador de 64 bits ( no se admite como clave) \\
+UUID & \texttt{uuid} & Identificador único universal \\
+'' & \texttt{timeuuid} & Identificador único universal con información de tiempo \\
+Collections & \texttt{list} & Lista de elementos ordenada \\
+'' & \texttt{set} & Conjunto de elementos no ordenado \\
+'' & \texttt{map} & Mapa de pares clave-valor \\
+Misc & \texttt{boolean} & Valor booleano \\
+'' & \texttt{blob} & Secuencia de bytes \\
+'' & \texttt{timestamp} & Marca de tiempo \\
+\end{longtable}
+
+\subsection{Comentarios en CQL}\label{comentarios-en-cql}
+
+Cassandra admite tres tipos de comentarios:
+
+\begin{itemize}
+\tightlist
+\item
+  Comentarios de una línea: \texttt{-\/-}\textless{}
+\item
+  Comentarios de una línea: \texttt{//}
+\item
+  Comentarios de varias líneas: \texttt{/*\ */}
+\end{itemize}
+
+\section{Creación del modelo de datos}\label{creaciuxf3n-del-modelo-de-datos}
+
+\subsection{Ejecución de scripts de CQL}\label{ejecuciuxf3n-de-scripts-de-cql}
+
+Para ejecutar instrucciones CQL podemos simplemente lanzar una shell de CQLSH en un contenedor de Cassandra como vimos en la sección de creación del cluster:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cass1 cqlsh}
+\end{Highlighting}
+\end{Shaded}
+
+Pero pronto nos daremos cuenta de que hay instrucciones que tienen una sintaxis demasiado compleja para ser ejecutadas desde la shell. Por ello, lo más cómodo es escribir las instrucciones CQL en un fichero de texto y ejecutarlas desde la shell de CQLSH.
+
+Los \emph{scripts} de CQL son ficheros de texto con extensión \texttt{.cql} que contienen instrucciones CQL. Para ejecutar un \emph{script} de CQL desde la shell de CQLSH utilizamos la sentencia \texttt{SOURCE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SOURCE \textquotesingle{}path/to/script.cql\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Pero si lo que queremos es ejecutar un \emph{script} de CQL desde la línea de comandos utilizaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{cqlsh} \AttributeTok{{-}f}\NormalTok{ path/to/script.cql}
+\end{Highlighting}
+\end{Shaded}
+
+Como en nuestro ejemplo vamos a utilizar contenedores Docker, vamos a hacer lo siguiente.
+
+Cuando creamos el fichero \texttt{docker-compose.yml} indicamos que el directorio \texttt{./scripts} del host se montase en el directorio \texttt{/scripts} de los contenedores. Por lo tanto, si queremos ejecutar un \emph{script} de CQL desde la línea de comandos, lo que tenemos que hacer en primer lugar es copiar el \emph{script} en el directorio \texttt{scripts} del host para luego ejecutar el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cass1 cqlsh }\AttributeTok{{-}f}\NormalTok{ /scripts/script.cql}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Creación de un \emph{keyspace}}{Creación de un keyspace}}\label{creaciuxf3n-de-un-keyspace}
+
+Para crear un \emph{keyspace} utilizamos la sentencia \texttt{CREATE\ KEYSPACE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE KEYSPACE \textless{}keyspace\_name\textgreater{}}
+\NormalTok{  WITH REPLICATION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}SimpleStrategy\textquotesingle{}, \textquotesingle{}replication\_factor\textquotesingle{} : \textless{}n\textgreater{} \};}
+\end{Highlighting}
+\end{Shaded}
+
+Existe también la sentencia opcional \texttt{AND\ DURABLE\_WRITES\ =\ \textless{}verdadero\ o\ falso\textgreater{}} que indica que si los datos se han de escribir o no en el disco. Esta opción está activada por defecto.
+
+Por ejemplo, para crear un \emph{keyspace} llamado \texttt{my\_keyspace} con una estrategia de replicación \texttt{SimpleStrategy} y un factor de replicación de 1 en el \emph{datacenter 1} y 3 en el \emph{datacenter 2} utilizaríamos la siguiente sentencia:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE KEYSPACE my\_keyspace}
+\NormalTok{  WITH REPLICATION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}NetworkTopologyStrategy\textquotesingle{}, \textquotesingle{}dc1\textquotesingle{} : 1, \textquotesingle{}dc2\textquotesingle{} : 3 \};}
+\end{Highlighting}
+\end{Shaded}
+
+Para indicar que vamos a utilizar el \emph{keyspace} \texttt{my\_keyspace} utilizamos la sentencia \texttt{USE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{USE my\_keyspace;}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{Modificar un \emph{keyspace}}{Modificar un keyspace}}\label{modificar-un-keyspace}
+
+Para modificar un \emph{keyspace} utilizamos la sentencia \texttt{ALTER\ KEYSPACE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ALTER KEYSPACE \textless{}keyspace\_name\textgreater{}}
+\NormalTok{  WITH REPLICATION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}SimpleStrategy\textquotesingle{}, \textquotesingle{}replication\_factor\textquotesingle{} : \textless{}n\textgreater{} \};}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{Borrar un \emph{keyspace}}{Borrar un keyspace}}\label{borrar-un-keyspace}
+
+Para borrar un \emph{keyspace} utilizamos la sentencia \texttt{DROP\ KEYSPACE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DROP KEYSPACE \textless{}keyspace\_name\textgreater{};}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Creación de una tabla}\label{creaciuxf3n-de-una-tabla}
+
+Para crear una tabla utilizamos la sentencia \texttt{CREATE\ TABLE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE \textless{}table\_name\textgreater{} [     IF NOT EXISTS ] (}
+\NormalTok{  \textless{}column\_name\textgreater{} \textless{}type\textgreater{} PRIMARY KEY,}
+\NormalTok{  \textless{}column\_name\textgreater{} \textless{}type\textgreater{},}
+\NormalTok{  ...}
+\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Veamos en detalle con un ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE monkey\_species (}
+\NormalTok{    species text PRIMARY KEY,}
+\NormalTok{    common\_name text,}
+\NormalTok{    population varint,}
+\NormalTok{    average\_weight float,}
+\NormalTok{    average\_height float}
+\NormalTok{) WITH comment = \textquotesingle{}Tabla que almacena información sobre especies de monos\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+En este ejemplo hemos creado una tabla llamada \texttt{monkey\_species} con las siguientes columnas:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{species}: clave primaria de tipo \texttt{text}.
+\item
+  \texttt{common\_name}: columna de tipo \texttt{text}.
+\item
+  \texttt{population}: columna de tipo \texttt{varint}.
+\item
+  \texttt{average\_weight}: columna de tipo \texttt{float}.
+\item
+  \texttt{average\_height}: columna de tipo \texttt{float}.
+\end{itemize}
+
+También hemos añadido un comentario a la tabla.
+
+Otro ejemplo algo más complejo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE timeline (}
+\NormalTok{    user\_id uuid,}
+\NormalTok{    posted\_month int,}
+\NormalTok{    posted\_time timeuuid,}
+\NormalTok{    body text,}
+\NormalTok{    posted\_by text,}
+\NormalTok{    PRIMARY KEY (user\_id, posted\_month, posted\_time)}
+\NormalTok{) WITH COMPACTION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}LeveledCompactionStrategy\textquotesingle{} \};}
+\end{Highlighting}
+\end{Shaded}
+
+En este ejemplo hemos creado una tabla llamada \texttt{timeline} en la que definimos la clave primaria como una clave primaria compuesta por tres columnas:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{user\_id}: columna de tipo \texttt{uuid}.
+\item
+  \texttt{posted\_month}: columna de tipo \texttt{int}.
+\item
+  \texttt{posted\_time}: columna de tipo \texttt{timeuuid}.
+\end{itemize}
+
+No hemos especificado cual es la partition key y cual es la clustering key. Si queremos que \texttt{user\_id} sea la partition key y \texttt{posted\_month} y \texttt{posted\_time} sean las clustering keys deberíamos haber definido la clave primaria de la siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PRIMARY KEY ((user\_id) posted\_month, posted\_time)}
+\end{Highlighting}
+\end{Shaded}
+
+al encerrar una o más columnas entre paréntesis indicamos que son la partition key. En este caso \texttt{user\_id} es la partition key y \texttt{posted\_month} y \texttt{posted\_time} son las clustering keys.
+
+Si tenemos una clustering key compuesta por varias columnas podemos indicar también la ordenación de las mismas. Por ejemplo, si queremos que \texttt{posted\_month} sea descendente y \texttt{posted\_time} ascendente deberíamos haber definido la clave primaria de la siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PRIMARY KEY ((user\_id) posted\_month, posted\_time ) WITH CLUSTERING ORDER BY (posted\_month DESC, posted\_time ASC)}
+\end{Highlighting}
+\end{Shaded}
+
+Si hay alguna columnas cuyos valores no van a cambiar podemos indicarlo con el modificador \texttt{static}. Por ejemplo, si queremos que \texttt{posted\_by} sea una columna estática deberíamos haber definido la tabla de la siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE timeline (}
+\NormalTok{    user\_id uuid,}
+\NormalTok{    posted\_month int,}
+\NormalTok{    posted\_time timeuuid,}
+\NormalTok{    body text,}
+\NormalTok{    posted\_by text STATIC,}
+\NormalTok{    PRIMARY KEY (user\_id, posted\_month, posted\_time)}
+\NormalTok{) WITH COMPACTION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}LeveledCompactionStrategy\textquotesingle{} \};}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Nótese que:} Una \textbf{primary key ha de ser única} pero ni la PK (partition key) ni la CK (clustering key) han de ser únicas por separado.
+
+\paragraph{Modificar una tabla}\label{modificar-una-tabla}
+
+Para modificar una tabla utilizamos la sentencia \texttt{ALTER\ TABLE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ALTER TABLE \textless{}table\_name\textgreater{}}
+\NormalTok{  ADD \textless{}column\_name\textgreater{} \textless{}type\textgreater{},}
+\NormalTok{  DROP \textless{}column\_name\textgreater{},}
+\NormalTok{  ALTER \textless{}column\_name\textgreater{} TYPE \textless{}type\textgreater{},}
+\NormalTok{  RENAME \textless{}column\_name\textgreater{} TO \textless{}new\_column\_name\textgreater{},}
+\NormalTok{  WITH \textless{}option\textgreater{} = \textless{}value\textgreater{},}
+\NormalTok{  ...}
+\end{Highlighting}
+\end{Shaded}
+
+Un ejemplo sería:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ALTER TABLE monkey\_species}
+\NormalTok{  ADD average\_lifespan int,}
+\NormalTok{  DROP average\_height,}
+\NormalTok{  ALTER average\_weight TYPE float,}
+\NormalTok{  RENAME common\_name TO name,}
+\NormalTok{  WITH comment = \textquotesingle{}Tabla que almacena información sobre especies de monos\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Si quisiésemos eliminar todos los registros de una tabla podemos utilizar la sentencia \texttt{TRUNCATE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TRUNCATE [ TABLE ] \textless{}table\_name\textgreater{};}
+\end{Highlighting}
+\end{Shaded}
+
+Para eliminar una tabla utilizamos la sentencia \texttt{DROP\ TABLE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DROP TABLE [ IF EXISTS ] \textless{}table\_name\textgreater{};}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Ver la definición de una tabla}\label{ver-la-definiciuxf3n-de-una-tabla}
+
+Para ver la definición de una tabla utilizamos la sentencia \texttt{DESCRIBE} indicando a qué tabla nos referimos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DESCRIBE TABLE \textless{}table\_name\textgreater{};}
+\end{Highlighting}
+\end{Shaded}
+
+Por ejemplo, para ver la estructura de la tabla \texttt{sbd.miembros}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DESCRIBE TABLE sbd.miembros;}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Importar datos ds CSV a una tabla}\label{importar-datos-ds-csv-a-una-tabla}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{COPY keypsace.tableName (col1,col2,col3.....) FROM \textquotesingle{}file/file.csv\textquotesingle{} WITH DELIMITER=\textquotesingle{},\textquotesingle{} AND HEADER=TRUE;}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{\texttt{IF\ NOT\ EXISTS}}{IF NOT EXISTS}}\label{if-not-exists}
+
+La utilidad de esta cláusula es evitar que se produzca un error si intentamos crear un \emph{keyspace} o una tabla que ya existe. Si la cláusula \texttt{IF\ NOT\ EXISTS} está presente y el \emph{keyspace} o la tabla ya existen, la sentencia no tiene ningún efecto.
+
+\section{Operaciones CRUD en CQL}\label{operaciones-crud-en-cql}
+
+Antes de empezar a ver las operaciones CRUD en CQL hemos de crear un \emph{keyspace} y una tabla de ejemplo.
+
+\subsection{\texorpdfstring{Creación de un \emph{keyspace} y una tabla de ejemplo}{Creación de un keyspace y una tabla de ejemplo}}\label{creaciuxf3n-de-un-keyspace-y-una-tabla-de-ejemplo}
+
+Para crear el \emph{keyspace} ejecutaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE KEYSPACE sbd}
+\NormalTok{  WITH REPLICATION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}SimpleStrategy\textquotesingle{}, \textquotesingle{}replication\_factor\textquotesingle{} : 2 \};}
+\end{Highlighting}
+\end{Shaded}
+
+a continuación creamos la tabla \texttt{miembros}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE IF NOT EXISTS sbd.miembros (}
+\NormalTok{    id int PRIMARY KEY,}
+\NormalTok{    nombre text,}
+\NormalTok{    apellidos text,}
+\NormalTok{    email text,}
+\NormalTok{    rol text static,}
+\NormalTok{    fecha\_alta timestamp,}
+\NormalTok{    fecha\_de\_nacimiento date}
+\NormalTok{)}
+\NormalTok{WITH comment = \textquotesingle{}Tabla con datos de prueba.\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Si la \emph{partition key} es compuesta la definiremos de la siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE IF NOT EXISTS sbd.miembros (}
+\NormalTok{    id int,}
+\NormalTok{    nombre text,}
+\NormalTok{    apellidos text,}
+\NormalTok{    email text,}
+\NormalTok{    rol text static,}
+\NormalTok{    fecha\_alta timestamp,}
+\NormalTok{    fecha\_de\_nacimiento date,}
+\NormalTok{    PRIMARY KEY (id, fecha\_alta)}
+\NormalTok{) WITH comment = \textquotesingle{}Tabla con datos de prueba.\textquotesingle{},}
+\NormalTok{  AND CLUSTERING ORDER BY (fecha\_alta DESC);}
+\end{Highlighting}
+\end{Shaded}
+
+Como se puede comprobar este código es cada vez más incómodo de escribir en la consola de CQLSH. Lo más cómodo sería escribir un \emph{script} CQL en un fichero de texto plano y ejecutarlo con \texttt{cqlsh}.
+
+Para ejecutar un \emph{script} de CQL desde dentro de CQLSH utilizaremos la sentencia \texttt{SOURCE}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SOURCE \textquotesingle{}path/to/script.cql\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Y si lo que necesitamos es ejecutar un \emph{script} de CQL desde la línea de comandos utilizaremos el siguiente comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{cqlsh} \AttributeTok{{-}f}\NormalTok{ path/to/script.cql}
+\end{Highlighting}
+\end{Shaded}
+
+Finamente veamos cómo crear un \emph{keyspace} y una tabla de ejemplo utilizando un \emph{script} de CQL.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{{-}{-} Creamos un keyspace}
+\NormalTok{CREATE KEYSPACE sbd}
+\NormalTok{  WITH REPLICATION = \{ \textquotesingle{}class\textquotesingle{} : \textquotesingle{}SimpleStrategy\textquotesingle{}, \textquotesingle{}replication\_factor\textquotesingle{} : 2 \};}
+
+\NormalTok{CREATE TABLE IF NOT EXISTS sbd.miembros (}
+\NormalTok{    id uuid,}
+\NormalTok{    nombre text,}
+\NormalTok{    apellidos text,}
+\NormalTok{    email text,}
+\NormalTok{    rol text static,}
+\NormalTok{    fecha\_alta timestamp,}
+\NormalTok{    fecha\_de\_nacimiento date,}
+\NormalTok{    PRIMARY KEY (id, fecha\_alta));}
+
+\NormalTok{{-}{-} Creamos una segunda tabla de asignaturas}
+
+\NormalTok{CREATE TABLE IF NOT EXISTS sbd.asignaturas (}
+\NormalTok{    id uuid PRIMARY KEY,}
+\NormalTok{    nombre text,}
+\NormalTok{    curso int,}
+\NormalTok{    profesor map \textless{}text, text\textgreater{},}
+\NormalTok{    alumnos frozen\textless{}list \textless{}map\textless{}text, text\textgreater{}\textgreater{}\textgreater{},}
+\NormalTok{    fecha\_inicio timestamp,}
+\NormalTok{    fecha\_fin timestamp}
+\NormalTok{);}
+
+\NormalTok{CREATE TABLE IF NOT EXISTS sbd.ciclos (}
+\NormalTok{    id uuid  PRIMARY KEY,}
+\NormalTok{    nombre text,}
+\NormalTok{    horas int,}
+\NormalTok{    modulos frozen\textless{}list\textless{}text\textgreater{}\textgreater{}}
+\NormalTok{);}
+
+\NormalTok{{-}{-} Comprobamos que se han creado el keyspace y las tablas}
+
+\NormalTok{DESCRIBE KEYSPACES;}
+
+\NormalTok{USE sbd;}
+
+\NormalTok{DESCRIBE TABLES;}
+\end{Highlighting}
+\end{Shaded}
+
+Guardamos el código anterior en un fichero llamado \texttt{script01.cql} y lo copiamos a un volumen al que tenga acceso el contenedor con Cassandra donde vamos a ejecutar \texttt{cqlsh}. En la sección donde se explica cómo crear el \emph{cluster} se usó un volumen común a todos los contenedores que se llamón \texttt{scripts}. Si guardamos el fichero \texttt{.cql} en este directorio podremos escribir el comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker}\NormalTok{ exec }\AttributeTok{{-}it}\NormalTok{ cass1 cqlsh }\AttributeTok{{-}f}\NormalTok{ /scripts/script01.cql}
+\end{Highlighting}
+\end{Shaded}
+
+y nuestro código CQL se ejecutará.
+
+\textbf{Notas:}
+
+\begin{itemize}
+\tightlist
+\item
+  Hay que prestar especial atención a las \textbf{comas y los puntos y comas}. Si nos olvidamos de poner una coma o un punto y coma en el lugar adecuado obtendremos un error de sintaxis.
+\item
+  Los códigos de error indican la línea y la columna donde se ha producido el error \textbf{con respecto al inicio de la sentencia CQL} que lo produjo. No del script.
+\end{itemize}
+
+\subsection{Operaciones de escritura}\label{operaciones-de-escritura}
+
+Para escribir datos en una tabla se usará la sentencia \texttt{INSERT}. La sintaxis de la sentencia \texttt{INSERT} es la siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{INSERT INTO \textless{}keyspace\textgreater{}.\textless{}table\_name\textgreater{} (\textless{}column\_name\textgreater{}, \textless{}column\_name\textgreater{}, ...)}
+\NormalTok{VALUES (\textless{}value\textgreater{}, \textless{}value\textgreater{}, ...) | JSON \textless{}json\_value\textgreater{}}
+\NormalTok{IF NOT EXISTS}
+\NormalTok{USING \textless{}option\textgreater{} \textless{}value\textgreater{};}
+\end{Highlighting}
+\end{Shaded}
+
+No es necesario indicar todos los campos de la tabla. Pero sí se han de indicar todos los campos de la \emph{primary key}.
+
+Si el registro ya existe el registro se sobreescribirá.
+
+Las cláusulas \texttt{IF\ NOT\ EXISTS} y \texttt{USING} son opcionales.
+
+\subsubsection{\texorpdfstring{\texttt{IF\ NOT\ EXISTS}}{IF NOT EXISTS}}\label{if-not-exists-1}
+
+La cláusula \texttt{IF\ NOT\ EXISTS} sirve para indicar que no se ha de insertar el registro si ya existe un registro con la misma \emph{primary key}.
+
+El uso de \texttt{IF\ NOT\ EXISTS} tiene un coste de rendimiento.
+
+\subsubsection{\texorpdfstring{\texttt{USING}}{USING}}\label{using}
+
+La cláusula \texttt{USING} es opcional y se utiliza para indicar opciones de escritura. Las opciones posibles son dos:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{TTL}: Tiempo de vida del registro. Una vez transcurrido este tiempo el registro se borrará automáticamente (se marcará para borrado).
+\item
+  \texttt{TIMESTAMP}: \emph{Timestamp} del registro. Si no se especifica se utilizará el \emph{timestamp} actual. Esta opción no es compatible con \texttt{IF\ NOT\ EXISTS}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{INSERT INTO sbd.miembros (id, nombre, apellidos, email, rol, fecha\_alta, fecha\_de\_nacimiento)}
+\NormalTok{VALUES (UUID(), \textquotesingle{}Juan\textquotesingle{}, \textquotesingle{}Pérez\textquotesingle{}, \textquotesingle{}juan@gmail.com\textquotesingle{}, \textquotesingle{}alumno\textquotesingle{}, NOW(), \textquotesingle{}1990{-}01{-}01\textquotesingle{});}
+\end{Highlighting}
+\end{Shaded}
+
+Esta sentencia es idéntica a la sentencia \texttt{INSERT} de SQL.
+
+\subsubsection{JSON}\label{json}
+
+La cláusula \texttt{JSON} sirve para indicar que los valores se van a insertar utilizando JSON. Por ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{INSERT INTO sbd.miembros JSON \textquotesingle{}\{"id": 123, "nombre": "Juan", "apellidos": "Pérez", "email": "juan@gmail.com", "rol": "alumno", "fecha\_alta": "2020{-}01{-}01", "fecha\_de\_nacimiento": "1990{-}01{-}01"\}\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{\texttt{UUID()} y \texttt{NOW()}}{UUID() y NOW()}}\label{uuid-y-now}
+
+La función \texttt{UUID()} es muy importante ya que genera un identificador único. Es importante ya que, al encontrarnos en un entorno distribuido, si no utilizamos un identificador único podríamos tener problemas de colisiones. Podría suceder que se intentasen realizar dos operaciones de inserción desde dos nodos diferentes con el mismo identificador (colisión) y esto podría provocar que se perdiesen datos. El uso de \texttt{UUID()} previene este problema.
+
+Por su parte la función \texttt{NOW()} sirve para generar \emph{timestamps}. El valor que devuelve \texttt{NOW()} el del tipo \texttt{timeuuid}. Un \texttt{timeuuid} es un identificador \textbf{único} que contiene un \emph{timestamp}. El \emph{timestamp} se puede obtener a partir del \texttt{timeuuid} utilizando la función \texttt{dateOf()}. Los valores generados por \texttt{NOW()}, al giual que los generados por \texttt{UUID()}, \textbf{son únicos}.
+
+\subsection{Operaciones de lectura}\label{operaciones-de-lectura}
+
+La sentencia \texttt{SELECT} de CQL es muy similar a la sentencia \texttt{SELECT} de SQL. La diferencia más importante es que en CQL \textbf{no se pueden realizar \emph{joins}}.
+
+La sintaxis de la sentencia \texttt{SELECT} es la siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SELECT \textless{}nombre\_columna\textgreater{}, \textless{}nombre\_columna\textgreater{}, ...}
+\NormalTok{FROM \textless{}keyspace\textgreater{}.\textless{}nombre\_tabla\textgreater{}}
+\NormalTok{WHERE \textless{}nombre\_columna\textgreater{}}
+\NormalTok{  \textless{}operador\textgreater{} \textless{}valor\textgreater{}}
+\NormalTok{  AND \textless{}column\_name\textgreater{}}
+\NormalTok{  OPERATOR \textless{}value\textgreater{}}
+\NormalTok{  ...}
+\NormalTok{GROUP BY \textless{}column\_name\textgreater{}}
+\NormalTok{ORDER BY \textless{}column\_name\textgreater{} ASC | DESC}
+\NormalTok{LIMIT \textless{}n\textgreater{}}
+\NormalTok{ALLOW FILTERING;}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{\texttt{GROUP\ BY}}{GROUP BY}}\label{group-by}
+
+Cuando agrupamos por una columna hay que tener en cuenta que ésta \textbf{ha de formar parte de la partition key}
+
+\subsubsection{\texorpdfstring{\texttt{WHERE}}{WHERE}}\label{where}
+
+La cláusula \texttt{WHERE} es muy importante ya que nos permite filtrar los datos que queremos obtener.
+
+\paragraph{\texorpdfstring{Columnas válidas para \texttt{WHERE}}{Columnas válidas para WHERE}}\label{columnas-vuxe1lidas-para-where}
+
+En la cláusula \texttt{WHERE} sólo se pueden utilizar campos que:
+
+\begin{itemize}
+\tightlist
+\item
+  Formen parte de la \emph{partition key}
+\item
+  Formen parte de de la \emph{clustering key} \textbf{SIEMPRE que vayan precedidos por TODOS los campos de la \emph{partition key}}. Además hay que tener en cuenta dos salvedades:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Las comparaciones respecto a los campos de la \emph{partition key} han de ser siempre de igualdad.
+  \item
+    Las comparaciones respecto a los campos de la \emph{clustering key} pueden ser de igualdad o de desigualdad.
+  \end{itemize}
+\item
+  Formen parte de un índice creado con la sentencia \texttt{CREATE\ INDEX}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CREATE TABLE cycling.cyclist\_points (}
+\NormalTok{   id UUID, }
+\NormalTok{   firstname text, }
+\NormalTok{   lastname text, }
+\NormalTok{   race\_title text, }
+\NormalTok{   race\_points int, }
+\NormalTok{   PRIMARY KEY (id, race\_points ));}
+
+\NormalTok{SELECT sum(race\_points) }
+\NormalTok{FROM cycling.cyclist\_points }
+\NormalTok{WHERE id=e3b19ec4{-}774a{-}4d1c{-}9e5a{-}decec1e30aac }
+\NormalTok{      AND race\_points \textgreater{} 7;}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Operadores}\label{operadores}
+
+Los operadores pueden ser:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{=}
+\item
+  \texttt{!=}
+\item
+  \texttt{\textgreater{}}
+\item
+  \texttt{\textless{}}
+\item
+  \texttt{\textgreater{}=}
+\item
+  \texttt{\textless{}=}
+\item
+  \texttt{IN}: Sirve para comparar un valor con una lista de valores separados por comas: \texttt{WHERE\ id\ IN\ (1,\ 2,\ 3)}. Y se puede usar con la \emph{partition key}.
+\item
+  \texttt{CONTAINS}: Sirve para filtrar por los datos de una colección. Los tipos \texttt{collection} son \texttt{set}, \texttt{list} y \texttt{map}.
+\item
+  \texttt{CONTAINS\ KEY}: Sirve para filtrar por las claves de un mapa.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SELECT * FROM sbd.miembros WHERE id = 123 AND fecha\_alta \textless{} \textquotesingle{}2020{-}01{-}01\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Aunque al hacer la comparación estemos expresando la fecha como una cadena de texto, internamente, Cassandra la convertirá a un tipo \texttt{timestamp} y realizará la comparación.
+
+En Cassandra \textbf{nunca se debe de hacer \texttt{SELECT\ *}}. Siempre se ha de seleccionar utilizando, como mínimo, algún campo de la \emph{partition key}. En el caso de realizar un \texttt{SELECT\ *} se producirá un \emph{full table scan}. Esto es, se leerán todos los datos de la tabla en todos los nodos del \emph{cluster}.
+
+\subsubsection{\texorpdfstring{\texttt{ALLOW\ FILTERING}}{ALLOW FILTERING}}\label{allow-filtering}
+
+Si no se especifica la \emph{partition key} en la cláusula \texttt{WHERE} se producirá un error. Si queremos realizar una consulta que no incluya la \emph{partition key} hemos de indicar que permitimos filtrar los datos utilizando la cláusula \texttt{ALLOW\ FILTERING}. Esta cláusula es muy peligrosa ya que puede provocar que se produzca un \emph{full table scan}.
+
+\subsubsection{\texorpdfstring{\emph{Full table scan}}{Full table scan}}\label{full-table-scan}
+
+Un \emph{full table scan} es una operación que lee todos los datos de una tabla. En Cassandra, al ser un sistema distribuido, esto es muy costoso. Por ello, \textbf{nunca se debe de hacer un \emph{full table scan}}.
+
+\subsection{Operaciones de actualización}\label{operaciones-de-actualizaciuxf3n}
+
+Para actualizar los valores de los datos usaremos el comando \texttt{UPDATE}. La sintaxis de este comando es la siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{UPDATE \textless{}keyspace\textgreater{}.\textless{}table\_name\textgreater{}}
+\NormalTok{USING TTL \textless{}valor\textgreater{} | USING TIMESTAMP \textless{}valor\textgreater{} }
+\NormalTok{SET \textless{}column\_name\textgreater{} = \textless{}value\textgreater{}, \textless{}column\_name\textgreater{} = \textless{}value\textgreater{}, ...}
+\NormalTok{WHERE \textless{}column\_name\textgreater{} OPERATOR \textless{}value\textgreater{}}
+\NormalTok{  AND \textless{}column\_name\textgreater{} OPERATOR \textless{}value\textgreater{}}
+\NormalTok{  ...}
+\NormalTok{IF EXISTS | IF \textless{}condición\textgreater{}}
+\NormalTok{  AND \textless{}condición\textgreater{}}
+\NormalTok{  ...}
+\end{Highlighting}
+\end{Shaded}
+
+Como en el caso de la sentencia \texttt{INSERT}, las cláusulas \texttt{USING}, \texttt{IF\ EXISTS} y \texttt{IF} son opcionales. Las cláusulas \texttt{IF\ EXISTS} e \texttt{IF} tienen un coste de rendimiento.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{UPDATE sbd.miembros}
+\NormalTok{SET nombre = \textquotesingle{}Juanito\textquotesingle{}}
+\NormalTok{WHERE id = 12345678{-}1234{-}1234{-}1234{-}123456789012 AND fecha\_alta = \textquotesingle{}2020{-}01{-}01\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+La cláusula \texttt{WHERE} sirve para especificar la fila o filas que van a ser modificadas.
+
+\begin{itemize}
+\tightlist
+\item
+  Para especificar una única fila hemos de indicar cual es el valor de la clave primarios que queremos modificar: \texttt{primary\_key\_name\ =\ primary\_key\_value,\ ...}. Si ésta está formada por varias columnas: \texttt{primary\_key\_c1\_name\ =\ primary\_key\_c1\_value\ AND\ ...} y se han de suministrar los valores de todos los campos que formen parte de la \emph{primary key}
+\item
+  Si queremos actualizar varias filas hemos de incluir la cláusula \texttt{IN} seguida de una lista de valores separados por comas: \texttt{primary\_key\_name\ IN\ (primary\_key\_value,\ ...)}. Esto sólo se puede aplicar al último campo de la \emph{partition key}.
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\emph{Upsert}}{Upsert}}\label{upsert}
+
+El comportamiento de \texttt{UPDATE} es similar al de \texttt{INSERT}. Si la fila que vamos a modificar no existe se creará. Si existe se actualizará.
+
+\subsection{Operaciones de borrado}\label{operaciones-de-borrado}
+
+Para borrar datos de una tabla usaremos el comando \texttt{DELETE} que tiene la siguiente sintaxis:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DELETE \textless{}column\_name\textgreater{}, \textless{}column\_name\textgreater{}, ...}
+\NormalTok{FROM \textless{}keyspace\textgreater{}.\textless{}table\_name\textgreater{}}
+\NormalTok{USING TIMESTAMP \textless{}valor\textgreater{}}
+\NormalTok{WHERE \textless{}column\_name\textgreater{} OPERATOR \textless{}value\textgreater{}}
+\NormalTok{  AND \textless{}column\_name\textgreater{} OPERATOR \textless{}value\textgreater{}}
+\NormalTok{  ...}
+\NormalTok{IF EXISTS | IF \textless{}condición\textgreater{}}
+\NormalTok{  AND \textless{}condición\textgreater{}}
+\NormalTok{  ...}
+\end{Highlighting}
+\end{Shaded}
+
+Los borrados serán a nivel de columnas. Es decir, si queremos borrar un conjunto de columnas hemos de indicarlas explícitamente. Si queremos borrar una fila completa no hemos de indicar ninguna columna.
+
+\subsubsection{\texorpdfstring{\texttt{USING\ TIMESTAMP}}{USING TIMESTAMP}}\label{using-timestamp}
+
+La cláusula \texttt{USING\ TIMESTAMP} sirve para indicar a partir de que \emph{timestamp} se han de borrar los datos. Es decir, Cassandra marcará para borrado aquellas filas que son anteriores al \emph{timestamp} indicado.
+
+\subsubsection{Borrado de varias filas}\label{borrado-de-varias-filas}
+
+Para seleccionar más de una fila para borrado se han de seguir los mismos pasos que en el caso de la sentencia \texttt{UPDATE}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DELETE FROM sbd.miembros}
+\NormalTok{WHERE id = 12345678{-}1234{-}1234{-}1234{-}123456789012 AND fecha\_alta = \textquotesingle{}2020{-}01{-}01\textquotesingle{};}
+\end{Highlighting}
+\end{Shaded}
+
+Si en lugar de indicar \texttt{id} y \texttt{fecha\_alta} indicamos únicamente \texttt{id} se borrarán todos los registros con ese \texttt{id}, es decir, esa partición.
+
+\subsubsection{¿Como se borran los datos en Cassandra?}\label{como-se-borran-los-datos-en-cassandra}
+
+Los borrados en Cassandra están diseñados de forma que se priorice el rendimiento.
+
+Cassandra trata una operación de borrado com si se tratara de una inserción o un \emph{upsert}. Lo que se añade es una marca de borrado o \emph{tombstone}. Los \emph{tombstones} tienen fecha de expiración de manera que, cuando esta se alcanza se realizará el borrado como parte del proceso de compactación de Cassandra.
+
+Se recomienda hacer el menor número de operaciones de borrado posible y, cuando sea posible, hacer borrados de grandes bloques de datos en lugar de hacerlo registro a registro.
+
+\backmatter
+\end{document}
