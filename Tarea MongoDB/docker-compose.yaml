@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  mongo:
+    container_name: tareamongo
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+      - ./scripts:/scripts
