@@ -8,6 +8,4 @@
 
  Una vez creada la instancia, nos conectamos a ella mediante el comando `redis-cli -h <host> -p <port> -a <password>`, donde `<host>` es la dirección IP de la instancia, `<port>` el puerto de conexión y `<password>` la contraseña de la instancia.
 
- ## Almacenamiento y recuperación de datos
-
- 
+## Almacenamiento y recuperación de datos
