@@ -1,4 +1,4 @@
-# Tarea UD4: Comandos básicos de MongoDB
+# Tarea UD2: Comandos básicos de MongoDB
 
 [TOC]
 
@@ -10,7 +10,7 @@ Encontrar todos los dispositivos
 db.collection.find()
 ```
 
-Resultado: 
+Resultado:
 
 ```json
 [
