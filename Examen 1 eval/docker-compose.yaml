@@ -6,4 +6,5 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./intercambio:/intercambio
+      - ./data:/data/db
+      - ./scripts:/scripts
