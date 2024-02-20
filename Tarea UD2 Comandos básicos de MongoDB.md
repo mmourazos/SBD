@@ -1,3 +1,11 @@
+---
+title: Tarea UD2: Comandos básicos de MongoDB
+author: Manuel C. Piñeiro Mourazos
+creator: Typora inc.
+subject: Tarea
+keywords: [MongoDB]
+---
+
 # Tarea UD2: Comandos básicos de MongoDB
 
 [TOC]
@@ -222,7 +230,7 @@ db.collection.find({
 })
 ```
 
-Resutados:
+Resultado:
 
 ```json
 [
