@@ -1,0 +1,9 @@
+El comando para crear el contenedor y la carpeta compartida es:
+
+docker compose up -d
+
+Una vez completado se podrá abrir una shell de bash en el contenedor con:
+
+docker exec -it tareamongo bash
+
+El directorio "./intercambio" estará montado como "/intercambio" en el contenedor.
