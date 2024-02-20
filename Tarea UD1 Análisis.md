@@ -1,3 +1,11 @@
+---
+title: Tarea UD1: Prediseño de un sistema Big Data
+author: Manuel C. Piñeiro Mourazos
+creator: Typora inc.
+subject: Tarea
+keywords: [MongoDB]
+---
+
 # Tarea UD1: Prediseño de un sistema Big Data
 
 ## Apartado 1
