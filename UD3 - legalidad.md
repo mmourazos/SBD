@@ -14,7 +14,7 @@ Se considera persona física identificable aquella cuya identidad pueda determin
 
 ### Interesado
 
-Una persona física identificada o identificable cuyos datos personales son objeto de tratamiento.
+Una persona física identificada o identificable cuyos datos personales sean objeto de tratamiento.
 
 ### Responsable del tratamiento
 
@@ -49,17 +49,19 @@ Toda forma de tratamiento automatizado de datos personales consistente en utiliz
 
 Toda manifestación de voluntad libre, específica, informada e inequívoca por la que el interesado acepta, ya sea mediante una declaración o una clara acción afirmativa, el tratamiento de sus datos personales.
 
-## Ámbito de aplicación y bases legales
-
-El RGPD tiene aplicación sobre el **tratamiento automatizado** de **datos personales**  que forman parte de un fichero o
-sistema.
-
-Los artículos 2 y 3 del RGPD tienen en cuenta una doble visión en relación al ámbito de aplicación del Reglamento:
-
-* **Ámbito subjetivo:**
-  * Se aplica tanto a los responsables como a los encargados del tratamiento.
-  * No se limita a ciertas áreas de aplicación (como pudieran ser lo personal o lo doméstico).
-* **Ámbito **territorial:**
+                                                    
+                                                    
+# Ámbito de aplicación y bases legales              ## Ámbito de aplicación y bases legales
+                                                    
+## Derechos de los interesados                        El RGPD tiene aplicación sobre el **tratamiento automatizado** de **datos personales**  que forman parte de un fichero o
+                                                      sistema.
+## Gobierno y rendición de cuentas                  
+                                                      Los artículos 2 y 3 del RGPD tienen en cuenta una doble visión en relación al ámbito de aplicación del Reglamento:
+## Obligaciones de los responsables del tratamiento 
+                                                      * **Ámbito subjetivo:**
+## Seguridad de los datos                               * Se aplica tanto a los responsables como a los encargados del tratamiento.
+                                                        * No se limita a ciertas áreas de aplicación (como pudieran ser lo personal o lo doméstico).
+## Otros aspectos de la norma                         * **Ámbito **territorial:**
   * Se aplica si los responsables o encargados del tratamiento están establecidos en la Unión Europea.
   * También se aplica si los interesados se encuentran en territorio de la UE, aunque no lo estén los responables o
   encargados, cuando el tratamiento se destine a ofrecer bienes o servicios a los interesados o al control de su
