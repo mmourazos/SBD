@@ -1,0 +1,3 @@
+# Ejercicios de Cassandra CQL
+
+

@@ -84,3 +84,5 @@ consentimiento.
 También existen casos de "interés legítimo" en los que se considera que pueden tratarse datos personales (por ejemplo
 para prevención de fraude o cuestiones de seguiridad de la red o de la información). En tales casos el responsable debe
 informar al interesado de que se está realizando un trtatamiento en base a tal interés legítimo.
+
+![alt text](image.png)
