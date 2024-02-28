@@ -64,7 +64,7 @@ Para salvar datos en Redis utilizamos el comando `SET`:
 SET <key> <value> <opciones>
 ```
 
-##### Ejemplo
+#### Ejemplo
 
 Si queremos guardar el valor `rojo` en la clave `color` con con un tiempo de expiración de 10 segundos usaremos la
 siguietne expresión:
@@ -211,4 +211,47 @@ Para modificar el valor de uno o más campos haremos usar `SETRANGE`.
 
 ### Comandos para trabajar con números
 
-Tendremos los mismos comandos básicos (`GET`, `SET`, `MGET`, )
+Tendremos los mismos comandos básicos (`GET`, `SET`, `MGET`, `MSET`, `DEL`).
+
+También disponemos de los comandos de incremento y decremento `INCR`, `DECR`, `INCRBY`, `DECRBY` y `INCRBYFLOAT`.
+
+¿Cuál sería la utilidad des estos últimos comandos?
+
+#### Comando `INCR`
+
+Este comando busca un valor (númerico) en la base de datos e incrementa su valor en una unidad. Este
+comando está realizando dos operaciones de manera simultánea: la recuperación del valor y la modificación del mismo.
+
+De hecho, en principio, podríamos implementar el comando `INCR` con los comandos `GET` y `SET`.
+Primero obtenemos el valor con `GET` con convertimos a un número (lo recibimos como una cadena), le sumamos uno *a mano* Ay lo volvemos a guardar con `SET`.
+
+Es obvio que esta no es ideal ya que, en primer lugar realizamos dos accesos a la base de datos, por lo que podría llevar el doble de tiempo que un único acceso con `INCR`. El segundo problema es que, al no ser una operación atómica, podríamos tener problemas si dos procesos intentan incrementar el valor al mismo tiempo.
+
+Redis es una base de datos síncrona y mono-hilo. Eso significa que, aunque lleguen múltiples
+peticiones en un mismo instante Redis los procesará uno a uno de manera secuencial en el orden que
+hayan sido recibidos.
+
+## Conexión mediante un cliente
+
+Nos conectaremos a Redis usando TypeScript o Python. Para ello necesitaremos instalar un cliente
+para Redis. En el caso de TypeScript usaremos `ioredis` y en el caso de Python usaremos `redis-py`.
+
+Las funciones de la librería que usemos para conectarnos a Redis incluyen funciones que se
+corresponde directamente con los comandos del cliente de Redis.
+
+## Metodología de diseño de Redis
+
+Primero hemos de determinar que consultas vamos a realizar en nuestra aplicación.
+
+Una vez hemos determinados las consultas hemos de organizas los datos de manera que las consultas sean eficientes.
+
+Preguntas que tendremos que responder:
+
+* ¿Qué datos vamos a guardar?
+* ¿Vamos a tener que preocuparnos por el tamaño de los datos?: Recordemos que Redis guarda todo en
+memoria, por lo que tendremos un límite en el tamaño de los datos que podemos guardar.
+* ¿Tienen que *caducar* los datos?
+* ¿Cuál será nuestra política de generación de claves?
+* ¿Habrá que tener en cuenta algún aspecto de la lógica interna de la aplicación?
+
+### Nombrado de claves
