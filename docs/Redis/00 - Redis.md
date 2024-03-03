@@ -8,12 +8,45 @@ Las características fundamentales de la base de datos Redis son las siguientes:
 
 Al tratarse de un sistema en memoria es lógico que se usase como caché de una base de datos en disco y no como una base de datos primaria. Actualmente Redis se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizarán una serie de módulos constituyendo lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, etc.
 
+## Módulos de Redis
+
+Los módulos para Redis extienden la funcionalidad de los servidores de distintas formas. Los módulo
+no tienen por que ser desarrollados por Redis Labs, sino que pueden ser desarrollados por terceros.
+
+Ejemplos de módulos de redis:
+
+* RediSearch: Permite realizar consultas, indexado secundario y búsqueda de texto completo.
+* RedisGraph: Que hace posible utilizar Redis como una base de datos orientada a grafos.
+* RedisJSON: Hace que redis funcione como una base de datos similar a MongDB. Permitiendo almacenar
+y recuperar documentos JSON.
+
+### RedisSearch
+
+Es un proyecto *open source* concebido originalmente como una herramienta para realizar *full text search* en Redis. Con el tiempo ha ido aumentado en capacidades y volviéndose más de propósito general al punto de que permite realizar indexado de campos, consultas similares a las SQL (exceptuando operaciones de *join*) de las bases de datos relacionales y operaciones de agregación.
+
+En resumen es un módulo muy recomendable si vamos a almacenar datos estructurados en Redis.
+
+### RedisJSON
+
+Al igual que RedisSearch, RedisJSON es un módulo que, en este caso, nos permite almacenar y manipular datos en formato JSON en Redis.
+
+Podremos, por ejemplo, realizar operaciones de *get* y *set* sobre campos del documento JSON.
+
+En Redis tradicional se pueden almacenar JSON en forma de cadenas (se serializaría el JSON al guardarlo
+y se de-serializaría al leerlo) o coo hashes (se guardarían los campos del JSON como campos de la
+clave). Estos dos métodos presenta serias limitaciones como las operaciones extra si utilizamos
+cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
+índices secundarios, almacenar documentos JSON y realizar búsquedas sobre ellos.
+
+### RedisGraph / FalkorDB
+
 ## Tipos de datos en Redis
 
-* Strings:
-* Sets: no admiten cadenas repetidas.
+* Strings: El tipo de dato más básico de Redis. Constituyen secuencias de bytes. Los números se almacenan como strings.
 * Lists: admiten cadenas repetidas. Listas enlazadas. Los valores no tienen que encontrarse en posiciones contiguas de memoria. Acceso secuencial. Accesos más rápidos al principio y al final de la lista y más lentos en el medio.
-* Hashes: Pueden contener múltiples campos y valores en su interior.
+* Sets: Constituyen colecciones no ordenadas de cadenas. No admiten cadenas repetidas.
+* Sorted sets: Almacenan una serie de elementos ordenados. Cada elemento tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
+* Hashes: Pueden contener múltiples campos y valores en su interior. Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal. Se asemejan a los objetos JSON o structs de C.
   
 ## Entorno de pruebas (Redis Cloud)
 
@@ -270,3 +303,11 @@ Esta última práctica se usarás para, por ejemplo, crear claves como `users#14
 el primer elemento de la clave es el tipo de dato y el segundo elemento es el identificador del
 dato. No tiene que limitarse a una única palabra (`users:reviews#96`) y el identificador no tiene
 porque ser un número (`posts#x14jff`).
+En el contexto de Redis es común nombrar las claves con dos o más campos, separando la parte que
+constituye el identificador de la parte que nos indica qué almacenamos. Estas partes se suelen
+separar por `:`. De este modo, si queremos almacenar las *reviews* de los usuarios podríamos usar
+una clave de la forma: `users:reviews:<id>`. Donde `<id>` podría ser un "número" o un valor numérico
+que identifique unívocamente a una *review*.
+
+Hash = Json. No se pueden anidar. Un hash está constituido por pares clave valor donde los valores
+sólo pueden ser strings.
