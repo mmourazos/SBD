@@ -255,3 +255,18 @@ memoria, por lo que tendremos un límite en el tamaño de los datos que podemos 
 * ¿Habrá que tener en cuenta algún aspecto de la lógica interna de la aplicación?
 
 ### Nombrado de claves
+
+La política de nombrado de claves establece los siguientes puntos:
+
+* Las claves han de ser únicas.
+* Las claves han de ser descriptivas. Si las ven otras personas han de ser capaces de entender a qué
+se refieren.
+* Es una buena práctica usar funciones para generar los nombres de las claves y así evitar posible
+erratas.
+* Es una práctica común separar las palabras que forman el nombre de la clave con `:` y `#` para
+separar las palabras del identificador.
+
+Esta última práctica se usarás para, por ejemplo, crear claves como `users#14` o `email#101` donde
+el primer elemento de la clave es el tipo de dato y el segundo elemento es el identificador del
+dato. No tiene que limitarse a una única palabra (`users:reviews#96`) y el identificador no tiene
+porque ser un número (`posts#x14jff`).
