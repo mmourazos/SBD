@@ -40,21 +40,61 @@ cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
 
 ### RedisGraph / FalkorDB
 
+RedisGraph (proyecto ahora abandonado y sustituido por FalkorDB) es un módulo que nos permite trabajar con Redis como si se tratase de una **base de datos orientada a grafos**. Una base de datos orientada a grafos consiste en una base de datos con una API de consulta que permite trabajar con grafos de propiedades. En una base de datos orientada a grafos *nativa* el acceso a los elementos adjacentes a un nodo ha de ser muy rápido ($O(1)$).
+
+Un grafo es un conjunto de vértices (nodos) y aristas (relaciones entre nodos). En este tipo de base
+de datos esta estructura consta de 4 elementos:
+
+* Nodos (vértices).
+* Relaciones (aristas).
+* Etiquetas / tipos de relaciones: La etiquetas están asociadas a los nodos y los tipos de relación a las relaciones.
+* Propiedades: Tanto los nodos como las relaciones pueden tener propiedades. Consisten en un mapa
+clave &rarr; valor o diccionario.
+
+FalkorDB soporta Cypher como lugar de consulta. Cypher es un lenguaje de consulta de grafos similar a SQL.
+
+Estos que acabamos de ver no son los únicos módulos que existen para Redis pero son suficientes para
+ilustrar la forma en la que aumentan las capacidades de Redis.
+
+Aunque Redis pueda ser ampliada con los módulos que acabamos de mencionar, lo que hacen es utilizar el Redis *básico* para construir sobre él distintos tipos de bases de datos más elaboradas. A continuación veremos las características básicas de Redis.
+
 ## Tipos de datos en Redis
 
-* Strings: El tipo de dato más básico de Redis. Constituyen secuencias de bytes. Los números se almacenan como strings.
-* Lists: admiten cadenas repetidas. Listas enlazadas. Los valores no tienen que encontrarse en posiciones contiguas de memoria. Acceso secuencial. Accesos más rápidos al principio y al final de la lista y más lentos en el medio.
-* Sets: Constituyen colecciones no ordenadas de cadenas. No admiten cadenas repetidas.
-* Sorted sets: Almacenan una serie de elementos ordenados. Cada elemento tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
-* Hashes: Pueden contener múltiples campos y valores en su interior. Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal. Se asemejan a los objetos JSON o structs de C.
-  
+Una de las características de Redis es que dispone de un conjunto de operaciones para cada tipo
+de datos. De este modo, tendremos un conjunto de *funciones* pare realizar las operaciones
+CRUD sobre strings, otro conjunto para listas, otro para conjuntos, etc.
+
+Los tipos de datos que soporta Redis son los siguientes:
+
+* Strings: El tipo de dato más básico de Redis. Constituyen secuencias de bytes y es el tipo utilizado para almacenar valores numéricos.
+* Lists: So secuencias de cadenas ordenados en función del momento de inserción. Los valores no tienen que encontrarse en posiciones contiguas de memoria, el acceso será secuencial y será más rápido al principio y al final de la lista.
+* Sets: Constituyen colecciones no ordenadas de cadenas. A diferencia de las listas no admiten cadenas repetidas.
+* Sorted sets: Almacenan cadenas (no repetidas) ordenadas. Cada cadena tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
+* Hashes: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal.
+* Streams: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir
+datos. Sirven para registrar eventos en el orden en que han ocurrido. Se utilizan para almacenar
+* Geospatial: Permiten almacenar datos geográficos y realizar operaciones sobre ellos.
+* Bitmaps: Permiten realizar operaciones a nivel de bits sobre cadenas.
+* Bitfields: Codifican multiples contadores en una única cadena. Permiten realizar operaciones
+**atomicas** de *get*, *set* y *increment*.
+* HyperLogLog: Es una estructura de datos probabilística que permite estimar el número de elementos
+  de conjuntos de gran tamaño.
+
+Además de estos datos básicos existen los tipos de datos *complejos* que se pueden utilizar gracias
+a los módulos que hemos visto como es el caso del tipo JSON.
+
 ## Entorno de pruebas (Redis Cloud)
+
+Para probar el funcionamiento de Redis podemos utilizar la versión gratuita de Redis Cloud. Para
+ello hemos de seguir los siguientes pasos:
 
 1. Ir a [Redis.com](www.redis.com).
 2. Darse de alta.
 3. Entrar y solicitar una subscripción (la gratuita es más que necesaria para cubrir las necesidades de nuestro curso).
 
 Usaremos Redis insight para conectarnos a la base de datos.
+
+Otras formas de probar Redis pueden ser utilizar Docker o instalarlo en nuestro propio equipo.
 
 ## Comandos básicos
 
@@ -212,7 +252,7 @@ Los *setters* para cadenas son:
 
 ### Rangos de cadenas
 
-Tenomos dos comandos que nos permiten trabajar con porciones de cadenas: `GETRANGE` y `SETRANGE`.
+Tenemos dos comandos que nos permiten trabajar con porciones de cadenas: `GETRANGE` y `SETRANGE`.
 
 `GETRANGE` nos permite recuperar un rango de caracteres de una cadena.
 
