@@ -5,8 +5,13 @@ Las características fundamentales de la base de datos Redis son las siguientes:
 * Es una base de datos en memoria &rarr; Esto implica que será muy rápida.
 * Almacena los datos en la forma clave &rarr; valor.
 * Se utiliza tradicionalmente como una capa de caché.
+* Redis es una base de datos síncrona y mono-hilo.
 
-Al tratarse de un sistema en memoria es lógico que se usase como caché de una base de datos en disco y no como una base de datos primaria. Actualmente Redis se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizarán una serie de módulos constituyendo lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, etc.
+Eso significa que, aunque lleguen múltiples
+peticiones en un mismo instante Redis los procesará uno a uno de manera secuencial en el orden que
+hayan sido recibidos.
+
+Al tratarse de un sistema en memoria es lógico que se usase como caché (de una base de datos en disco por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizan una serie de módulos que constituyen lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, BD orientadas a grafos, documentos, etc.
 
 ## Módulos de Redis
 
@@ -175,11 +180,18 @@ MSET <key1> <value1> <key2> <value2> ...
 
 ### Recuperar datos
 
-Para recuperar datos en Redis utilizamos el comando `GET`:
+Para recuperar datos en Redis podemos utilizar los comandos `GET`, `GETDEL`, `GETSET`, `GETEX` y
+`GETRANGE`:
 
-```bash
-GET <key>
-```
+* `GET`: La sintaxis de este comando es `GET <key>`. Devuelve el valor asociado a la clave.
+* `GETDEL`: Con la misma sintaxis que `GET` devuelve el valor asociado a la clave y borra la clave.
+* `GETSET`: La sintaxis es la de `GETSET <key> <value>`. Devuelve el valor anterior y establece un
+valor nuevo de manera atómica. El ttl anterior se descarta. Se usa con `INCR` para disponer de un
+*reset* atómico.
+* `GETEX`: Devuelve el valor asociado a la clave y establece un tiempo de expiración. La sintaxis
+para indicar el tiempo de expiración es similar a la de `SET`.
+* `GETRANGE`: Con la sintaxis `GETRANGE <key> <start> <end>`. Permite obtener una sub-cadena de la
+cadena asociada a la clave.
 
 Veamos un ejemplo:
 
@@ -195,18 +207,24 @@ Para recuperar múltiples valores en Redis utilizamos el comando `MGET`:
 MGET <key1> <key2> ...
 ```
 
+### Modificar datos
+
+Los comandos para modificar datos en Redis son `SET`, `SETRANGE`, `DECR`, `DECRBY`, `INCR`,
+`INCRBY` e `INCRBYFLOAT`.
+
+* `SETRANGE`: Con la sintaxis `SETRANGE <key> <offset> <value>`. Modifica una sub-cadena de la
+cadena almacenada.
+* `DECR` e `INCR`: Con la sintaxis `DECR <key>` y `INCR <key>`. Decrementa o incrementa en uno el
+valor asociada a la clave e una unidad **de manera atómica**.
+* `DECRBY` e `INCRBY`: Con la sintaxis `DECRBY <key> <decrement>` y `INCRBY <key> <increment>`.
+Decrementa o incrementa el valor asociado a la clave en la cantidad indicada.
+
 ### Borrar datos
 
 Para borrar datos en Redis utilizamos el comando `DEL`:
 
 ```bash
-DEL <key>
-```
-
-Veamos un ejemplo:
-
-```bash
-DEL nombre0
+DEL <key> [<key> ...]
 ```
 
 ### Guardar múltiples valores
@@ -217,38 +235,7 @@ Para guardar múltiples valores en Redis utilizamos el comando `MSET`:
 MSET <key1> <value1> <key2> <value2> ...
 ```
 
-## Comandos para añadir y consultar datos
-
-Los comandos son específicos para cada tipo de dato. Por ejemplo, los comandos `SET` y `GET` sólo sirven para recuperar y guardar datos de tipo string mientras que `JSON.SET` y `JSON.GET` sólo sirven para recuperar y guardar datos de tipo JSON.
-
-A lo largo de estos apuntes iremos recorriendo los distintos tipos de datos que soporta Redis y sus comandos asociados.
-
-### Comandos para trabajar con strings
-
-La lista de comandos para trabajar con cadenas se puede dividir en dos grupos: los que sirven para guardar datos
-*sertters* y los que sirven para recuperar datos *getters*.
-
-#### Setters de cadenas
-
-Los *setters* para strings se pueden organizar a su vez en un par de categorías:
-
-* Los *normales*: `GETSET`, `DEL` y `STRLEN`.
-* Los que vienen haciendo lo mismo que los anteriores: `SET`, `SETNX` y `SETEX+`.
-* Al igual que: `MSET` y `MSETNX`.
-* Los que son algo raros: `APPEND` y `SETRANGE`
-
-* `SET`: Establece el valor de una clave. `GET`: Devuelve el valor de una clave.
 * `APPEND`: Si la llave existe, añade un una cadena al final del valor asociado a la clave. Si no existe, crea la clave y le asigna el valor (en este caso funciona como `set`).
-* `MGET`: Devuelve el valor de una o más claves.
-* `MSET`: Establece o modifica el valor de una o más claves.
-
-La lista de comandos para trabajar con strings es la siguiente:
-
-Los *setters* para cadenas son:
-
-#### Borra registros
-
-`DEL`
 
 ### Rangos de cadenas
 
@@ -281,28 +268,6 @@ Una vez tenemos los campos codificados podremos guardar el registro como una con
 Para recuperar los campos de un un registro en Redis usaremos `GETRANGE` para recuperar la clave del valor de dicho campo.
 
 Para modificar el valor de uno o más campos haremos usar `SETRANGE`.
-
-### Comandos para trabajar con números
-
-Tendremos los mismos comandos básicos (`GET`, `SET`, `MGET`, `MSET`, `DEL`).
-
-También disponemos de los comandos de incremento y decremento `INCR`, `DECR`, `INCRBY`, `DECRBY` y `INCRBYFLOAT`.
-
-¿Cuál sería la utilidad des estos últimos comandos?
-
-#### Comando `INCR`
-
-Este comando busca un valor (númerico) en la base de datos e incrementa su valor en una unidad. Este
-comando está realizando dos operaciones de manera simultánea: la recuperación del valor y la modificación del mismo.
-
-De hecho, en principio, podríamos implementar el comando `INCR` con los comandos `GET` y `SET`.
-Primero obtenemos el valor con `GET` con convertimos a un número (lo recibimos como una cadena), le sumamos uno *a mano* Ay lo volvemos a guardar con `SET`.
-
-Es obvio que esta no es ideal ya que, en primer lugar realizamos dos accesos a la base de datos, por lo que podría llevar el doble de tiempo que un único acceso con `INCR`. El segundo problema es que, al no ser una operación atómica, podríamos tener problemas si dos procesos intentan incrementar el valor al mismo tiempo.
-
-Redis es una base de datos síncrona y mono-hilo. Eso significa que, aunque lleguen múltiples
-peticiones en un mismo instante Redis los procesará uno a uno de manera secuencial en el orden que
-hayan sido recibidos.
 
 ## Conexión mediante un cliente
 
