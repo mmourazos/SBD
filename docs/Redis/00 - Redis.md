@@ -2,14 +2,12 @@
 
 Las características fundamentales de la base de datos Redis son las siguientes:
 
-* Es una base de datos en memoria lo que implica gran velocidad.
-* Almacena los datos en la forma clave &rarr; valor.
+* Es una base de datos que se mantiene en memoria, lo que implica gran velocidad.
+* Almacena los datos en la forma de pares clave &rarr; valor.
 * Se utiliza tradicionalmente como una capa de caché.
-* Redis es una base de datos síncrona y mono-hilo.
+* Redis es una base de datos síncrona y mono-hilo, las peticiones se procesan de manera secuencial.
 
-Esto último significa que, aunque lleguen múltiples peticiones en un mismo instante Redis las procesará una a una de manera secuencial en el orden en que hayan sido recibidos.
-
-Al tratarse de un sistema en memoria es lógico que se usase como caché (de una base de datos en disco o un servidor web por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizan una serie de módulos que constituyen lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, BD orientadas a grafos, documentos, etc.
+Al tratarse de un sistema en memoria es lógico que se use como caché (de una base de datos en disco o un servidor web por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché apoyándose principalmente en un conjunto de *plugins* o módulos. Este conjunto de módulos es lo que se conoce como Redis stack y permiten usar Redis como una base de datos documental, orientada a grafos, etc. Redis sin módulos se denomina Redis core.
 
 ## Persistencia de los datos
 
@@ -22,37 +20,42 @@ Por defecto Redis consta de dos métodos para guardar la información:
 
 ## Módulos de Redis
 
-Los módulos para Redis extienden la funcionalidad de los servidores de distintas formas. Los módulos
+Los módulos extienden la funcionalidad de los servidores Redis de distintas formas. Los módulos
 no tienen por que ser desarrollados por Redis Labs, sino que pueden ser desarrollados por terceros.
 
 Ejemplos de módulos de redis:
 
 * [RediSearch](https://github.com/RediSearch/RediSearch): Permite realizar consultas, indexado secundario y búsqueda de texto completo.
-* [RedisGraph / FalkorDB](https://github.com/FalkorDB/FalkorDB/): Que hace posible utilizar Redis como una base de datos orientada a grafos.
 * [RedisJSON](https://github.com/RedisJSON/RedisJSON): Hace que redis funcione como una base de datos similar a MongDB. Permitiendo almacenar y recuperar documentos JSON.
+* [RedisGraph / FalkorDB](https://github.com/FalkorDB/FalkorDB/): Que hace posible utilizar Redis como una base de datos orientada a grafos.
+
+Estos son sólo algunos ejemplos. Hay otros módulos que dan soporte para estructuras de datos [probabilísticas](https://redis.io/docs/data-types/probabilistic/bloom-filter/), datos de [series temporales](https://redis.io/docs/data-types/timeseries/), etc.
 
 ### RediSearch
 
-Es un proyecto *open source* concebido originalmente como una herramienta para realizar *full text search* en Redis. Con el tiempo ha ido aumentado en capacidades y volviéndose más de propósito general al punto de que permite realizar indexado de campos, consultas similares a las SQL (exceptuando operaciones de *join*) de las bases de datos relacionales y operaciones de agregación.
+Es un proyecto *open source* concebido originalmente como una herramienta para realizar *full text search* en Redis. Con el tiempo ha ido aumentado en capacidades y volviéndose más de propósito general al punto de que permite realizar indexado de campos, consultas similares a las SQL (exceptuando operaciones de *join*) y operaciones de agregación.
 
-En resumen es un módulo muy recomendable si vamos a almacenar datos estructurados en Redis.
+En resumen es un módulo muy recomendable si vamos a trabajar con datos estructurados en Redis.
 
 ### RedisJSON
 
-Al igual que RedisSearch, RedisJSON es un módulo que, en este caso, nos permite almacenar y manipular datos en formato JSON en Redis.
+Al igual que RedisJSON es un módulo que nos permite almacenar y manipular datos en formato JSON en Redis.
 
-Podremos, por ejemplo, realizar operaciones de *get* y *set* sobre campos del documento JSON.
+Podremos, por ejemplo, realizar operaciones de *get* y *set* sobre campos concretos del un documento JSON, crear documentos anidados, etc.
 
-En Redis tradicional se pueden almacenar JSON en forma de cadenas (se serializaría el JSON al guardarlo
-y se de-serializaría al leerlo) o con hashes (se guardarían los campos del JSON como campos de la
-clave). Estos dos métodos presentan serias limitaciones como las operaciones extra en el caso de las cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
+En Redis tradicional se pueden almacenar JSON en forma de cadenas (se serializaría el JSON al guardarlo y se de-serializaría al leerlo) o con hashes (se guardarían los campos del JSON como campos de la clave). Estos dos métodos presentan serias limitaciones como las operaciones extra en el caso de las cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
 
-### RedisGraph / FalkorDB
+### FalkorD (antes RedisGraph)
 
-RedisGraph (proyecto ahora abandonado y sustituido por FalkorDB) es un módulo que nos permite trabajar con Redis como si se tratase de una **base de datos orientada a grafos**. Una base de datos orientada a grafos consiste en una base de datos con una API de consulta que permite trabajar con grafos de propiedades. En una base de datos orientada a grafos *nativa* el acceso a los elementos adyacentes a un nodo ha de ser muy rápido ($O(1)$).
+FalkorD (es un *fork* de un proyecto ahora abandonado llamado RedisGraph) es un módulo que nos permite trabajar con Redis como si se tratase de una **base de datos orientada a grafos**.
 
-Un grafo es un conjunto de vértices (nodos) y aristas (relaciones entre nodos). En este tipo de base
-de datos esta estructura consta de 4 elementos:
+#### Base de datos orientada a grafos
+
+Una base de datos orientada a grafos dispone de una API de consulta que permite trabajar con grafos de propiedades. En una base de datos orientada a grafos *nativa* el acceso a los elementos adyacentes a un nodo ha de ser muy rápido ($O(1)$).
+
+#### Grafos de propiedades
+
+Un grafo es un conjunto de vértices (nodos) y aristas (relaciones entre nodos). En este tipo de base de datos esta estructura consta de 4 elementos:
 
 * Nodos (vértices).
 * Relaciones (aristas).
@@ -60,17 +63,20 @@ de datos esta estructura consta de 4 elementos:
 * Propiedades: Tanto los nodos como las relaciones pueden tener propiedades. Consisten en un mapa
 clave &rarr; valor o diccionario.
 
-FalkorDB soporta Cypher como lugar de consulta. Cypher es un lenguaje de consulta de grafos similar a SQL.
+FalkorDB soporta [Cypher](https://neo4j.com/developer/cypher/) como lenguaje de consulta. Cypher es un lenguaje de consulta de grafos similar a SQL y es el utilizado en la base de datos orientada a grafos [Neo4j](https://neo4j.com/).
 
 Estos que acabamos de ver no son los únicos módulos que existen para Redis pero son suficientes para
 ilustrar la forma en la que aumentan las capacidades de Redis.
 
-Aunque Redis pueda ser ampliada con los módulos que acabamos de mencionar, lo que hacen es utilizar el Redis *básico* para construir sobre él distintos tipos de bases de datos más elaboradas. A continuación veremos las características básicas de Redis.
+Aunque Redis pueda ser ampliada con los módulos que acabamos de mencionar, lo que hacen es utilizar el Redis *básico* para construir sobre él distintos tipos de bases de datos más elaboradas. Por debajo no dejamos de tener una base de datos en memoria, muy rápida y con gran enfoque en las cadenas.
+
+A continuación veremos las características básicas de Redis.
 
 ## Tipos de datos en Redis
 
-Una de las características de Redis es que dispone de un **conjunto de operaciones específico para cada tipo de datos**. De este modo, tendremos un conjunto de *funciones* pare realizar las operaciones
-CRUD sobre *strings*, otro conjunto para listas, otro para conjuntos, etc.
+Una de las características de Redis es que dispone de un **conjunto de operaciones específico para cada tipo de datos**. De este modo, tendremos un conjunto de *funciones* par realizar las operaciones CRUD sobre *strings*, otro conjunto para listas, otro para conjuntos y así sucesivamente. Podemos verlo en la [página de referencia](https://redis.io/commands/) de los comandos de Redis donde podemos comprobar que permite filtrar comandos por tipo de dato.
+
+### Tipos de datos
 
 Los tipos de datos que soporta Redis son los siguientes:
 
@@ -91,40 +97,27 @@ a los módulos que hemos visto como es el caso del tipo JSON.
 
 ## Entorno de pruebas (Redis Cloud)
 
-Para probar el funcionamiento de Redis podemos utilizar la versión gratuita de Redis Cloud. Para
-ello hemos de seguir los siguientes pasos:
+Para probar el funcionamiento de Redis podemos utilizar la versión gratuita de Redis Cloud. Para ello hemos de seguir los siguientes pasos:
 
 1. Ir a [Redis.com](www.redis.com).
 2. Darse de alta.
 3. Entrar y solicitar una subscripción (la gratuita es más que necesaria para cubrir las necesidades de nuestro curso).
 
-Usaremos Redis insight para conectarnos a la base de datos.
+Usaremos [RedisInsight](https://redis.io/docs/connect/insight/) para conectarnos a la base de datos.
 
-Otras formas de probar Redis pueden ser utilizar Docker o instalarlo en nuestro propio equipo.
+Otras formas de probar Redis pueden ser utilizar Docker o instalarlo en nuestro propio equipo o
+máquina virtual.
 
 ## Comandos básicos
 
-Una vez conectados con Redis insight a nuestra base de datos de pruebas podremos usar la consola de para ejecutar comandos sobre la base de datos.
+Una vez conectados con Redis insight a nuestra base de datos de pruebas podremos usar la consola (accesible mediante la pestaña de *Workbench*) para ejecutar comandos sobre la base de datos.
 
-La página de documentación de los comandos de Redis es [redis.io/commands](http://redis.io/commands).
+![Imagen del Workbench de RedisInsight](./img/RedisInsight-Workbench.png)
 
-Los comandos de redis se agrupan en función del tipo de datos con el que trabajan. Así, si vamos a la documentación y filtramos por *string* veremos que los comandos que nos muestra son: `APPEND`, `DECR`, `DECRBY`, `GET`, `GETDEL`, etc.
+Como dijimos, los comandos de redis se agrupan en función del tipo de datos con el que trabajan. Así, si vamos a la documentación y filtramos por *string* veremos que los comandos que nos muestra son: `APPEND`, `DECR`, `DECRBY`, `GET`, `GETDEL`, etc.
 
-A continuación veremos como ejemplo los comandos básicos para tratar cadenas y números (ya que están representados internamente como cadenas). Para ver los comandos disponibles para cualquier otro tipo simplemente tendremos que ir a la página de comandos y filtra por dicho tipo de dato.
+A continuación veremos como ejemplo los comandos básicos para trabajar con cadenas y números (ya que están representados internamente como cadenas). Para ver los comandos disponibles para cualquier otro tipo simplemente tendremos que ir a la página de comandos y filtra por dicho tipo de dato.
 
-### *Scripts* en Redis
-
-Además de los comandos básicos que podemos invocar en la *shell* Redis también permite la ejecución de scripts. Estos han de estar escritos en [Lua](https://lua.org/about.html).
-
-Para ejecutar un *script* en Redis usaremos el comando `EVAL`:
-
-```bash
-EvAL <script> <num_claves> <clave> [<clave> ... ] <arg> [<arg> ... ]
-```
-
-El script ha de indicarse entre `"`. A continuación se indicarán el número de pares *clave - valor* que se pasarán como argumentos al script y finalmente los valores de las claves seguidos de los valores que se corresponden con dichas claves. 
-
-En Redis estos *scripts* se ejecutan de **manera atómica**, de manera que la base de tatos queda *bloqueada* hasta que se completa la ejecución del script.
 
 ### Salvar datos
 
@@ -256,6 +249,20 @@ GET modelo
 "tterminator"
 ```
 
+## *Scripts* en Redis
+
+Además de los comandos básicos que podemos invocar en la *shell*, Redis también permite la ejecución de scripts. Estos han de estar escritos en [Lua](https://lua.org/about.html). Lua es un lenguaje de programación sencillo utilizado en aplicaciones embebidas y en juegos que también se utiliza como sistema de configuración de aplicaciones (como el caso de neovim).
+
+Para ejecutar un *script* en Redis usaremos el comando `EVAL`:
+
+```bash
+EVAL <script> <num_claves> <clave> [<clave> ... ] <arg> [<arg> ... ]
+```
+
+El script ha de indicarse entre `"`. A continuación se indicarán el número de pares *clave - valor* que se pasarán como argumentos al script y finalmente los valores de las claves seguidos de los valores que se corresponden con dichas claves.
+
+En Redis estos *scripts* se ejecutan de **manera atómica**, de manera que la base de tatos queda *bloqueada* hasta que se completa la ejecución del script.
+
 ## ¿Cómo usar Redis?
 
 Supongamos que tenemos una base de datos tradicional. En ella tendremos múltiples registros con varios campos. No es algo fuera de lo común que algunos campos tengan un número limitado de valores posibles. Los modelos de un coche, los colores, etc. son ejemplos de campos con valores limitados. Podremos guardar este tipo de valores en Redis codificándolos mediante una clave más corta. Por ejemplo, en lugar de guardar el modelo completo del coche guardaremos un número que represente el modelo. En lugar de guardar el color completo guardaremos un número que represente el color.
@@ -268,9 +275,7 @@ Para modificar el valor de uno o más campos haremos usar `SETRANGE`.
 
 ## Metodología de diseño de Redis
 
-Primero hemos de determinar que consultas vamos a realizar en nuestra aplicación.
-
-Una vez hemos determinados las consultas hemos de organizas los datos de manera que las consultas sean eficientes.
+La metodología de Redis es común en las bases de datos NoSQL. Al contrario que en las bases de datos relacionales, no se parte de los datos, si no que primero se ha de determinar que consultas vamos a realizar en nuestra aplicación. Una vez determinadas las consultas se organizarán los datos de manera que las consultas sean lo más eficientes posible.
 
 Preguntas que tendremos que responder:
 
@@ -302,4 +307,3 @@ constituye el identificador de la parte que nos indica qué almacenamos. Estas p
 separar por `:`. De este modo, si queremos almacenar las *reviews* de los usuarios podríamos usar
 una clave de la forma: `users:reviews:<id>`. Donde `<id>` podría ser un "número" o un valor numérico
 que identifique unívocamente a una *review*.
-
