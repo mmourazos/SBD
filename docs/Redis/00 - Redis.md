@@ -2,30 +2,36 @@
 
 Las características fundamentales de la base de datos Redis son las siguientes:
 
-* Es una base de datos en memoria &rarr; Esto implica que será muy rápida.
+* Es una base de datos en memoria lo que implica gran velocidad.
 * Almacena los datos en la forma clave &rarr; valor.
 * Se utiliza tradicionalmente como una capa de caché.
 * Redis es una base de datos síncrona y mono-hilo.
 
-Eso significa que, aunque lleguen múltiples
-peticiones en un mismo instante Redis los procesará uno a uno de manera secuencial en el orden que
-hayan sido recibidos.
+Esto último significa que, aunque lleguen múltiples peticiones en un mismo instante Redis las procesará una a una de manera secuencial en el orden en que hayan sido recibidos.
 
-Al tratarse de un sistema en memoria es lógico que se usase como caché (de una base de datos en disco por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizan una serie de módulos que constituyen lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, BD orientadas a grafos, documentos, etc.
+Al tratarse de un sistema en memoria es lógico que se usase como caché (de una base de datos en disco o un servidor web por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché. Para lograr esto se utilizan una serie de módulos que constituyen lo que se conoce como Redis stack. Redis sin módulos se denomina Redis core. Los módulos confieren a Redis la capacidad de persistir sus datos, soporte para gestionar documentos JSON, BD orientadas a grafos, documentos, etc.
+
+## Persistencia de los datos
+
+Acabamos de indicar que Redis es una base de datos en memoria y a continuación dijimos que, a día de hoy, se puede emplear como una base de datos primaria. ¿Cómo se persisten entonces los datos?
+
+Por defecto Redis consta de dos métodos para guardar la información:
+
+1. Redis vuelca a disco el contenido de la base de datos cada cierto tiempo (por defecto cada 15 min.).
+2. Redis puede registrar cada comando realizado sobre la base de datos en un fichero de *log* guardado en disco.
 
 ## Módulos de Redis
 
-Los módulos para Redis extienden la funcionalidad de los servidores de distintas formas. Los módulo
+Los módulos para Redis extienden la funcionalidad de los servidores de distintas formas. Los módulos
 no tienen por que ser desarrollados por Redis Labs, sino que pueden ser desarrollados por terceros.
 
 Ejemplos de módulos de redis:
 
-* RediSearch: Permite realizar consultas, indexado secundario y búsqueda de texto completo.
-* RedisGraph: Que hace posible utilizar Redis como una base de datos orientada a grafos.
-* RedisJSON: Hace que redis funcione como una base de datos similar a MongDB. Permitiendo almacenar
-y recuperar documentos JSON.
+* [RediSearch](https://github.com/RediSearch/RediSearch): Permite realizar consultas, indexado secundario y búsqueda de texto completo.
+* [RedisGraph / FalkorDB](https://github.com/FalkorDB/FalkorDB/): Que hace posible utilizar Redis como una base de datos orientada a grafos.
+* [RedisJSON](https://github.com/RedisJSON/RedisJSON): Hace que redis funcione como una base de datos similar a MongDB. Permitiendo almacenar y recuperar documentos JSON.
 
-### RedisSearch
+### RediSearch
 
 Es un proyecto *open source* concebido originalmente como una herramienta para realizar *full text search* en Redis. Con el tiempo ha ido aumentado en capacidades y volviéndose más de propósito general al punto de que permite realizar indexado de campos, consultas similares a las SQL (exceptuando operaciones de *join*) de las bases de datos relacionales y operaciones de agregación.
 
@@ -38,14 +44,12 @@ Al igual que RedisSearch, RedisJSON es un módulo que, en este caso, nos permite
 Podremos, por ejemplo, realizar operaciones de *get* y *set* sobre campos del documento JSON.
 
 En Redis tradicional se pueden almacenar JSON en forma de cadenas (se serializaría el JSON al guardarlo
-y se de-serializaría al leerlo) o coo hashes (se guardarían los campos del JSON como campos de la
-clave). Estos dos métodos presenta serias limitaciones como las operaciones extra si utilizamos
-cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
-índices secundarios, almacenar documentos JSON y realizar búsquedas sobre ellos.
+y se de-serializaría al leerlo) o con hashes (se guardarían los campos del JSON como campos de la
+clave). Estos dos métodos presentan serias limitaciones como las operaciones extra en el caso de las cadenas o la imposibilidad de anidar documentos si utilizamos hashes.
 
 ### RedisGraph / FalkorDB
 
-RedisGraph (proyecto ahora abandonado y sustituido por FalkorDB) es un módulo que nos permite trabajar con Redis como si se tratase de una **base de datos orientada a grafos**. Una base de datos orientada a grafos consiste en una base de datos con una API de consulta que permite trabajar con grafos de propiedades. En una base de datos orientada a grafos *nativa* el acceso a los elementos adjacentes a un nodo ha de ser muy rápido ($O(1)$).
+RedisGraph (proyecto ahora abandonado y sustituido por FalkorDB) es un módulo que nos permite trabajar con Redis como si se tratase de una **base de datos orientada a grafos**. Una base de datos orientada a grafos consiste en una base de datos con una API de consulta que permite trabajar con grafos de propiedades. En una base de datos orientada a grafos *nativa* el acceso a los elementos adyacentes a un nodo ha de ser muy rápido ($O(1)$).
 
 Un grafo es un conjunto de vértices (nodos) y aristas (relaciones entre nodos). En este tipo de base
 de datos esta estructura consta de 4 elementos:
@@ -65,25 +69,22 @@ Aunque Redis pueda ser ampliada con los módulos que acabamos de mencionar, lo q
 
 ## Tipos de datos en Redis
 
-Una de las características de Redis es que dispone de un conjunto de operaciones para cada tipo
-de datos. De este modo, tendremos un conjunto de *funciones* pare realizar las operaciones
-CRUD sobre strings, otro conjunto para listas, otro para conjuntos, etc.
+Una de las características de Redis es que dispone de un **conjunto de operaciones específico para cada tipo de datos**. De este modo, tendremos un conjunto de *funciones* pare realizar las operaciones
+CRUD sobre *strings*, otro conjunto para listas, otro para conjuntos, etc.
 
 Los tipos de datos que soporta Redis son los siguientes:
 
-* Strings: El tipo de dato más básico de Redis. Constituyen secuencias de bytes y es el tipo utilizado para almacenar valores numéricos.
-* Lists: So secuencias de cadenas ordenados en función del momento de inserción. Los valores no tienen que encontrarse en posiciones contiguas de memoria, el acceso será secuencial y será más rápido al principio y al final de la lista.
-* Sets: Constituyen colecciones no ordenadas de cadenas. A diferencia de las listas no admiten cadenas repetidas.
-* Sorted sets: Almacenan cadenas (no repetidas) ordenadas. Cada cadena tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
-* Hashes: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal.
-* Streams: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir
+* *Strings*: El tipo de dato más básico de Redis. Constituyen secuencias de bytes y es el tipo utilizado para almacenar valores numéricos.
+* Listas: So secuencias de cadenas ordenados en función del momento de inserción. Los valores no tienen que encontrarse en posiciones contiguas de memoria, el acceso será secuencial y será más rápido al principio y al final de la lista.
+* *Sets*: Constituyen colecciones no ordenadas de cadenas. A diferencia de las listas no admiten cadenas repetidas.
+* *Sorted sets*: Almacenan cadenas (no repetidas) ordenadas. Cada cadena tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
+* *Hashes*: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal. **No admiten anidamiento**.
+* *Streams*: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir
 datos. Sirven para registrar eventos en el orden en que han ocurrido. Se utilizan para almacenar
-* Geospatial: Permiten almacenar datos geográficos y realizar operaciones sobre ellos.
+* *Geospatial*: Permiten almacenar datos geográficos y realizar operaciones sobre ellos.
 * Bitmaps: Permiten realizar operaciones a nivel de bits sobre cadenas.
-* Bitfields: Codifican multiples contadores en una única cadena. Permiten realizar operaciones
-**atomicas** de *get*, *set* y *increment*.
-* HyperLogLog: Es una estructura de datos probabilística que permite estimar el número de elementos
-  de conjuntos de gran tamaño.
+* *Bitfields*: Codifican múltiples contadores en una única cadena. Permiten realizar operaciones **atómicas** de *get*, *set* y *increment*.
+* *HyperLogLog*: Es una estructura de datos probabilística que permite estimar el número de elementos de conjuntos de gran tamaño.
 
 Además de estos datos básicos existen los tipos de datos *complejos* que se pueden utilizar gracias
 a los módulos que hemos visto como es el caso del tipo JSON.
@@ -107,8 +108,23 @@ Una vez conectados con Redis insight a nuestra base de datos de pruebas podremos
 
 La página de documentación de los comandos de Redis es [redis.io/commands](http://redis.io/commands).
 
-Los comandos de redis se agrupan en función del tipo de datos con el que trabajan. Así, si vamos a la documentación y
-filtramos por *string* veremos que los comandos que nos muestra son: `APPEND`, `DECR`, `DECRBY`, `GET`, `GETDEL`, etc.
+Los comandos de redis se agrupan en función del tipo de datos con el que trabajan. Así, si vamos a la documentación y filtramos por *string* veremos que los comandos que nos muestra son: `APPEND`, `DECR`, `DECRBY`, `GET`, `GETDEL`, etc.
+
+A continuación veremos como ejemplo los comandos básicos para tratar cadenas y números (ya que están representados internamente como cadenas). Para ver los comandos disponibles para cualquier otro tipo simplemente tendremos que ir a la página de comandos y filtra por dicho tipo de dato.
+
+### *Scripts* en Redis
+
+Además de los comandos básicos que podemos invocar en la *shell* Redis también permite la ejecución de scripts. Estos han de estar escritos en [Lua](https://lua.org/about.html).
+
+Para ejecutar un *script* en Redis usaremos el comando `EVAL`:
+
+```bash
+EvAL <script> <num_claves> <clave> [<clave> ... ] <arg> [<arg> ... ]
+```
+
+El script ha de indicarse entre `"`. A continuación se indicarán el número de pares *clave - valor* que se pasarán como argumentos al script y finalmente los valores de las claves seguidos de los valores que se corresponden con dichas claves. 
+
+En Redis estos *scripts* se ejecutan de **manera atómica**, de manera que la base de tatos queda *bloqueada* hasta que se completa la ejecución del script.
 
 ### Salvar datos
 
@@ -151,11 +167,8 @@ siguietne expresión:
 SET color rojo EX 10
 ```
 
-Otro comando que podríamos haber usado para realizar la misma oeración es `SETEX`. La diferencia entre ambos es que `SETEX` es un comando atómico, es decir, que se ejecuta de una sola vez. El comando `SET` con `EX` es una operación atómica pero no es un comando atómico. Esto significa que si se produce un fallo en la ejecución de `SET` con `EX` no se garantiza que la clave no se haya creado.
-
-```bash
-SETEX color 10 rojo
-```
+Existe también el comando `SETEX` que nos permite hacer lo mismo en una sola instrucción pero se ha
+declarado obsoleto y se recomienda usar `SET` con la opción `EX`.
 
 #### Sobre los tiempos de expiración
 
@@ -168,15 +181,8 @@ borrando los datos a los que no se ha accedido durante un cierto tiempo para evi
 Para salvar múltiples valores en Redis utilizamos el comando `MSET`:
 
 ```bash
-MSET <key1> <value1> <key2> <value2> ...
+MSET <key1> <value1> [<key2> <value2> ...]
 ```
-
-#### Modificadores para el comando `SET` y `MSET`
-
-* `EX <seconds>`: Establece un tiempo de expiración en segundos.
-* `PX <milliseconds>`: Establece un tiempo de expiración en milisegundos.
-* `XX`: Establece que el comando sólo se ejecutará si la clave existe.
-* `GET`: Devuelve el valor anterior de la clave.
 
 ### Recuperar datos
 
@@ -218,6 +224,7 @@ cadena almacenada.
 valor asociada a la clave e una unidad **de manera atómica**.
 * `DECRBY` e `INCRBY`: Con la sintaxis `DECRBY <key> <decrement>` y `INCRBY <key> <increment>`.
 Decrementa o incrementa el valor asociado a la clave en la cantidad indicada.
+* `APPEND`: Si la llave existe, añade un una cadena al final del valor asociado a la clave. Si no existe, crea la clave y le asigna el valor (en este caso funciona como `set`).
 
 ### Borrar datos
 
@@ -226,16 +233,6 @@ Para borrar datos en Redis utilizamos el comando `DEL`:
 ```bash
 DEL <key> [<key> ...]
 ```
-
-### Guardar múltiples valores
-
-Para guardar múltiples valores en Redis utilizamos el comando `MSET`:
-
-```bash
-MSET <key1> <value1> <key2> <value2> ...
-```
-
-* `APPEND`: Si la llave existe, añade un una cadena al final del valor asociado a la clave. Si no existe, crea la clave y le asigna el valor (en este caso funciona como `set`).
 
 ### Rangos de cadenas
 
@@ -259,7 +256,7 @@ GET modelo
 "tterminator"
 ```
 
-### ¿Cómo usar Redis?
+## ¿Cómo usar Redis?
 
 Supongamos que tenemos una base de datos tradicional. En ella tendremos múltiples registros con varios campos. No es algo fuera de lo común que algunos campos tengan un número limitado de valores posibles. Los modelos de un coche, los colores, etc. son ejemplos de campos con valores limitados. Podremos guardar este tipo de valores en Redis codificándolos mediante una clave más corta. Por ejemplo, en lugar de guardar el modelo completo del coche guardaremos un número que represente el modelo. En lugar de guardar el color completo guardaremos un número que represente el color.
 
@@ -268,14 +265,6 @@ Una vez tenemos los campos codificados podremos guardar el registro como una con
 Para recuperar los campos de un un registro en Redis usaremos `GETRANGE` para recuperar la clave del valor de dicho campo.
 
 Para modificar el valor de uno o más campos haremos usar `SETRANGE`.
-
-## Conexión mediante un cliente
-
-Nos conectaremos a Redis usando TypeScript o Python. Para ello necesitaremos instalar un cliente
-para Redis. En el caso de TypeScript usaremos `ioredis` y en el caso de Python usaremos `redis-py`.
-
-Las funciones de la librería que usemos para conectarnos a Redis incluyen funciones que se
-corresponde directamente con los comandos del cliente de Redis.
 
 ## Metodología de diseño de Redis
 
@@ -314,5 +303,3 @@ separar por `:`. De este modo, si queremos almacenar las *reviews* de los usuari
 una clave de la forma: `users:reviews:<id>`. Donde `<id>` podría ser un "número" o un valor numérico
 que identifique unívocamente a una *review*.
 
-Hash = Json. No se pueden anidar. Un hash está constituido por pares clave valor donde los valores
-sólo pueden ser strings.
