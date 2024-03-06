@@ -1,0 +1,15 @@
+{
+    "name": "jsredis",
+    "version": "1.0.0",
+    "description": "Probando el cliente de Node para Redis.",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "redis": "^4.6.13"
+    }
+}
