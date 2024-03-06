@@ -7,9 +7,7 @@ Las características fundamentales de la base de datos Redis son las siguientes:
 * Se utiliza tradicionalmente como una capa de caché.
 * Redis es una base de datos síncrona y mono-hilo, las peticiones se procesan de manera secuencial.
 
-Al tratarse de un sistema en memoria es lógico que se use como caché (de una base de datos en disco o un servidor web por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché apoyándose principalmente en un conjunto de *plugins* o módulos. Este conjunto de módulos es lo que se conoce como Redis stack y permiten usar Redis como una base de datos documental, orientada a grafos, etc. Redis sin módulos se denomina Redis core.
-
-## Persistencia de los datos
+Al tratarse de un sistema en memoria es lógico que se use como caché (de una base de datos en disco o un servidor web por ejemplo) y no como una base de datos primaria. Actualmente se puede usar como una base de datos única y no sólo como una caché apoyándose principalmente en un conjunto de *plugins* o módulos. Este conjunto de módulos es lo que se conoce como Redis stack y permiten usar Redis como una base de datos documental, orientada a grafos, etc. Redis sin módulos se denomina Redis core. ## Persistencia de los datos
 
 Acabamos de indicar que Redis es una base de datos en memoria y a continuación dijimos que, a día de hoy, se puede emplear como una base de datos primaria. ¿Cómo se persisten entonces los datos?
 
