@@ -9,11 +9,11 @@ Para crear un conexión con Go.
 
 ### Contexto
 
-### Conexión
-
 #### Gestión de los datos privados
 
 Para no compartir los datos privados de la conexión es recomendable almacenarlos en `.env`.
+
+### Conexión
 
 ## Conexión con JavaScript (Node.js)
 
