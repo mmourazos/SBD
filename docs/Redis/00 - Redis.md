@@ -152,7 +152,7 @@ SET <key> <value> <opciones>
 #### Ejemplo
 
 Si queremos guardar el valor `rojo` en la clave `color` con con un tiempo de expiración de 10 segundos usaremos la
-siguietne expresión:
+siguiente expresión:
 
 ```bash
 SET color rojo EX 10
@@ -263,9 +263,9 @@ En Redis estos *scripts* se ejecutan de **manera atómica**, de manera que la ba
 
 ## ¿Cómo usar Redis?
 
-Supongamos que tenemos una base de datos tradicional. En ella tendremos múltiples registros con varios campos. No es algo fuera de lo común que algunos campos tengan un número limitado de valores posibles. Los modelos de un coche, los colores, etc. son ejemplos de campos con valores limitados. Podremos guardar este tipo de valores en Redis codificándolos mediante una clave más corta. Por ejemplo, en lugar de guardar el modelo completo del coche guardaremos un número que represente el modelo. En lugar de guardar el color completo guardaremos un número que represente el color.
+Supongamos que tenemos una base de datos tradicional. En ella tendremos múltiples registros con varios campos. No es algo fuera de lo común que algunos campos tengan un número limitado de valores posibles. Los modelos de un coche, los colores, etc. son ejemplos de campos con valores limitados. Podremos guardar este tipo de valores en Redis codificándolos mediante una clave más corta. Por ejemplo, en lugar de guardar el modelo completo del coche guardaremos un número (o código) que represente el modelo.
 
-Una vez tenemos los campos codificados podremos guardar el registro como una concatenación del las claves de los valores de sus registros suando, ahora sí, la clave única del registro como clave en Redis.
+Una vez tenemos los campos codificados podremos guardar el registro como una concatenación del las claves de los valores de sus registros usando la clave única del registro como clave en Redis.
 
 Para recuperar los campos de un un registro en Redis usaremos `GETRANGE` para recuperar la clave del valor de dicho campo.
 
