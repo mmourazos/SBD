@@ -82,11 +82,11 @@ Los tipos de datos que soporta Redis son los siguientes:
 * Listas: So secuencias de cadenas ordenados en función del momento de inserción. Los valores no tienen que encontrarse en posiciones contiguas de memoria, el acceso será secuencial y será más rápido al principio y al final de la lista.
 * *Sets*: Constituyen colecciones no ordenadas de cadenas. A diferencia de las listas no admiten cadenas repetidas.
 * *Sorted sets*: Almacenan cadenas (no repetidas) ordenadas. Cada cadena tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
-* *Hashes*: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" "valor" asociados a una única clave principal. **No admiten anidamiento**.
+* *Hashes*: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" / "valor" asociados a una única clave principal. **No admiten anidamiento**.
 * *Streams*: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir
 datos. Sirven para registrar eventos en el orden en que han ocurrido. Se utilizan para almacenar
 * *Geospatial*: Permiten almacenar datos geográficos y realizar operaciones sobre ellos.
-* Bitmaps: Permiten realizar operaciones a nivel de bits sobre cadenas.
+* *Bitmaps*: Permiten realizar operaciones a nivel de bits sobre cadenas.
 * *Bitfields*: Codifican múltiples contadores en una única cadena. Permiten realizar operaciones **atómicas** de *get*, *set* y *increment*.
 * *HyperLogLog*: Es una estructura de datos probabilística que permite estimar el número de elementos de conjuntos de gran tamaño.
 

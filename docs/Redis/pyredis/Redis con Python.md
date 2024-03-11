@@ -23,6 +23,7 @@ source ./venv/bin/activate
 ```
 
 Ahora, con el entorno activado podemos instalar el módulo `redis` con el siguiente comando:
+
 ```pwsh
 python -m pip install redis
 ```

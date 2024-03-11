@@ -11,9 +11,9 @@ const client = await createClient({
     .on('error', err => console.error('Erroy de cliente de Redis', err))
     .connect()
 
-//await client.set('foo', 'bar', {
-//    EX: 10
-//})
+await client.set('foo', 'bar', {
+    EX: 10
+})
 
 // De manera alternativa:
 await client.sendCommand(['set', 'foo', 'bar', 'EX', '10'])

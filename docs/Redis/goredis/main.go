@@ -40,8 +40,7 @@ func main() {
 
 	val, err := client.Get(ctx, "foo").Result()
 	if err != nil {
-		panic(err)
-	}
+		panic(err) }
 
 	fmt.Println("foo:", val)
 
