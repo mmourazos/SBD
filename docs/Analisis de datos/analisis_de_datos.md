@@ -2,7 +2,7 @@
 
 ## Numpy y Pandas
 
-[Anaconda](www.anaconda.com) es una distribución de Python que incluye las librerías más populares para el análisis de datos. Entre estas librerías se encuentran NumPy y Pandas. 
+[Anaconda](www.anaconda.com) es una distribución de Python que incluye las librerías más populares para el análisis de datos. Entre estas librerías se encuentran NumPy y Pandas.
 
 ## Entorno de trabajo
 
@@ -150,21 +150,21 @@ Para añadir y eliminas elementos de una lista tendremos dos pares de funciones 
 `append` añade un elemento al final de la lista:
 
 ```python
-mi_lista = 1, 2, 3
+mi_lista = [1, 2, 3]
 mi_lista.append(4) # mi_lista = [1, 2, 3, 4]
 ```
 
 `pop` elimina el último elemento de la lista:
 
 ```python
-mi_lista = 1, 2, 3
+mi_lista = [1, 2, 3]
 a = mi_lista.pop() # mi_lista = [1, 2], a = 3
 ```
 
 `insert` añade un elemento en la posición que le indiquemos:
 
 ```python
-mi_lista = 1, 2, 3
+mi_lista = [1, 2, 3]
 mi_lista.insert(1, 4) # mi_lista = [1, 4, 2, 3]
 
 # La posición de inserción ha de ser un número entre 0 y len(mi_lista)
@@ -174,7 +174,7 @@ mi_lista.insert(4, 5) # mi_lista = [1, 4, 2, 3, 5]
 Finalmente `remove` elimina el primer elemento cuyo valor sea el que le indiquemos:
 
 ```python
-mi_lista = 3, 2, 1, 2, 3
+mi_lista = [3, 2, 1, 2, 3]
 
 mi_lista.remove(2) # mi_lista = [3, 1, 2, 3]
 ```
@@ -182,7 +182,7 @@ mi_lista.remove(2) # mi_lista = [3, 1, 2, 3]
 También es posible eliminar elementos en función de su posición utilizando el operador `del`:
 
 ```python
-mi_lista = 3, 2, 1, 2, 3
+mi_lista = [3, 2, 1, 2, 3]
 
 del mi_lista[2] # mi_lista = [3, 2, 2, 3]
 
@@ -194,12 +194,20 @@ del mi_lista[1:3] # mi_lista = [3, 3]
 
 #### Pertenencia
 
-Para compronbar si un elemento pertenece a una lista, podemos utilizar el operador `in`:
+Para comprobar si un elemento pertenece a una lista, podemos utilizar el operador `in`:
 
 ```python
-mi_lista = 1, 2, 3
+mi_lista = [1, 2, 3]
 
 1 in mi_lista # True
+```
+
+Para comprobar la **no** pertenencia, utilizaremos el operador `not in`:
+
+```python
+mi_lista = [1, 2, 3]
+
+0 not in mi_lista # True
 ```
 
 #### Concatenación
@@ -207,19 +215,79 @@ mi_lista = 1, 2, 3
 Para concatenar dos listas, podemos utilizar el operador `+`:
 
 ```python
-l1 = 1, 2, 3
-l2 = 4, 5, 6
+l1 [1, 2, 3]
+l2 = [4, 5, 6]
 
 l = l1 + l2 # l = [1, 2, 3, 4, 5, 6]
 ```
 
+O la función `extend`:
+
+```python
+lista_final = []
+for lista in lista_de_listas:
+    lista_final.extend(lista)
+```
+
+Hay que tener en cuenta que `extend` **es más eficiente que `+` ya que `+` crea una nueva lista**, mientras que `extend` modifica la lista original.
+
 #### Ordenación
+
+Podemos ordenar una lista utilizando la función `sort`:
+
+```python
+mi_lista [3, 2, 1]
+
+mi_lista.sort() # mi_lista = [1, 2, 3]
+```
+
+Si bien `sort` siempre ordenará la lista mediante el comparador `<`, podemos modificar este comportamiento utilizando el argumento `key`:
+
+```python
+mi_lista = ["júpiter", "venus", "tierra", "marte", "mercurio"] 
+
+mi_lista.sort(key=len) # mi_lista = ['venus', 'marte', 'tierra', 'júpiter', 'mercurio']
+```
+
+También tenemos la función `sorted` que, en lugar de modificar la lista original, devuelve una nueva
+lista ordenada.
+
+#### *Slice* de listas
+
+Un *slice* es una porción de una lista. Se define mediante el operador `:`:
+
+```python
+mi_lista = [1, 2, 3, 4, 5]
+
+fragmento = mi_lista[1:3] # fragmento = [2, 3]
+```
+
+Usando `:X` o `X:` seleccionamos los elementos desde el principio hasta la posición `X` o desde `X` hasta el final.
+
+### Diccionarios
+
+En otros lenguajes de programación se denominan *mapas* o *hash maps*. Un diccionario es una colección de pares clave-valor. Las claves han de ser únicas y los valores pueden ser cualquier tipo de dato.
+Los diccionarios se definen utilizando llaves:
+
+```python
+mi_dict = { 1: "uno", "dos", 2}
+```
+
+#### Crear un diccionario a partir de dos listas
+
+Si queremos crear un diccionario a partir de una lista de claves y otra de valores, podemos utilizar la función `zip`:
+
+```python
+mapping = {}
+for key, value in zip(key_list, value_list):
+    mapping[key] = value
+```
 
 ### Arrays en NumPy
 
 Las estructuras de datos nativas de Python no son adecuadas para realizar operaciones matemáticas complejas. NumPy es una librería que permite trabajar con arrays multidimensionales y realizar operaciones matemáticas complejas de manera eficiente.
 
-Los arrays de NumPy son similares a las listas de Python, pero con la diferencia de que todos los elementos de un array deben ser del mismo tipo. Además, los arrays de NumPy tienen *dimemsíon* es decir, pueden ser unidimensionales (como las listas), bidimensionales, tridimensionales, etc.
+Los arrays de NumPy son similares a las listas de Python, pero con la diferencia de que todos los elementos de un array deben ser del mismo tipo. Además, los arrays de NumPy tienen *dimensión* es decir, pueden ser unidimensionales (como las listas), bidimensionales, tridimensionales, etc.
 
 Para utilizar los arrays de NumPy haremos lo siguiente:
 
@@ -228,5 +296,3 @@ import numpy as np
 ```
 
 ### DataFrames en Pandas
-
-
