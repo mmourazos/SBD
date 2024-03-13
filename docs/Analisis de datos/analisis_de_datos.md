@@ -52,7 +52,12 @@ source mi-entorno/bin/deactivate
 
 Dependiendo de si estamos utilizando Windows o Linux/MacOS.
 
-Otra formad e gestionar los entornos virutales es mediante la aplicación [Conda](https://conda.io/projects/conda/en/latest/index.html). Esta aplicación nos permite crear entornos virtuales *genéricos* que podremos utilizar para varios proyectos (ya que no se instalarán en el directorio del proyecto, sino en un directorio genérico). Para ello, se instalaría la aplicación y se utilizaría el comando:
+#### Entorno virtual con Conda
+
+Otra forma de gestionar los entornos virtuales es mediante la aplicación [Conda](https://conda.io/projects/conda/en/latest/index.html). Esta aplicación nos permite crear entornos virtuales *genéricos* que podremos utilizar para varios proyectos (ya que no se instalarán en el directorio del proyecto, sino en un directorio genérico). Para ello, se instalaría la aplicación y se utilizaría el comando:
+
+**Imporante**: Si usamos Conda en un terminal con **PowerShell** es necesario ejecutar la
+instrucción `conda init powershell` después de la instalación.
 
 ```powershell
 conda create --name mi-entorno python=3.12 numpy pandas
@@ -64,6 +69,16 @@ Para utilizar este entorno virtual, se utilizaría el comando:
 
 ```powershell
 conda activate mi-entorno
+```
+
+Podremos comprobar si estamos en el entorno virtual con el comando:
+
+```powershell
+conda info --envs
+
+active environment : mi_entorno
+active env location : C:\Users\<mi_usuario>\miniconda3\envs\mi_entorno
+...
 ```
 
 Conda también permite instalar librerías que no estén en el repositorio de Python, por ejemplo, para instalar la librería `matplotlib`:
@@ -105,7 +120,7 @@ una posición por otro. No obstante, si el elemento es mutable, se pueden modifi
 Para acceder al elemento de una posición de la tupla indicaremos el índice entre corchetes:
 
 ```python
-tercer_elemnto = mi_tupla[2]
+tercer_elemento = mi_tupla[2]
 ```
 
 Otra forma de asignar valores de una tupla a variables es mediante la desestructuración:
@@ -241,10 +256,12 @@ mi_lista [3, 2, 1]
 mi_lista.sort() # mi_lista = [1, 2, 3]
 ```
 
-Si bien `sort` siempre ordenará la lista mediante el comparador `<`, podemos modificar este comportamiento utilizando el argumento `key`:
+Si bien `sort` siempre ordenará la lista mediante el comparador `<`, podemos modificar este comportamiento utilizando el argumento `key` al que asignaremos una función (que se aplicará a cada elemento de la lista) que devuelva el valor que queremos comparar:
 
 ```python
 mi_lista = ["júpiter", "venus", "tierra", "marte", "mercurio"] 
+
+# Ordenamos por longitud de la palabra usando la función len:
 
 mi_lista.sort(key=len) # mi_lista = ['venus', 'marte', 'tierra', 'júpiter', 'mercurio']
 ```
@@ -264,6 +281,14 @@ fragmento = mi_lista[1:3] # fragmento = [2, 3]
 
 Usando `:X` o `X:` seleccionamos los elementos desde el principio hasta la posición `X` o desde `X` hasta el final.
 
+Los *slices* también se pueden utilizar para modificar una lista:
+
+```python
+mi_lista = [1, 2, 3, 4, 5]
+
+mi_lista[1:3] = [8, 9] # mi_lista = [1, 8, 9, 4, 5]
+```
+
 ### Diccionarios
 
 En otros lenguajes de programación se denominan *mapas* o *hash maps*. Un diccionario es una colección de pares clave-valor. Las claves han de ser únicas y los valores pueden ser cualquier tipo de dato.
@@ -272,6 +297,8 @@ Los diccionarios se definen utilizando llaves:
 ```python
 mi_dict = { 1: "uno", "dos", 2}
 ```
+
+Las claves de un diccionario pueden ser cualquier objeto de Python **que sea inmutable**. Por ejemplo, una tupla puede ser una clave (si todos sus elementos son inmutables) pero una lista no.
 
 #### Crear un diccionario a partir de dos listas
 
@@ -283,7 +310,167 @@ for key, value in zip(key_list, value_list):
     mapping[key] = value
 ```
 
-### Arrays en NumPy
+La función `zip` toma dos listas y devuelve una lista de tuplas donde el primer elemento de cada tupla es el primer elemento de la primera lista, el segundo elemento de cada tupla es el segundo elemento de la primera lista, etc.
+
+#### Comprobar pertenencia de una clave
+
+Para comprobar si un diccionario contiene una clave, podemos utilizar el operador `in`:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+1 in mi_dict # True
+```
+
+#### Eliminar o extraer un elemento de un diccionario
+
+Para eliminar un elemento de un diccionario utilizaremos la función `del`:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+mi_dict.del(1) # mi_dict = {2: "dos"}
+```
+
+Si queremos conservar el valor de la clave eliminada, podemos utilizar la función `pop`:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+valor = mi_dict.pop(1) # mi_dict = {2: "dos"}, valor = "uno"
+```
+
+Si queremos consultar el valor de una clave sin eliminarla, podemos utilizar la función `get`:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+mi_dict.get(1) # "uno"
+```
+
+Si la clave no existe `del` devolverá `None`. Si queremos que devuelva un valor por defecto, podemos
+utilizar el método `setdefault`:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+mi_dict.get(3) # None
+mi_dict.setdefault(3, "no encontrado") # "no encontrado"
+```
+
+#### `keys`, `values` e `items`
+
+Los métodos `keys`, `values` e `items` devuelven una lista con las claves, los valores o los pares
+clave-valor del diccionario respectivamente:
+
+```python
+mi_dict = {1: "uno", 2: "dos"}
+
+mi_dict.keys() # [1, 2]
+
+mi_dict.values() # ["uno", "dos"]
+
+mi_dict.items() # [(1, "uno"), (2, "dos")]
+```
+
+#### Combinar diccionarios
+
+Podemos combinar dos diccionarios utilizando el método `update`:
+
+```python
+mi_dict1 = {1: "uno", 2: "dos"}
+mi_dict2 = {3: "tres", 4: "cuatro"}
+
+mi_dict1.update(mi_dict2) # mi_dict1 = {1: "uno", 2: "dos", 3: "tres", 4: "cuatro"}
+```
+
+### Conjuntos
+
+Un conjunto es una colección no ordenada de elementos únicos. Se definen utilizando llaves:
+
+```python
+mi_conjunto = {1, 2, 3}
+```
+
+O a partir de una lista o tupla utilizando la función `set`:
+
+```python
+mi_conjunto = set([1, 2, 3])
+```
+
+#### Operaciones con conjuntos
+
+Los conjunto de Python soportan las operaciones de unión, intersección, diferencia y diferencia simétrica:
+
+* Unión: `|` o el método `union`.
+* Intersección: `&` o el método `intersection`.
+* Diferencia: `-` o el método `difference`.
+* Diferencia simétrica: `^` o el método `symmetric_difference`.
+
+También podremos comparar conjuntos utilizando los operadores `==`, `!=`, `<`, `>`, `<=` y `>=`.
+
+* Iguales: `==`.
+* Desiguales: `!=`.
+* Subconjunto: `<` o `<=` (propio o no propio).
+* Superconjunto: `>` o `>=` (propio o no propio).
+
+
+### Funciones de secuencia
+
+#### `ennumerate`
+
+#### `sorted`
+
+#### `reversed`
+
+#### `zip`
+
+### *Comprehensions*
+
+Las *comprehensions* son una forma concisa de crear listas, diccionarios y conjuntos mediante una
+expresión. Por ejemplo, la siguiente *comprehension* crea una lista con los cuadrados de los números del 0 al 9:
+
+```python
+cuadrado = [x ** 2 for x in range(10)]
+```
+
+La sintaxis de una *comprehension* para listas es la siguiente:
+
+```python
+[expresion for variable in secuencia if condicion]
+```
+
+Para diccionarios:
+
+```python
+diccionario = {expresion_clave: expresion_valor for valor in valor if condicion} 
+```
+
+Por ejemplo un diccionario con las claves de un lista y sus longitudes:
+
+```python
+palabras = ["hola", "adios", "buenos días", "buenas noches"]
+
+diccionario = {palabra: len(palabra) for palabra in palabras}
+```
+
+Finalmente para un conjunto:
+
+```python
+[expresion for variable in colección if condicion]
+```
+
+### Elementos básicos de NumPy
+
+NumPy es una librería de Python que para computación numérica, su nombre vene de *Numerical Python*.
+
+Algunas de las cosas que obtenemos con NumPy son:
+
+* `ndarray`: un array multidimensional que permite realizar operaciones matemáticas de manera eficiente.
+* Funciones matemáticas para realizar operaciones rápidas sobre arrays enteros sin tener que escribir bucles.
+* Herramientas para leer/escribir datos en disco y trabajar con archivos de memoria mapeada.
+* Álgebra lineal, generación de números aleatorios y transformadas de Fourier.
+* También se puede integrar con otros lenguajes de programación como C, C++ y Fortran.
 
 Las estructuras de datos nativas de Python no son adecuadas para realizar operaciones matemáticas complejas. NumPy es una librería que permite trabajar con arrays multidimensionales y realizar operaciones matemáticas complejas de manera eficiente.
 
@@ -293,6 +480,29 @@ Para utilizar los arrays de NumPy haremos lo siguiente:
 
 ```python
 import numpy as np
+
+ndarray = np.array([1, 2, 3], [4, 5, 6], [7, 8, 9])
 ```
 
-### DataFrames en Pandas
+De esta forma hemos creado un array bidimensional de 3x3. Si queremos acceder a un elemento de un array, podemos hacerlo de la misma forma que con una lista:
+
+```python
+nd_array[0, 0] # 1
+```
+
+Podremos realizar operaciones matemáticas con arrays de NumPy de manera sencilla:
+
+```python
+arr1 = n.array([1, 2, 3], [4, 5, 6])
+arr2 = n.array([1, 2], [3, 4], [5, 6])
+```
+
+Para comprobar el tamaño de un array utilizaremos el atributo `shape`:
+
+```python
+arr1.shape # (2, 3) dos filas y tres columnas.
+```
+
+#### Operaciones con arrays
+
+
