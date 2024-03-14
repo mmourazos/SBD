@@ -8,12 +8,12 @@ Para crear el entorno de trabajo usaremos un entorno virtual con el módulo `ven
 python -m venv .\venv
 ```
 
-A contiunción hemos de activar el entorno virtual. Para ello, ejecutamos el siguiente comando:
+A continuación hemos de activar el entorno virtual. Para ello, ejecutamos el siguiente comando:
 
 En Windows:
 
 ```pwsh
-./vent/Scripts/activate
+./venv/Scripts/activate
 ```
 
 En Linux:
@@ -22,8 +22,18 @@ En Linux:
 source ./venv/bin/activate
 ```
 
+(Cuando hayamos terminado de trabajar con el entorno virtual, podemos desactivarlo con el comando
+`deactivate`.)
+
 Ahora, con el entorno activado podemos instalar el módulo `redis` con el siguiente comando:
 
 ```pwsh
 python -m pip install redis
 ```
+
+## Gestión de datos privados
+
+Para evitar compartir información privada es recomendable guardarla, en lugar de en el código fuente
+del programa, en un archivo `.env` en la forma de pares `clave=valor`.
+
+

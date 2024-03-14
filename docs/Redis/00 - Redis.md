@@ -305,3 +305,4 @@ constituye el identificador de la parte que nos indica qué almacenamos. Estas p
 separar por `:`. De este modo, si queremos almacenar las *reviews* de los usuarios podríamos usar
 una clave de la forma: `users:reviews:<id>`. Donde `<id>` podría ser un "número" o un valor numérico
 que identifique unívocamente a una *review*.
+
