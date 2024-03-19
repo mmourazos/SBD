@@ -125,3 +125,19 @@ Existe una forma compacta de definir funciones en Julia, que es la siguiente:
 ```julia
 suma(arg1, arg2) = arg1 + arg2
 ```
+
+Se pueden declarar distintas funciones con el mismo nombre pero con distintos tipos de argumentos:
+
+```julia
+function suma(a::Int64, b::Int64)::Int64
+    return a + b
+end
+
+function suma(a::String, b::String)::String
+    return a * b
+end
+```
+
+### Funciones anónimas
+
+
