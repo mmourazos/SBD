@@ -14,6 +14,8 @@ Posibilidades: Pluto.js / IDE y Julia REPL.
 
 ## Tipos de datos
 
+### Tipos simples
+
 No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
 
 Los tipos de variables más comunes en análisis de datos son:
@@ -47,6 +49,14 @@ Podremos comprobar el tipo de una variable con la función `typeof`:
 typeof(edad)
 Int8
 ```
+
+### Tipos complejos
+
+#### Tuplas
+
+#### Arrays
+
+#### Otra
 
 ### Tipos de definidos por el usuario
 
@@ -165,3 +175,5 @@ function swap (x, y)
    return y, x
 end
 ```
+
+###
