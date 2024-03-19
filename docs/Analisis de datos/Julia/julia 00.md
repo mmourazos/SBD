@@ -140,4 +140,28 @@ end
 
 ### Funciones anónimas
 
+Cuando sólo necesitamos usar una función de una manera puntual (por ejemplo indicar una función de
+comparación para un *sort* o en funciones de filtrado) por lo que no hace falta asignarle un nombre.
+Para definir una función anónima se utiliza el operador `->`:
 
+```julia
+x -> x^2
+```
+
+Si necesitamos pasarle más de un argumento usaremos una tupla como argumento:
+
+```julia
+(x, y) -> x + y
+```
+
+Lo mismo haremos si necesitamos que una función devuelva dos o más valores:
+
+```julia
+(x, y) -> (y, x)
+```
+
+```julia
+function swap (x, y)
+   return y, x
+end
+```
