@@ -45,6 +45,31 @@ end
 
 ### Jerarquía de tipos
 
+En Julia existe una jerarquía de tipos. Podemos ver esta jerarquía como algo análogo a una jerarquía
+de clases de Java. En la cima de la jerarquía (o como raíz del árbol) está el tipo `Any`, que es el
+super-tipo de todos los tipos en Julia.
+
+En esta jerarquía hemos de distinguir entre dos tipos de, valga la redundancia, tipos:
+
+* **Abstractos**: Son tipos que no tienen instancias concretas. Por ejemplo, `Number` es un tipo
+  abstracto, ya que no tiene instancias concretas, pero sí tiene subtipos concretos como `Int64` o
+  `Float64`. Son los nodos de la jerarquía que **no son hojas**.
+* **Concretos**: Son tipos que tienen instancias concretas. Por ejemplo, `Int64` o `Float64`. **No
+pueden tener subtipos** y son los nodos de la jerarquía que **son hojas**.
+
+#### Subtipos y supertipos
+
+Además de la función `typeof(<tipo>)` y el operador `isa` que nos permiten ver cuál es el tipo de un
+*objeto* y comprobar si un *objeto* es de un determinado tipo, respectivamente, también dispones de
+dos funciones que nos devuelven una lista con los subtipos y supertipos de un tipo concreto.
+
+```julia
+a = 10
+supertypes(typeof(a)) # El resultado será: (Int64, Signed, Integer, Real, Number, Any)
+# Si comprobamos sus subtipos veremos que no tiene ninguno (ya que es una hoja).
+subtipes(typeof(a)) # El resultado será: Type[]
+```
+
 ### Tipos simples
 
 No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
