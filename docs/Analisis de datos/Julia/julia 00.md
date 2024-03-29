@@ -14,6 +14,37 @@ Posibilidades: Pluto.js / IDE y Julia REPL.
 
 ## Tipos de datos
 
+Declarar el tipo de las variables y parámetros de las funciones (y del valor de retorno), aunque
+opcional, tiene una serie de ventajas:
+
+* **Eficiencia**: Al declarar el tipo de una variable, el compilador puede optimizar el código.
+* **Claridad**: Ayuda a entender el código.
+* **Robustez**: Al declarar el tipo de una variable, el compilador puede detectar errores en tiempo
+  de compilación.
+* ***Dispatching***: Permite definir distintas implementaciones de una función para parámetros de
+distintos tipos.
+
+Aunque siempre es interesante declarar los tipos podemos entender que será mas necesario en
+proyectos de mayor envergadura.
+
+### Sintaxis
+
+Para declarar el tipo de una variable usamos el operador `::`:
+
+```julia
+a::Int64 = 10
+```
+
+Cuando lo hacemos con una función indicamos el tipo de los parámetros y el tipo del valor de retorno:
+
+```julia
+function suma(a::Int, b::Int)::Int
+    return a + b
+end
+```
+
+### Jerarquía de tipos
+
 ### Tipos simples
 
 No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
@@ -133,7 +164,49 @@ end
 Existe una forma compacta de definir funciones en Julia, que es la siguiente:
 
 ```julia
-suma(arg1, arg2) = arg1 + arg2
+suma(arg1::Int64, arg2::Int64)::Int64 = arg1 + arg2
+```
+
+### Argumentos por referencia
+
+Los argumentos de una función en Julia siempre se pasan por referencia, es decir, si modificamos el
+valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
+
+```julia
+function swap!(x, y)
+    x, y = y, x
+end
+
+x = 1
+y = 2
+
+swap!(x, y)
+
+print("x = $x, y = $y.") # x = 2, y = 1.
+```
+
+Cuando una función modifica alguno de sus argumentos se suele añadir un signo de exclamación al
+final del nombre de la función. Esto es una convención en Julia el `!` no modifica el comportamiento
+de la función.
+
+### Argumentos posicionales y opcionales
+
+Las funciones de Julia pueden tener argumentos posicionales y opcionales. Los argumentos
+posicionales son aquellos se se pasan a la función en el orden en el que se han definido. Los
+argumentos opcionales irán siempre después de los posicionales y se les puede asignar un valor por
+defecto y un *nombre*.
+
+```julia
+function join(a::String, b::String; sep::String=", ", prefix::STring = "", suffix::String = "")::String
+    return prefix * a * sep * b * suffix
+end
+```
+
+Los argumentos posicionales se separan de los opcionales con un `;`. Se suele hacer lo mimos al
+invocar la función aunque no es necesario.
+
+```julia
+word = join("Hola", "Mundo"; suffix=".")
 ```
 
 Se pueden declarar distintas funciones con el mismo nombre pero con distintos tipos de argumentos:
@@ -148,7 +221,7 @@ function suma(a::String, b::String)::String
 end
 ```
 
-### Funciones anónimas
+### Funciones anónimas (lambda)
 
 Cuando sólo necesitamos usar una función de una manera puntual (por ejemplo indicar una función de
 comparación para un *sort* o en funciones de filtrado) por lo que no hace falta asignarle un nombre.
@@ -176,4 +249,13 @@ function swap (x, y)
 end
 ```
 
-###
+### Funciones con despacho múltiple
+
+En Julia podemos definir distintas implementaciones de una función para argumentos de distintos
+tipos.
+
+```julia
+function suma(a::Int, b::Int)::Int = a + b
+
+function suma(a::String, b::String)::String = a * b
+```
