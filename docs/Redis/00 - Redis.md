@@ -24,7 +24,7 @@ no tienen por que ser desarrollados por Redis Labs, sino que pueden ser desarrol
 Ejemplos de módulos de redis:
 
 * [RediSearch](https://github.com/RediSearch/RediSearch): Permite realizar consultas, indexado secundario y búsqueda de texto completo.
-* [RedisJSON](https://github.com/RedisJSON/RedisJSON): Hace que redis funcione como una base de datos similar a MongDB. Permitiendo almacenar y recuperar documentos JSON.
+* [RedisJSON](https://github.com/RedisJSON/RedisJSON): Hace que redis funcione como una base de datos similar a MongoDB. Permitiendo almacenar y recuperar documentos JSON.
 * [RedisGraph / FalkorDB](https://github.com/FalkorDB/FalkorDB/): Que hace posible utilizar Redis como una base de datos orientada a grafos.
 
 Estos son sólo algunos ejemplos. Hay otros módulos que dan soporte para estructuras de datos [probabilísticas](https://redis.io/docs/data-types/probabilistic/bloom-filter/), datos de [series temporales](https://redis.io/docs/data-types/timeseries/), etc.
@@ -83,8 +83,7 @@ Los tipos de datos que soporta Redis son los siguientes:
 * *Sets*: Constituyen colecciones no ordenadas de cadenas. A diferencia de las listas no admiten cadenas repetidas.
 * *Sorted sets*: Almacenan cadenas (no repetidas) ordenadas. Cada cadena tiene un valor asociado que se utiliza para ordenar los elementos. No admiten elementos repetidos.
 * *Hashes*: Consisten en pares clave &rarr; valor. Cada registro tendrá uno o más pares que se almacenan internamente con una lista de cadenas.  Se almacenan en forma de pares "clave" / "valor" asociados a una única clave principal. **No admiten anidamiento**.
-* *Streams*: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir
-datos. Sirven para registrar eventos en el orden en que han ocurrido. Se utilizan para almacenar
+* *Streams*: Se trata de un estructura que se comporta como un registro al que sólo se pueden añadir datos. Sirven para registrar eventos en el orden en que han ocurrido. Se utilizan para almacenar datos en forma de *logs*.
 * *Geospatial*: Permiten almacenar datos geográficos y realizar operaciones sobre ellos.
 * *Bitmaps*: Permiten realizar operaciones a nivel de bits sobre cadenas.
 * *Bitfields*: Codifican múltiples contadores en una única cadena. Permiten realizar operaciones **atómicas** de *get*, *set* y *increment*.
