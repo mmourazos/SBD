@@ -104,7 +104,7 @@ Las estructuras de datos incluidas den Python son:
 
 ### Tuplas
 
-Una tuplaa es una colección de objetos de tamaño fijo e inmutable. Se definen utilizando paréntesis y los elementos se separan por comas.
+Una tupla es una colección de objetos de tamaño fijo e inmutable. Se definen utilizando paréntesis y los elementos se separan por comas.
 
 ```python
 mi_tupla = (1, 2, 3)
