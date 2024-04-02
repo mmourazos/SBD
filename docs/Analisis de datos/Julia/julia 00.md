@@ -14,18 +14,14 @@ Posibilidades: Pluto.js / IDE y Julia REPL.
 
 ## Tipos de datos
 
-Declarar el tipo de las variables y parámetros de las funciones (y del valor de retorno), aunque
-opcional, tiene una serie de ventajas:
+Declarar el tipo de las variables y parámetros de las funciones (y del valor de retorno), aunque opcional, tiene una serie de ventajas:
 
 * **Eficiencia**: Al declarar el tipo de una variable, el compilador puede optimizar el código.
 * **Claridad**: Ayuda a entender el código.
-* **Robustez**: Al declarar el tipo de una variable, el compilador puede detectar errores en tiempo
-  de compilación.
-* ***Dispatching***: Permite definir distintas implementaciones de una función para parámetros de
-distintos tipos.
+* **Robustez**: Al declarar el tipo de una variable, el compilador puede detectar errores en tiempo de compilación.
+* ***Dispatching***: Permite definir distintas implementaciones de una función para parámetros de distintos tipos.
 
-Aunque siempre es interesante declarar los tipos podemos entender que será mas necesario en
-proyectos de mayor envergadura.
+Aunque siempre es interesante declarar los tipos podemos entender que será mas necesario en proyectos de mayor envergadura.
 
 ### Sintaxis
 
@@ -45,34 +41,27 @@ end
 
 ### Jerarquía de tipos
 
-En Julia existe una jerarquía de tipos. Podemos ver esta jerarquía como algo análogo a una jerarquía
-de clases de Java. En la cima de la jerarquía (o como raíz del árbol) está el tipo `Any`, que es el
-super-tipo de todos los tipos en Julia.
+En Julia existe una jerarquía de tipos. Podemos ver esta jerarquía como algo análogo a una jerarquía de clases de Java. En la cima de la jerarquía (o como raíz del árbol) está el tipo `Any`, que es el super-tipo de todos los tipos en Julia.
 
 En esta jerarquía hemos de distinguir entre dos tipos de, valga la redundancia, tipos:
 
-* **Abstractos**: Son tipos que no tienen instancias concretas. Por ejemplo, `Number` es un tipo
-  abstracto, ya que no tiene instancias concretas, pero sí tiene subtipos concretos como `Int64` o
-  `Float64`. Son los nodos de la jerarquía que **no son hojas**.
-* **Concretos**: Son tipos que tienen instancias concretas. Por ejemplo, `Int64` o `Float64`. **No
-pueden tener subtipos** y son los nodos de la jerarquía que **son hojas**.
+* **Abstractos**: Son tipos que no tienen instancias concretas. Por ejemplo, `Number` es un tipo abstracto, ya que no tiene instancias concretas, pero sí tiene subtipos concretos como `Int64` o `Float64`. Son los nodos de la jerarquía que **no son hojas**.
+* **Concretos**: Son tipos que tienen instancias concretas. Por ejemplo, `Int64` o `Float64`. **No pueden tener subtipos** y son los nodos de la jerarquía que **son hojas**.
 
 #### Subtipos y supertipos
 
-Además de la función `typeof(<tipo>)` y el operador `isa` que nos permiten ver cuál es el tipo de un
-*objeto* y comprobar si un *objeto* es de un determinado tipo, respectivamente, también dispones de
-dos funciones que nos devuelven una lista con los subtipos y supertipos de un tipo concreto.
+Además de la función `typeof(<tipo>)` y el operador `isa` que nos permiten ver cuál es el tipo de un *objeto* y comprobar si un *objeto* es de un determinado tipo, respectivamente, también disponemos de dos funciones que nos devuelven una lista con los subtipos y supertipos de un tipo concreto.
 
 ```julia
 a = 10
 supertypes(typeof(a)) # El resultado será: (Int64, Signed, Integer, Real, Number, Any)
 # Si comprobamos sus subtipos veremos que no tiene ninguno (ya que es una hoja).
-subtipes(typeof(a)) # El resultado será: Type[]
+subtipes(typeof(a)) # El resultado será: Type[] (array vacío) ya que no tiene subtipos (es hoja).
 ```
 
 ### Tipos simples
 
-No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
+Julia es un lenguaje de tipado dinámico. Esto quiere decir No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
 
 Los tipos de variables más comunes en análisis de datos son:
 
@@ -81,11 +70,9 @@ Los tipos de variables más comunes en análisis de datos son:
 * Booleanos: `Bool`.
 * Cadenas de texto: `String`.
 
-Respecto a los enteros, si necesitamos menos o más precisión también disponemos de `int8` e
-`int128`.
+Respecto a los enteros, si necesitamos menos o más precisión también disponemos de `int8` e `int128`.
 
-Para crear una nueva variable podemos hacerlo de la misma forma que en Pyhton, es decir, con el
-operador `=`:
+Para crear una nueva variable podemos hacerlo de la misma forma que en Pyhton, es decir, con el operador `=`:
 
 ```julia
 nombre = `Manuel`
@@ -106,18 +93,9 @@ typeof(edad)
 Int8
 ```
 
-### Tipos complejos
-
-#### Tuplas
-
-#### Arrays
-
-#### Otra
-
 ### Tipos de definidos por el usuario
 
-En Julia el usuario puede definir tipos compuestos de datos. Estes tipos se definen usando la
-palabra reservada `struct`:
+En Julia el usuario puede definir tipos compuestos de datos. Estes tipos se definen usando la palabra reservada `struct`:
 
 ```julia
 struct Lenguaje
@@ -144,12 +122,9 @@ julia.creador
 "Jeff Bezanson"
 ```
 
-Los datos `struct` son **inmutables**, es decir, no se pueden modificar una vez creados. Si queremos
-crear un tipo de datos que sea mutable podemos hacerlo con la palabra reservada `mutable struct` al
-definir el `sturct`.
+Los datos `struct` son **inmutables**, es decir, no se pueden modificar una vez creados. Si queremos crear un tipo de datos que sea mutable podemos hacerlo con la palabra reservada `mutable struct` al definir el `sturct`.
 
-Es recomendable usar datos inmutables siempre que sea posible, ya que son más eficientes y menos
-propensos a errores.
+Es recomendable usar datos inmutables siempre que sea posible, ya que son más eficientes y menos propensos a errores.
 
 ## Operadores lógicos y comparaciones
 
@@ -194,8 +169,7 @@ suma(arg1::Int64, arg2::Int64)::Int64 = arg1 + arg2
 
 ### Argumentos por referencia
 
-Los argumentos de una función en Julia siempre se pasan por referencia, es decir, si modificamos el
-valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
+Los argumentos de una función en Julia siempre se pasan por referencia, es decir, si modificamos el valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
 
 ```julia
 function swap!(x, y)
@@ -210,16 +184,11 @@ swap!(x, y)
 print("x = $x, y = $y.") # x = 2, y = 1.
 ```
 
-Cuando una función modifica alguno de sus argumentos se suele añadir un signo de exclamación al
-final del nombre de la función. Esto es una convención en Julia el `!` no modifica el comportamiento
-de la función.
+Cuando una función modifica alguno de sus argumentos se suele añadir un signo de exclamación al final del nombre de la función. Esto es una convención en Julia el `!` no modifica el comportamiento de la función.
 
 ### Argumentos posicionales y opcionales
 
-Las funciones de Julia pueden tener argumentos posicionales y opcionales. Los argumentos
-posicionales son aquellos se se pasan a la función en el orden en el que se han definido. Los
-argumentos opcionales irán siempre después de los posicionales y se les puede asignar un valor por
-defecto y un *nombre*.
+Las funciones de Julia pueden tener argumentos posicionales y opcionales. Los argumentos posicionales son aquellos se se pasan a la función en el orden en el que se han definido. Los argumentos opcionales irán siempre después de los posicionales y se les puede asignar un valor por defecto y un *nombre*.
 
 ```julia
 function join(a::String, b::String; sep::String=", ", prefix::STring = "", suffix::String = "")::String
@@ -227,8 +196,7 @@ function join(a::String, b::String; sep::String=", ", prefix::STring = "", suffi
 end
 ```
 
-Los argumentos posicionales se separan de los opcionales con un `;`. Se suele hacer lo mimos al
-invocar la función aunque no es necesario.
+Los argumentos posicionales se separan de los opcionales con un `;`. Se suele hacer lo mimos al invocar la función aunque no es necesario.
 
 ```julia
 word = join("Hola", "Mundo"; suffix=".")
@@ -248,9 +216,7 @@ end
 
 ### Funciones anónimas (lambda)
 
-Cuando sólo necesitamos usar una función de una manera puntual (por ejemplo indicar una función de
-comparación para un *sort* o en funciones de filtrado) por lo que no hace falta asignarle un nombre.
-Para definir una función anónima se utiliza el operador `->`:
+Cuando sólo necesitamos usar una función de una manera puntual (por ejemplo indicar una función de comparación para un *sort* o en funciones de filtrado) por lo que no hace falta asignarle un nombre. Para definir una función anónima se utiliza el operador `->`:
 
 ```julia
 x -> x^2
@@ -276,11 +242,41 @@ end
 
 ### Funciones con despacho múltiple
 
-En Julia podemos definir distintas implementaciones de una función para argumentos de distintos
-tipos.
-
+En Julia podemos definir distintas implementaciones, o métodos, para cada función. En el momento de ejecutar el código se seleccionará una función de los argumentos que se definan para la función.
 ```julia
 function suma(a::Int, b::Int)::Int = a + b
 
 function suma(a::String, b::String)::String = a * b
 ```
+
+## Broadcasting
+
+En Julia podemos aplicar una función u operador a un array de una forma muy sencilla. Para ello usamos el operado `.`:
+
+```julia
+a = [1, 2, 3]
+
+b = a .+ 1
+```
+
+## Macros
+
+Las macros es la forma que tiene Julia de implementar metaprogramación. El concepto de metaprogramación es el de escribir código que manipula otro código. De esta forma, las macros son funciones que generan código fuente nuevo a partir de otro código en tiempo de compilación.
+
+Las macros de Julia se nombran con `@` seguido del nombre de la macro. Por ejemplo, la macro `@time` mide el tiempo de ejecución de una expresión.
+
+```julia
+@time suma(1, 2)
+0.000004 seconds
+3
+```
+
+## Arrays y tuplas
+
+### Vistas
+
+Arrays y matrices en Julia.
+
+### Indexado
+
+### *Comprehensions*
