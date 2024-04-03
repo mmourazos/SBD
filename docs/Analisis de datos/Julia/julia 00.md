@@ -6,11 +6,33 @@ Introducción sobre Julia.
 
 Instalación de Julia y entorno de trabajo.
 
-Posibilidades: Pluto.js / IDE y Julia REPL.
+Posibilidades: Pluto.jl / IDE y Julia REPL.
 
-### Pluto.js
+### Pluto.jl
+
+[Plutojl](https://plutojl.org/#install) es un paquete de Julia que nos permite trabajar con *notebooks* al estilo de Jupyter. La principal diferencia con Jupyter es que en Plutojl las celdas se ejecutan de forma secuencial y no de forma independiente.
+
+Para utilizar Plutojl primer hemos de instalar el paquete:
+
+```julia
+import Pkg
+
+Pkg.add("Pluto")
+```
+
+Una vez instalado el paquete podemos abrir un *notebook* con el siguiente comando:
+
+```julia
+import Pluto
+Pluto.run()
+```
+
+Esto abrirá una página web en la que podremos crear un nuevo *notebook* o abrir uno ya existente.
 
 ### VS Code + REPL
+
+Visual Studio Code dispone de un plugin para Julia que nos permite trabajar con el lenguaje de programación de una forma más cómoda. Para instalar el plugin hemos de ir a la pestaña de extensiones y buscar `Julia`.
+
 
 ## Tipos de datos
 
@@ -261,7 +283,7 @@ b = a .+ 1
 
 ## Macros
 
-Las macros es la forma que tiene Julia de implementar metaprogramación. El concepto de metaprogramación es el de escribir código que manipula otro código. De esta forma, las macros son funciones que generan código fuente nuevo a partir de otro código en tiempo de compilación.
+Las macros es la forma que tiene Julia de implementar metaprogramación. El concepto de metaprogramación es el de un lenguaje disponga de mecanismos para escribir código que, a su vez, sea capaz de transformar otro código. De esta forma, las macros son un tipo de funciones que tienen como entrada una representación del ***código fuente*** del lenguaje y que proporcionen como resultado código fuente nuevo antes de que se  iniciar el proceso de compilación.
 
 Las macros de Julia se nombran con `@` seguido del nombre de la macro. Por ejemplo, la macro `@time` mide el tiempo de ejecución de una expresión.
 
