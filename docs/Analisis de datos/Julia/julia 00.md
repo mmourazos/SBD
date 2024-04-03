@@ -29,16 +29,29 @@ Pluto.run()
 
 Esto abrirá una página web en la que podremos crear un nuevo *notebook* o abrir uno ya existente.
 
+#### Markdown en Pluto.jl
+
+Para crear una celda de texto en formato Markdown en Pluto.jl hemos de hacerlo de escribir `md` seguido de una cadena de texto entre comillas. Por ejemplo:
+
+```julia
+md"# Título 1
+
+La razón de la sinrazón que a mi razón se hace, de tal manera mi razón enflaquece, que con razón me quejo de la vuestra fermosura.
+
+## Título 2
+
+La palabra *razón* es muy **importante** en el texto anterior porque es la única palabra que se repite."
+```
+
 ### VS Code + Julia REPL
 
 Visual Studio Code incluye un plugin para Julia que permite ejecutar código en Julia REPL. REPL son las siglas de *read-eval-print loop* y hacen referencia a una *shell* interactiva que permite escribir y ejecutar código Julia. A diferencia de los REPL de Python y Nodejs el código que vamos a escribir en el REPL de Julia **no es interpretados** si no que se compila y a continuación se ejecuta y muestra el resultado.
 
 Visual Studio Code dispone de un plugin para Julia que nos permite trabajar con el lenguaje de programación de una forma más cómoda. Para instalar el plugin hemos de ir a la pestaña de extensiones y buscar `Julia`.
 
-
 ## Tipos de datos
 
-Declarar el tipo de las variables y parámetros de las funciones (y del valor de retorno), aunque opcional, tiene una serie de ventajas:
+Julia es un lenguaje con *tipado dinámico*. Esto quiere decir que no es necesario declarar el tipo de una variable al crearla y que éste se determinará en tiempo de ejecución. Aunque no es necesario declarar el tipo de una variable, sí es posible hacerlo y es recomendable. Declarar el tipo de las variables y parámetros de las funciones (y del valor de retorno), aunque opcional, tiene una serie de ventajas:
 
 * **Eficiencia**: Al declarar el tipo de una variable, el compilador puede optimizar el código.
 * **Claridad**: Ayuda a entender el código.
@@ -47,56 +60,18 @@ Declarar el tipo de las variables y parámetros de las funciones (y del valor de
 
 Aunque siempre es interesante declarar los tipos podemos entender que será mas necesario en proyectos de mayor envergadura.
 
-### Sintaxis
-
-Para declarar el tipo de una variable usamos el operador `::`:
-
-```julia
-a::Int64 = 10
-```
-
-Cuando lo hacemos con una función indicamos el tipo de los parámetros y el tipo del valor de retorno:
-
-```julia
-function suma(a::Int, b::Int)::Int
-    return a + b
-end
-```
-
-### Jerarquía de tipos
-
-En Julia existe una jerarquía de tipos. Podemos ver esta jerarquía como algo análogo a una jerarquía de clases de Java. En la cima de la jerarquía (o como raíz del árbol) está el tipo `Any`, que es el super-tipo de todos los tipos en Julia.
-
-En esta jerarquía hemos de distinguir entre dos tipos de, valga la redundancia, tipos:
-
-* **Abstractos**: Son tipos que no tienen instancias concretas. Por ejemplo, `Number` es un tipo abstracto, ya que no tiene instancias concretas, pero sí tiene subtipos concretos como `Int64` o `Float64`. Son los nodos de la jerarquía que **no son hojas**.
-* **Concretos**: Son tipos que tienen instancias concretas. Por ejemplo, `Int64` o `Float64`. **No pueden tener subtipos** y son los nodos de la jerarquía que **son hojas**.
-
-#### Subtipos y supertipos
-
-Además de la función `typeof(<tipo>)` y el operador `isa` que nos permiten ver cuál es el tipo de un *objeto* y comprobar si un *objeto* es de un determinado tipo, respectivamente, también disponemos de dos funciones que nos devuelven una lista con los subtipos y supertipos de un tipo concreto.
-
-```julia
-a = 10
-supertypes(typeof(a)) # El resultado será: (Int64, Signed, Integer, Real, Number, Any)
-# Si comprobamos sus subtipos veremos que no tiene ninguno (ya que es una hoja).
-subtipes(typeof(a)) # El resultado será: Type[] (array vacío) ya que no tiene subtipos (es hoja).
-```
-
 ### Tipos simples
-
-Julia es un lenguaje de tipado dinámico. Esto quiere decir No tipado pero con opción de declarar el tipo de una variable usando el operador `::`.
 
 Los tipos de variables más comunes en análisis de datos son:
 
-* Enteros: `Int64`.
-* Número reales: `Float64`.
+* Enteros: `Int64` (y las variantes con distintas precisions con y sin signo).
+* Número reales: `Float64` (y variantes con distintas precisiones).
 * Booleanos: `Bool`.
 * Cadenas de texto: `String`.
 
-Respecto a los enteros, si necesitamos menos o más precisión también disponemos de `int8` e `int128`.
+Con respecto a los números, según necesitemos mayor o menor precisión también disponemos de `Int8` e `Int128` (así como sus versiones sin signo `UInt8`, 16, 32, etc.) y `Float32` y `Float128`.
 
-Para crear una nueva variable podemos hacerlo de la misma forma que en Pyhton, es decir, con el operador `=`:
+Para crear una nueva variable podemos hacerlo de la misma forma que en Python, es decir, con el operador `=`:
 
 ```julia
 nombre = `Manuel`
@@ -118,6 +93,8 @@ Int8
 ```
 
 ### Tipos de definidos por el usuario
+
+*(En principio esto no lo usaremos en este curso aunque es importante saber que existe).*
 
 En Julia el usuario puede definir tipos compuestos de datos. Estes tipos se definen usando la palabra reservada `struct`:
 
@@ -149,6 +126,45 @@ julia.creador
 Los datos `struct` son **inmutables**, es decir, no se pueden modificar una vez creados. Si queremos crear un tipo de datos que sea mutable podemos hacerlo con la palabra reservada `mutable struct` al definir el `sturct`.
 
 Es recomendable usar datos inmutables siempre que sea posible, ya que son más eficientes y menos propensos a errores.
+
+### Jerarquía de tipos
+
+En Julia existe una jerarquía de tipos. Podemos ver esta jerarquía como algo análogo a una jerarquía de clases de Java. En la cima de la jerarquía (o como raíz del árbol) está el tipo `Any`, que es el super-tipo de todos los tipos en Julia.
+
+En esta jerarquía hemos de distinguir entre dos tipos de, valga la redundancia, tipos:
+
+* **Abstractos**: Son tipos que no tienen instancias concretas. Por ejemplo, `Number` es un tipo abstracto, ya que no tiene instancias concretas, pero sí tiene subtipos concretos como `Int64` o `Float64`. Son los nodos de la jerarquía que **no son hojas**.
+* **Concretos**: Son tipos que tienen instancias concretas. Por ejemplo, `Int64` o `Float64`. **No pueden tener subtipos** y son los nodos de la jerarquía que **son hojas**.
+
+#### Subtipos y supertipos
+
+Además de la función `typeof(<tipo>)` y el operador `isa` que nos permiten ver cuál es el tipo de un *objeto* y comprobar si un *objeto* es de un determinado tipo, respectivamente, también disponemos de funciones que nos devuelven:
+
+* El *supertipo* de un tipo `supertype`.
+* Una lista con los *supertipos* de un tipo `supertypes`.
+* Una lista con los *subtipos* de un tipo `subtypes`.
+
+```julia
+julia> a = 10
+10
+
+supertypes(typeof(a)) # El resultado será: (Int64, Signed, Integer, Real, Number, Any)
+(Int64, Signed, Integer, Real, Number, Any)
+
+# Si comprobamos sus subtipos veremos que no tiene ninguno (ya que es una hoja).
+subtipes(typeof(a)) # El resultado será: Type[] (array vacío) ya que no tiene subtipos (es hoja).
+
+# Pero los subtipos de, por ejemplo, Signed serán:
+subtypes(Signed) # El resultado será: 
+julia> subtypes(Signed)
+6-element Vector{Any}:
+ BigInt
+ Int128
+ Int16
+ Int32
+ Int64
+ Int8
+```
 
 ## Operadores lógicos y comparaciones
 
@@ -185,7 +201,7 @@ function suma(a::Int64, b::Int64)::Int64
 end
 ```
 
-Existe una forma compacta de definir funciones en Julia, que es la siguiente:
+También existe una forma compacta de definir funciones en Julia que se usará principalmente para funciones de una sola línea:
 
 ```julia
 suma(arg1::Int64, arg2::Int64)::Int64 = arg1 + arg2
@@ -193,7 +209,7 @@ suma(arg1::Int64, arg2::Int64)::Int64 = arg1 + arg2
 
 ### Argumentos por referencia
 
-Los argumentos de una función en Julia siempre se pasan por referencia, es decir, si modificamos el valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
+Los argumentos de una función en Julia **siempre se pasan por referencia**, es decir, si modificamos el valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
 
 ```julia
 function swap!(x, y)
@@ -267,6 +283,7 @@ end
 ### Funciones con despacho múltiple
 
 En Julia podemos definir distintas implementaciones, o métodos, para cada función. En el momento de ejecutar el código se seleccionará una función de los argumentos que se definan para la función.
+
 ```julia
 function suma(a::Int, b::Int)::Int = a + b
 
@@ -299,10 +316,6 @@ Otras dos macros que utilizaremos en estes apuntes son `@show`, `@assert`, `@ben
 
 ## Colecciones en Julia
 
-### Tuplas
-
-Las tuplas 
-
 ### Arrays
 
 En Julia los arrays forman parte de la especificación del lenguaje. Se incluye una sintaxis especial para trabajar con arrays y son muy rápidos.
@@ -323,18 +336,64 @@ julia> arr = [1 2 3
 
 Si queremos comprobar el tamaño y dimensiones de una matriz usaremos la función `size`. `size(arr)` nos mostrará el tamaño de la matriz `(3, 3)` y si indicamos una dimensión `size(arr, 1)` nos mostrará el tamaño del eje *x* del array (las filas), `size(arr, 2)` el número de columnas, etc.
 
+En caso de que queramos especificar el tipo de los elementos de la matriz usaremos la siguiente sintaxis:
+
+```julia
+julia> arr = Int8[1 2 3; 4 5 6; 7 8 9]
+3×3 Matrix{Int8}:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+```
+
+Finalmente, también podemos usar el constructor `Array` para crear arrays:
+
+```julia
+julia> arr = Array{Int8, 2}(undef, 3, 3)
+3×3 Matrix{Int8}:
+ -80  -119   0
+ -58   -34   0
+   3     1  32
+```
+
 #### Tuplas vs Arrays
 
-Otra estructura de Julia muy similar a los arrays son las tuplas. Cuando una función devuelve más de un resultado lo hace en forma de tupla. La diferencia entre una tupla y un array es que las tuplas tienen un tamaño fijo y además son inmutables. Los arrays, por otro lado, pueden cambiar de tamaño y son mutables.
+Otra estructura de Julia muy similar a los arrays son las tuplas. La diferencia entre las tuplas y arrays es que la primera tiene una **dimensión fija** y es **inmutable**. Esto quiere decir que no se le pueden añadir datos ni cambiar sus valores. Por este motivo las tuplas son más rápidas que las arrays.
+
+Un ejemplo de uso de las tupas es cuando necesitamos que una función devuelva más de un resultado. En este caso lo que hacemos es devolver una tupa `return (x, y)` con los valores.
 
 Las tuplas se crean de la misma forma que los array pero usado `()` en lugar de `[]`.
 
-#### Vistas
-
-Arrays y matrices en Julia.
-
 #### Indexado
 
-In primer lugar hemos de indicar que las posiciones de los arrays y tuplas de Julia empiezan en 1.
+En primer lugar hemos de indicar que las posiciones de los arrays y tuplas de Julia empiezan en 1.
+
+En general, para hacer referencia a una posición de una matriz *n-dimensial* hemos de indicar la posición de cada eje separado por comas: $X = A[I_1, I_2, ..., I_n]$ donde cada $I_k$ puede ser un entero, un array de enteros (para seleccionar determinadas posiciones) o un `:` si queremos seleccionar todos los elementos de dicha dimensión.
+
+Por ejemplo, si queremos acceder al elemento de la fila 2 y columna 3 de una matriz `arr` haremos `arr[2, 3]`. Si queremos **copiar** la segunda columna de una matriz lo que haremos es: `col2 = arr[:, 2]`. Nótese que hemos dicho **copiar** pues si modificamos el valor de `col2` no se modificará el valor de `arr`.
+
+También hemos de tener en cuenta que al hacer copias habrá que reservar espacio nuevo e inicializarlo con los valores de la matriz con el coste computacional que ello conlleva.
+
+Si no deseamos realizar una copia de la matriz sino trabajar con una vista de la matriz original podemos usar la macro `@view`.
+
+#### Vistas
+
+Para crear una vista hemos de usar la macro `@view` y a continuación indicar la matriz y las posiciones que queremos ver. Por ejemplo, si queremos ver la primera fila de una matriz `arr` haremos `view(arr, :, 1)` o bien `@view arr[1, :]`.h
 
 #### *Comprehensions*
+
+Las *comprehensions* en Julia son, al igual que las *list comprehensions* de Python, una forma de crear arrays de forma compacta a partir de una sentencia.
+
+La sitaxis es la siguiente:
+
+```julia
+arr = [f(x) for x in iterable]
+```
+
+Donde `f(x)` es la función que queremos aplicar a cada elemento de `iterable`.
+
+Si queremos crear una matriz con los valores de la media de cada columna de otra matriz podríamos hacerlo de la siguiente forma:
+
+```julia
+arr_mean = [mean(arr[:, i]) for i in 1:size(arr, 2)]
+```
