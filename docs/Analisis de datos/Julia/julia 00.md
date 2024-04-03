@@ -29,7 +29,9 @@ Pluto.run()
 
 Esto abrirá una página web en la que podremos crear un nuevo *notebook* o abrir uno ya existente.
 
-### VS Code + REPL
+### VS Code + Julia REPL
+
+Visual Studio Code incluye un plugin para Julia que permite ejecutar código en Julia REPL. REPL son las siglas de *read-eval-print loop* y hacen referencia a una *shell* interactiva que permite escribir y ejecutar código Julia. A diferencia de los REPL de Python y Nodejs el código que vamos a escribir en el REPL de Julia **no es interpretados** si no que se compila y a continuación se ejecuta y muestra el resultado.
 
 Visual Studio Code dispone de un plugin para Julia que nos permite trabajar con el lenguaje de programación de una forma más cómoda. Para instalar el plugin hemos de ir a la pestaña de extensiones y buscar `Julia`.
 
@@ -293,12 +295,46 @@ Las macros de Julia se nombran con `@` seguido del nombre de la macro. Por ejemp
 3
 ```
 
-## Arrays y tuplas
+Otras dos macros que utilizaremos en estes apuntes son `@show`, `@assert`, `@benchmark` y `@view` (esta última relacionada con las vistas de arrays).
 
-### Vistas
+## Colecciones en Julia
+
+### Tuplas
+
+Las tuplas 
+
+### Arrays
+
+En Julia los arrays forman parte de la especificación del lenguaje. Se incluye una sintaxis especial para trabajar con arrays y son muy rápidos.
+
+#### Creación de arrays
+
+Una de las formas más sencillas de crear un array es "escribir" la matriz entre corchetes:
+
+```julia
+julia> arr = [1 2 3
+              4 5 6
+              7 8 9]
+3×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+```
+
+Si queremos comprobar el tamaño y dimensiones de una matriz usaremos la función `size`. `size(arr)` nos mostrará el tamaño de la matriz `(3, 3)` y si indicamos una dimensión `size(arr, 1)` nos mostrará el tamaño del eje *x* del array (las filas), `size(arr, 2)` el número de columnas, etc.
+
+#### Tuplas vs Arrays
+
+Otra estructura de Julia muy similar a los arrays son las tuplas. Cuando una función devuelve más de un resultado lo hace en forma de tupla. La diferencia entre una tupla y un array es que las tuplas tienen un tamaño fijo y además son inmutables. Los arrays, por otro lado, pueden cambiar de tamaño y son mutables.
+
+Las tuplas se crean de la misma forma que los array pero usado `()` en lugar de `[]`.
+
+#### Vistas
 
 Arrays y matrices en Julia.
 
-### Indexado
+#### Indexado
 
-### *Comprehensions*
+In primer lugar hemos de indicar que las posiciones de los arrays y tuplas de Julia empiezan en 1.
+
+#### *Comprehensions*
