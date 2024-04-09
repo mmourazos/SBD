@@ -209,7 +209,24 @@ suma(arg1::Int64, arg2::Int64)::Int64 = arg1 + arg2
 
 ### Argumentos por referencia
 
-Los argumentos de una función en Julia **siempre se pasan por referencia**, es decir, si modificamos el valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función.
+Los argumentos de una función en Julia **siempre se pasan por referencia**, es decir, si modificamos el valor de un argumento dentro de una función, este cambio se verá reflejado fuera de la función. Esto **no se aplica** a las variables de tipos simples.
+
+Así, si le pasamos un vector a una función:
+
+```julia
+x = [1, 2, 3]
+y = 10
+
+funcion set!(x::Vector{Int64}, y::Int64, pos::Int64)
+    x[pos] = y
+end
+
+set!(x, y, 1)
+
+println(x) # [10, 2, 3]
+```
+
+En cambio si los argumentos que le pasamos a la función son tipos simples:
 
 ```julia
 function swap!(x, y)
@@ -221,10 +238,10 @@ y = 2
 
 swap!(x, y)
 
-print("x = $x, y = $y.") # x = 2, y = 1.
+print("x = $x, y = $y.") # x = 2, y = 1. # x = 1, y = 2.
 ```
 
-Cuando una función modifica alguno de sus argumentos se suele añadir un signo de exclamación al final del nombre de la función. Esto es una convención en Julia el `!` no modifica el comportamiento de la función.
+Cuando una función modifica alguno de sus argumentos se suele añadir un signo de exclamación al final del nombre de la función. Esto es una convención del lenguaje Julia que no modifica el comportamiento de la función.
 
 ### Argumentos posicionales y opcionales
 
@@ -334,7 +351,7 @@ julia> arr = [1 2 3
  7  8  9
 ```
 
-Si queremos comprobar el tamaño y dimensiones de una matriz usaremos la función `size`. `size(arr)` nos mostrará el tamaño de la matriz `(3, 3)` y si indicamos una dimensión `size(arr, 1)` nos mostrará el tamaño del eje *x* del array (las filas), `size(arr, 2)` el número de columnas, etc.
+Si queremos comprobar el tamaño y dimensiones de una matriz usaremos la función `size`. `size(arr)` nos mostrará el tamaño de la matriz `(3, 3)` y si indicamos una dimensión `size(arr, 1)` nos mostrará el tamaño del eje *x* del array (las filas), `size(arr, 2)` el número de columnas y así sucesivamente para cada dimensión del array.
 
 En caso de que queramos especificar el tipo de los elementos de la matriz usaremos la siguiente sintaxis:
 
@@ -345,6 +362,42 @@ julia> arr = Int8[1 2 3; 4 5 6; 7 8 9]
  4  5  6
  7  8  9
 ```
+
+##### Inciso sobre vectores
+
+Un tipo especial de array es el vector. Un vector es un array de una sola dimensión. Para definir un vector en Julia se puede hacer de dos formas:
+
+```julia
+julia> v = [1, 2, 3] # Nótese que cada valor está separado por comas
+3-element Vector{Int64}:
+ 1
+ 2
+ 3
+
+# O bien
+
+julia> mi_vector = Vector{Int8}([1, 2, 3])
+3-element Vector{Int8}:
+ 1
+ 2
+ 3
+```
+
+En Julia los vectores se consideran columnares por lo que si queremos crear una matriz podemos indicar sus columnas en forma de vectores:
+
+```julia
+v_1 = [1, 2, 3]
+v_2 = [1, 2, 3]
+v_3 = [1, 2, 3]
+
+julia> m = [v_1 v_2 v_3]
+3×3 Matrix{Int64}:
+ 1  1  1
+ 2  2  2
+ 3  3  3
+```
+
+
 
 Finalmente, también podemos usar el constructor `Array` para crear arrays:
 
@@ -384,7 +437,7 @@ Para crear una vista hemos de usar la macro `@view` y a continuación indicar la
 
 Las *comprehensions* en Julia son, al igual que las *list comprehensions* de Python, una forma de crear arrays de forma compacta a partir de una sentencia.
 
-La sitaxis es la siguiente:
+La sintaxis es la siguiente:
 
 ```julia
 arr = [f(x) for x in iterable]
